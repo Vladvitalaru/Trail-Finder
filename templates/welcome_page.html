@@ -1,0 +1,40 @@
+
+<!DOCTYPE html>
+
+<html class="background">  
+
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="/styles/main.css">
+		<link rel="icon" type="image/x-icon" href="/images/favicon.png">
+
+		<title>Trail Finder</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+	</head>
+
+
+			<div class="header">
+				<span id="title"> Trail Finder </span>
+				<img id="logo" src="/images/Logo.png" alt="logo">
+			</div>
+
+
+		<span id="discover"> Discover your next adventure</span>
+
+
+	<div class="mid">
+
+		<form class="search" method="get" action="{{ url_for('results') }}">
+			<input type="text" name="searchterm" /><br />
+		</form>	
+
+		<!-- <a href="/my-link/">Hello World</a> -->
+	</div>	
+</html>
+
+<style>
+
+
+</style>
