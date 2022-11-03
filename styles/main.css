@@ -2,7 +2,8 @@
 .header {
     display: flex;
     justify-content: center;
-    margin-top: 100px;
+    margin-top: 115px;
+    /* z-index: 15; */
     /* height: 100px; */
     
 }
@@ -17,20 +18,25 @@
     padding-left: 12px;
     height: 110px;
     width: 110px;
+    filter: drop-shadow(1px 1px 3px rgba(0, 0, 0, 0.8));
+
 }
 #title {
     display: flex;
     flex-direction: row;
     justify-content: center;
+    font-family: 'Recoleta', sans-serif;
+
     font-size: 110px;
     /* color: #fffafa; */
     /* box-sizing: border-box; */
     padding-bottom: 20px;
     /* margin-bottom: 0; */
     height: 90px;
+    color: #1B8D20 ;
 }
 #finder {
-    padding-left: 30px;
+    padding-left: 25px;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -40,16 +46,23 @@
     padding-bottom: 20px;
     /* margin-bottom: 0; */
     height: 90px;
-
+    color: #E77F16;
 }
-#discover {
-    font-family: 'Roboto', sans-serif;
-    display: flex;
-    justify-content: center;
-    font-size: 26px;
-    margin-left: 170px;
-    
 
+.backgroundImage {
+    display: block;
+    width: 100%;
+    height:270px;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    top: 0px;
+    left: 0px;
+    z-index: -1;
+    position: absolute;
+    background-image: url("/images/backgroundHeader.png");
+    background-size:  100% 160%;
+    background-position: center
 }
 
 .top {
@@ -116,7 +129,10 @@ td {
 .search {
     display: flex;
     justify-content: center;
-    margin-top: 25px;
+    margin-top: 20px;
+    filter: drop-shadow(3px 3px 5px rgba(60, 60, 60, 0.3));
+
+    
 }
 
   /* Style the search field */
@@ -129,6 +145,8 @@ td {
     background: #f1f1f1;
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
+    font-family: 'Roboto', sans-serif;
+
   }
   
   /* Style the submit button */
@@ -136,7 +154,7 @@ td {
     float: left;
     width: 5%;
     padding: 15px;
-    background: #c3b768;
+    background: #438b28;
     color: white;
     font-size: 17px;
     border: 1px solid grey;
@@ -144,6 +162,7 @@ td {
     cursor: pointer;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
+
   }
   
   form.search button:hover {
