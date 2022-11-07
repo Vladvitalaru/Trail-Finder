@@ -2,7 +2,7 @@
 .header {
     display: flex;
     justify-content: center;
-    margin-top: 115px;
+    margin-top: 64px;
     /* z-index: 15; */
     /* height: 100px; */
     
@@ -42,10 +42,10 @@
     color: #E77F16;
 }
 
-.backgroundImage {
+.backgroundImage { /*Header background */
     display: block;
     width: 100%;
-    height:270px;
+    height:220px;
     padding: 0;
     margin: 0;
     border: 0;
@@ -53,8 +53,8 @@
     left: 0px;
     z-index: -1;
     position: absolute;
-    background-image: url("/images/backgroundHeader.png");
-    background-size:  100% 160%;
+    background-image: url("/static/images/backgroundHeader.png");
+    background-size:  100% 150%;
     background-position: center
 }
 
@@ -127,7 +127,7 @@ td {
 }
 
   /* Style the search field */
-  form.search input[type=text] {
+form.search input[type=text] {
     padding: 10px;
     font-size: 19px;
     border: 1px solid grey;
@@ -137,7 +137,7 @@ td {
     font-family: 'Roboto', sans-serif;
 
   }
-  .filters {
+.filters {
     float: left;
     background: grey;
     color: white;
@@ -148,10 +148,10 @@ td {
     cursor: pointer;
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
-  }
+}
 
   /* Style the submit button */
- .searchButton {
+.searchButton {
     float: left;
     width: 85px;
     padding: 15px;
@@ -166,13 +166,86 @@ td {
   }
   
   
-  form.search button:hover {
+form.search button:hover {
     background: #987554;
-  }
+}
   
   /* Clear floats */
-  form.search::after {
+form.search::after {
     content: "";
     clear: both;
     display: table;
-  }
+}
+
+.TrailCard {
+    display: block;
+    background-color:white;
+    margin-top: 35px;
+    margin-bottom: 0px;
+    width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+    height: 320px;
+    border-bottom-right-radius: 7px;
+    border-bottom-left-radius: 7px;
+    filter: drop-shadow(3px 3px 5px rgba(60, 60, 60, 0.3));
+}
+
+.TrailCard-header {
+    background-color: #1B8D20;
+    width: 1000px;
+    height: 70px;
+    border-bottom: 2px solid grey;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    color: white;
+    font-family: 'Roboto', sans-serif;
+}
+
+.TrailCard-header h2 {
+    font-size: 2em;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.TrailCard-header span {
+    line-height: 70px;
+    text-align: center;
+    display: block;
+    font-size: 1.2em;
+    font-weight: bold; 
+}
+.TrailCard-body {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 248px;
+    color: black;
+    font-family: 'Roboto', sans-serif;
+    
+}
+
+.TrailCard-image {  
+    width: 200px;
+    height: 200px;
+    background-image: url("/static/images/marine.jpg");
+    background-size: cover;
+
+    display: block;
+    border: 0px;
+}
+.TrailCard-description {
+    width: 400px;
+    text-align: center;
+    
+}
+.TrailCard-cloud { 
+    width: 200px;
+    height: 200px;
+    background-image: url("/static/images/cloud.png");
+    background-size: cover;
+    background-position: center;
+    display: block;
+    border: 0px;
+}

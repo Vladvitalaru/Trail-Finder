@@ -12,7 +12,7 @@ app = Flask(__name__)
 @app.route('/', methods=['GET', 'POST'])
 def index():
 	print("Someone is at the home page.")
-	return render_template('welcome_page.html')
+	return render_template('Home.html')
 
 @app.route('/my-link/')
 def my_link():
