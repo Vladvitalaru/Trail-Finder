@@ -12,8 +12,9 @@ app = Flask(__name__)
 @app.route('/', methods=['GET', 'POST'])
 def index():
 	print("Someone is at the home page.")
+	#return render_template('Home.html')
 	return render_template('Home.html')
-
+                        
 @app.route('/my-link/')
 def my_link():
 	print('I got clicked!')
@@ -35,6 +36,11 @@ def results():
  
 	return render_template('results.html', query=query, results=zip(titles, description))
 
+#Handle error 404
+@app.errorhandler(404)
+def page_not_found(e):
+    # note that we set the 404 status explicitly
+    return render_template('404.html'), 404
 
 class MyWhooshSearcher(object):
 	"""docstring for MyWhooshSearcher"""
@@ -55,7 +61,7 @@ class MyWhooshSearcher(object):
 				description.append(x['description'])
 			
 		return title, description
-
+	
 	def index(self):
 		schema = Schema(id=ID(stored=True), title=TEXT(stored=True), description=TEXT(stored=True))
 		indexer = create_in('myIndex', schema)
