@@ -8,6 +8,7 @@ import time
 import socket
 import os
 import signal
+import re
 
 
 def main(): 
@@ -55,9 +56,9 @@ def breadth_first_crawl(q: queue.Queue, path: str, num_pages: int):     #this me
             if robot is not None and url not in robot_dict[split_url.hostname][0]: #ensures we have a proper robots.txt and url has not been visited yet
                 if robot.can_fetch('*', url):
                     print(f'Currently in: {url}')
-                    delay_time = robot.crawl_delay('*')
-                    if delay_time is not None and delay_time <= 15:             #limiting to 15 because certain websites have 30 seconds of delay yet don't ban for breaking the rule
-                        time.sleep(delay_time)
+                    #delay_time = robot.crawl_delay('*')
+                    #if delay_time is not None and delay_time <= 15:             #limiting to 15 because certain websites have 30 seconds of delay yet don't ban for breaking the rule
+                        #time.sleep(delay_time)
                     raw_page = get_page(url)
                     if raw_page is not None:
                         content_type = raw_page.headers.get('content-type')
@@ -72,7 +73,7 @@ def breadth_first_crawl(q: queue.Queue, path: str, num_pages: int):     #this me
                                 if(split_url.hostname in hostname_crawlable_dict and url.startswith(hostname_crawlable_dict[split_url.hostname])):
                                     count += 1
                                     print(f'Number of pages crawled: {count}')
-                                    url_filename = url.replace("/", "").replace(":", "")
+                                    url_filename = url.replace("/", "").replace(":", "").replace("?", "")
                                     if len(url_filename) >= 200:                        #hash filename to fit linux max filename size
                                         url_filename = str(hash(url_filename))
                                     trail_link_crawl(file_contents, bs, url)
@@ -97,7 +98,9 @@ def breadth_first_crawl(q: queue.Queue, path: str, num_pages: int):     #this me
 
 def trail_link_crawl(file_contents, bs, url):
     """Will crawl the trail page on traillink, won't work for any other page"""
+    stop_list = ['and', 'is', 'it', 'an', 'as', 'at', 'have', 'in', 'yet', 'if', 'from', 'for', 'when', 'by', 'to', 'you', 'be', 'we', 'that', 'may', 'not', 'with', 'tbd', 'a', 'on', 'your', 'this', 'of', 'us', 'will', 'can', 'the', 'or', 'are']
     title = bs.find('title')
+    title = title.string.split('|')[0].strip()
     description = bs.find('meta', attrs={'name': 'description'})
     description = description['content']
     review = bs.find_all('p', itemprop='reviewBody')
@@ -108,14 +111,14 @@ def trail_link_crawl(file_contents, bs, url):
         if not fact == '\n':
             key = fact.find('strong')
             value = fact.find('span')
-            fact_dict[key.string] = value.string
+            fact_dict[key.string.split(':')[0]] = value.string
 
     for fact in facts[1]:
         if not fact == '\n':
             key = fact.find('strong')
             value = fact.find('span')
             if key is not None and value is not None:
-                fact_dict[key.string] = value.string
+                fact_dict[key.string.split(':')[0]] = value.string
             else:
                 list_activities = []
                 activities = key.nextSibling()
@@ -136,14 +139,28 @@ def trail_link_crawl(file_contents, bs, url):
     content = bs.find(class_="trail-description")
     content = content.find(itemprop='description')
     file_contents['url'] = url
-    file_contents['title'] = title.string
+    file_contents['title'] = title
     file_contents['description'] = description
     file_contents['facts'] = fact_dict
     file_contents['images'] = list_images
     file_contents['reviews'] = []       #reviews will be stored in a list
-    for r in review:
-        file_contents['reviews'].append("".join(r.stripped_strings))
-    file_contents['content'] = content.get_text(" ", strip=True)
+    for r in review: 
+        words = r.get_text(" ", strip=True).lower()
+        words = words.replace(",","").replace("/", "").replace(":", "").replace("'","").replace(".","").replace('`','').replace('(','').replace(')','')
+        for word in stop_list:
+            updated = re.sub(rf'\b{word}\b', '', words)
+            words = str(updated)
+        words = words.split()
+        words = ' '.join(words)
+        file_contents['reviews'].append(words)
+    content = content.get_text(" ", strip=True).lower()
+    content = content.replace(",","").replace("/", "").replace(":", "").replace("'","").replace(".","").replace('`','').replace('(','').replace(')','')
+    for word in stop_list:
+        updated = re.sub(rf'\b{word}\b', '', content)
+        content = str(updated)
+    content = content.split()
+    content = ' '.join(content)
+    file_contents['content'] = content
     return
                                 
             
