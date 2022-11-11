@@ -62,61 +62,20 @@
     -webkit-font-smoothing: antialiased;
 }
 
-.mid {
-    background: #50C878 ;
-    color: #545454;
-    font-family: 'Roboto', sans-serif;
-    margin: 0 auto;
-    max-width: 800px;
-    padding-top: 1em;
+
+.inputs {
     display: flex;
     justify-content: center;
-    flex-direction: column;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-table, th, td {
-    border: 1px solid black;
-}
-
-th {
-    text-align: left;
-    height: 100px;
-    background: #93ded0;
-    color: #ff9068;
-}
-
-td {
-    text-align: left;
-    background: #5c5590;
-    color: #e98eff;
-}
-
-  
-.search {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
     filter: drop-shadow(3px 3px 5px rgba(60, 60, 60, 0.3));
-
+    margin-top: 20px;
+    align-items: center;
+}
+  
+form#filter button:hover {
+    background: #E77F16;
 }
 
-  /* Style the search field */
-form.search input[type=text] {
-    padding: 10px;
-    font-size: 19px;
-    border: 1px solid grey;
-    float: left;
-    width: 420px;
-    background: #f1f1f1;
-    font-family: 'Roboto', sans-serif;
-
-  }
-.filters {
+.filterButton {
     float: left;
     background: grey;
     color: white;
@@ -127,6 +86,7 @@ form.search input[type=text] {
     cursor: pointer;
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
+    padding: 15px
 }
 
   /* Style the submit button */
@@ -143,14 +103,24 @@ form.search input[type=text] {
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
   }
+  /* Style the search field */
+form#search input[type=text] {
+    padding: 13.5px;
+    font-size: 19px;
+    border: .5px solid grey;
+    float: left;
+    width: 420px;
+    background: #f1f1f1;
+    font-family: 'Roboto', sans-serif;
+}
+
   
-  
-form.search button:hover {
+form#search button:hover {
     background: #E77F16;
 }
   
   /* Clear floats */
-form.search::after {
+form#search::after {
     content: "";
     clear: both;
     display: table;
@@ -216,6 +186,7 @@ form.search::after {
 .TrailCard-description {
     width: 400px;
     text-align: center;
+
 }
 .TrailCard-cloud { 
     width: 200px;

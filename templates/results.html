@@ -1,39 +1,31 @@
-<!DOCTYPE html>
-<html clas="background">
-	<head>
-		<meta charset="UTF-8">
-		<link rel="stylesheet" href="static/styles/main.css">
-		<title>Results</title>
-	</head>
+{% extends "Home.html" %}
 
-	<div class="title">
-		<h1> Trail Finder</h1>
-	</div>
-	
-	<body>
-	
-		<h2>
-			<div id='redText'>You</div> <div class='blueText'>searched</div> for: {{query}}
-		</h2>
+{% block information %}{% endblock %}
+
+{% block cards %} 
+
+	{% for title, length in results %}
+	<div class="TrailCard">
 		
-		<table>
-			<thead>
-				<tr>
-					<th>Title</th>
-					<th>Description</th>
-				</tr>
-			</thead>
-			<tbody>
-				{% for t, d in results %}
-				<tr>
-					<td>{{t}}</td>
-					<td>{{d}}</td>
-				</tr>
-				{% endfor %}
-			</tbody>
-		</table>
-		<form method="post" action="{{ url_for('index') }}">
-			<input type="submit" value="Return" />
-		</form>	
-	</body>	
-</html>
+		<div class="TrailCard-header"> 	
+			<span> {{length}} </span>
+			<h2> {{title}} </h2>
+			<span> Easy  </span>
+		</div>
+		
+		<div class="TrailCard-body">
+			<div class="TrailCard-image"> </div> 
+			<div class="TrailCard-description"> 
+				<h3> Description</h3>
+				<p> "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+				</p>
+				<a href=""> Link to all trails -></a>
+			</div>
+			<div class="TrailCard-cloud"> </div>
+		</div>
+		
+	</div>
+	{% endfor %}
+
+{% endblock %}
+

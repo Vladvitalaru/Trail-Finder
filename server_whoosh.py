@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, request
+from flask import Flask, render_template, url_for, request, redirect
 import whoosh
 from whoosh.index import create_in
 from whoosh.index import open_dir
@@ -6,13 +6,11 @@ from whoosh.fields import *
 from whoosh.qparser import QueryParser
 from whoosh.qparser import MultifieldParser
 from whoosh import qparser
-
+from operator import itemgetter
 
 app = Flask(__name__)
 @app.route('/', methods=['GET', 'POST'])
 def index():
-	print("Someone is at the home page.")
-	#return render_template('Home.html')
 	return render_template('Home.html')
                         
 @app.route('/my-link/')
@@ -22,19 +20,32 @@ def my_link():
 
 @app.route('/results/', methods=['GET', 'POST'])
 def results():
-	global mySearcher
-	if request.method == 'POST':
-		data = request.form
-	else:
-		data = request.args
+	# # global mySearcher
+	# if request.method == 'POST':
+    
+	# 	data = request.form["search"]
+	# 	return redirect(url_for('results', input=data))
+	# else:
+	# 	# input = request.form["search"] 
+	# results = [{'title': 'Example Trail Title', 'length': '2.1 Miles'},
+    #        {'title': 'Example Trail Title2', 'length': '3.1 Miles'}]
 
-	query = data.get('searchterm')
-	test = data.get('test')
-	titles, description = mySearcher.search(query)
-	print("You searched for: " + query)
-	print("Alternatively, the second box has: " + test)
+	titles = ["Example Trail Title 1","Example Trail Title 2", "Example Trail Title 3"]
+	lengths = ['2.1 Miles', '3.1 Miles', '4.1 Miles']
+	return render_template('results.html', results = zip(titles, lengths) )
  
-	return render_template('results.html', query=query, results=zip(titles, description))
+ 
+	# 	data = request.args
+
+	# query = data.get('searchterm')
+	# test = data.get('test')
+	# titles, description = mySearcher.search(query)
+	# print("You searched for: " + query)
+	# print("Alternatively, the second box has: " + test)
+ 
+	# return render_template('results.html', query=query, results=zip(titles, description))
+	#return "Hello world!"
+	# return render_template('results.html')
 
 #Handle error 404
 @app.errorhandler(404)
@@ -61,7 +72,7 @@ class MyWhooshSearcher(object):
 				description.append(x['description'])
 			
 		return title, description
-	
+
 	def index(self):
 		schema = Schema(id=ID(stored=True), title=TEXT(stored=True), description=TEXT(stored=True))
 		indexer = create_in('myIndex', schema)

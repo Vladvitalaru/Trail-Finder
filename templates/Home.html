@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 
 <html class="background">  
@@ -29,94 +28,24 @@
 			</div>
 		</div>
 
-	
-	<form class="search" action="action_page.php" method="get">
-		<button class="filters" type="submit"> <i class="fa-solid fa-bars"></i> </button>
-		<input type="text" placeholder="Discover your next adventure" name="search">
-		<button class="searchButton" type="submit"> <i class="fa fa-search"></i> </button>
-	</form>
 
-	<!--------------------		Trail Card 1		-------------------->
-	<div class="TrailCard">
-		<div class="TrailCard-header"> 	
-			<span> 1.7 Miles </span>
-			<h2>Cape Horn Loop</h2>
-			<span> Easy </span>
-		</div>
+	<div class="inputs">
+		<form id="filter" action="{{ url_for('results') }}" method="post">
+			<button class="filterButton" type="button" name="filter"> <i class="fa-solid fa-bars"></i> </button>
+		</form>
 
-		<div class="TrailCard-body">
-			<div class="TrailCard-image"> </div> 
-			<div class="TrailCard-description"> 
-				<h3> Description</h3>
-				<p> "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-				</p>
-				<a href=""> Link to all trails -></a></a></a>
-			</div>
-			<div class="TrailCard-cloud"> </div>
-		</div>
-
-	<!--------------------		Trail Card 2		-------------------->
-	<div class="TrailCard">
-		<div class="TrailCard-header"> 	
-			<span> 22.7 Miles </span>
-			<h2>Banks-Vernonia State Trail</h2>
-			<span> Hard </span>
-		</div>
-
-		<div class="TrailCard-body">
-			<div class="TrailCard-image"> </div> 
-			<div class="TrailCard-description"> 
-				<h3> Description</h3>
-				<p> "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-				</p>
-				<a href=""> Link to all trails -></a></a></a>
-			</div>
-			<div class="TrailCard-cloud"> </div>
-		</div>
-
-	<!--------------------		Trail Card 3		-------------------->
-	<div class="TrailCard">
-		<div class="TrailCard-header"> 	
-			<span> 1.7 Miles </span>
-			<h2>Cape Horn Loop</h2>
-			<span> Easy </span>
-		</div>
-
-		<div class="TrailCard-body">
-			<div class="TrailCard-image"> </div> 
-			<div class="TrailCard-description"> 
-				<h3> Description</h3>
-				<p> "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-				</p>
-				<a href=""> Link to all trails -></a></a></a>
-			</div>
-			<div class="TrailCard-cloud"> </div>
-		</div>
-
-	<!--------------------		Trail Card 4		-------------------->
-	<div class="TrailCard">
-		<div class="TrailCard-header"> 	
-			<span> 1.7 Miles </span>
-			<h2>Cape Horn Loop</h2>
-			<span> Easy </span>
-		</div>
-
-		<div class="TrailCard-body">
-			<div class="TrailCard-image"> </div> 
-			<div class="TrailCard-description"> 
-				<h3> Description</h3>
-				<p> "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-				</p>
-				<a href=""> Link to TrailLink -></a></a></a>
-			</div>
-			<div class="TrailCard-cloud"> </div>
-		</div>
-
+		<form id="search" action="{{ url_for('results') }}" method="post">
+			<input type="text" placeholder="Discover your next adventure" name="search">
+			<button class="searchButton" type="submit" value="submit" for='search'> <i class="fa fa-search"></i> </button>
+		</form>
 	</div>
+
+
+	{% block information %}
+	<!-- <h1>Example</h1> -->
 	
+	{% endblock %}
+	
+	{% block cards %} {% endblock %}
+
 </html>
-
-<style>
-
-
-</style>
