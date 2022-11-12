@@ -21,18 +21,27 @@ def my_link():
 @app.route('/results/', methods=['GET', 'POST'])
 def results():
 	# # global mySearcher
-	# if request.method == 'POST':
-    
+	# data = request
+	if request.method == 'POST':
+		data = request.form
+	
+	# query = data.get('search')
 	# 	data = request.form["search"]
 	# 	return redirect(url_for('results', input=data))
 	# else:
 	# 	# input = request.form["search"] 
 	# results = [{'title': 'Example Trail Title', 'length': '2.1 Miles'},
     #        {'title': 'Example Trail Title2', 'length': '3.1 Miles'}]
-
-	titles = ["Example Trail Title 1","Example Trail Title 2", "Example Trail Title 3"]
-	lengths = ['2.1 Miles', '3.1 Miles', '4.1 Miles']
-	return render_template('results.html', results = zip(titles, lengths) )
+	links = ["https://www.traillink.com/trail/peninsula-crossing-trail/","https://www.traillink.com/trail/westside-trail/","https://www.traillink.com/trail/vera-katz-eastbank-esplanade/"]
+	titles = ["Peninsula Crossing Trail","Westside Trail", "Vera Katz Eastbank Esplanade"]
+	lengths = ['2.1 Miles', '3.1 Miles', '10.1 Miles']
+	images = ["https://cloudfront.traillink.com/photos/peninsula-crossing-trail_23816_sc.jpg",
+           "https://cloudfront.traillink.com/photos/westside-trail_107049_sc.jpg",
+           "https://cloudfront.traillink.com/photos/vera-katz-eastbank-esplanade_167510_sc.jpg"]
+	states = ["Oregon", "Oregon", "Oregon"]
+	county = ["Multnomah", "Washington","Multnomah" ]
+	descriptions = ["Peninsula Crossing Trail spans 5.1 from N. Carey Blvd. and N. Princeton St. to Columbia Slough Trail at N. Columbia Blvd.","Westside Trail spans 8.1 from Forest Park to Barrows Park.","Vera Katz Eastbank Esplanade spans 1.7 from Steel Bridge just west of NE Lloyd Blvd. to SE Caruthers St. just south of the Marquam Bridge."]
+	return render_template('results.html', results = zip(links, titles, lengths, images, states, county, descriptions) )
  
  
 	# 	data = request.args
@@ -88,9 +97,9 @@ class MyWhooshSearcher(object):
 # search(indexer, 'nice')
 
 if __name__ == '__main__':
-	global mySearcher
-	mySearcher = MyWhooshSearcher()
-	mySearcher.index()
+	# global mySearcher
+	# mySearcher = MyWhooshSearcher()
+	# mySearcher.index()
 	#title, description = mySearcher.search('hello')
 	#print(title)
 	app.run(debug=True)

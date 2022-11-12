@@ -1,4 +1,4 @@
-#error-message {
+.error-message {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -8,8 +8,8 @@
     color: #1B8D20 ;
     padding-bottom: 10px;
 }
-#code {
-    padding-left: 15px;
+#four {
+    padding-left: 7px;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -18,7 +18,12 @@
     height: 90px;
     color: #E77F16;
 }
+.logo404 {
+    position: relative;
+    top: 25px;
+    padding-left: 7px;
 
+}
 .middle {
     display: flex;
     justify-content: center;

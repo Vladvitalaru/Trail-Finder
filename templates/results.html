@@ -4,22 +4,25 @@
 
 {% block cards %} 
 
-	{% for title, length in results %}
+	{% for url, title, length, image, state, county, description in results %}
 	<div class="TrailCard">
 		
 		<div class="TrailCard-header"> 	
-			<span> {{length}} </span>
+			<span class="length"> {{length}} </span>
 			<h2> {{title}} </h2>
-			<span> Easy  </span>
+			<span class="difficulty"> Easy  </span>
+			<!-- <span> {{query}} </span> -->
 		</div>
 		
 		<div class="TrailCard-body">
-			<div class="TrailCard-image"> </div> 
+			<div class="TrailCard-image" style="background-image: url( {{image}} )"> </div> 
+
+			<!-- <img src=" {{image}} " alt=""> -->
+
 			<div class="TrailCard-description"> 
-				<h3> Description</h3>
-				<p> "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-				</p>
-				<a href=""> Link to all trails -></a>
+				<h3> {{county}} County {{state}}</h3>
+				<p> {{description}} </p>
+				<a href=" {{url}} "> TrailLink page </a></a>
 			</div>
 			<div class="TrailCard-cloud"> </div>
 		</div>
