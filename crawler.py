@@ -76,9 +76,12 @@ def breadth_first_crawl(q: queue.Queue, path: str, num_pages: int):     #this me
                                     url_filename = url.replace("/", "").replace(":", "").replace("?", "")
                                     if len(url_filename) >= 200:                        #hash filename to fit linux max filename size
                                         url_filename = str(hash(url_filename))
-                                    trail_link_crawl(file_contents, bs, url)
-                                    with open(f'{file_path}/{url_filename}.txt', 'w') as f:
-                                        json.dump(file_contents, f) #instead of writing line by line, why not take advantage of JSON?
+                                    is_crawlable = trail_link_crawl(file_contents, bs, url)
+                                    if is_crawlable is True:
+                                        with open(f'{file_path}/{url_filename}.txt', 'w') as f:
+                                            json.dump(file_contents, f) #instead of writing line by line, why not take advantage of JSON?
+                                    else:
+                                        count -=1               #wasn't able to crawl page, have to decrement count
                                 for link in bs.find_all('a'): #gets all anchor text
                                     cleaned_link = link.get('href')
                                     if cleaned_link is not None and cleaned_link != "":
@@ -104,9 +107,11 @@ def trail_link_crawl(file_contents, bs, url):
     description = bs.find('meta', attrs={'name': 'description'})
     description = description['content']
     review = bs.find_all('p', itemprop='reviewBody')
-    facts = bs.find(class_="trail-facts")
-    facts = facts.find_all(class_="small-12 medium-4 columns facts")
     fact_dict = {}
+    facts = bs.find(class_="trail-facts")
+    if facts is None:
+        return False
+    facts = facts.find_all(class_="small-12 medium-4 columns facts")
     for fact in facts[0].contents:
         if not fact == '\n':
             key = fact.find('strong')
@@ -137,10 +142,12 @@ def trail_link_crawl(file_contents, bs, url):
     except AttributeError:
         pass
     content = bs.find(class_="trail-description")
+    if content is None:
+        return False
     content = content.find(itemprop='description')
     file_contents['url'] = url
     file_contents['title'] = title
-    file_contents['description'] = description
+    file_contents['description'] = description.rstrip("View maps, amenities, descriptions, reviews, and directions on TrailLink.")
     file_contents['facts'] = fact_dict
     file_contents['images'] = list_images
     file_contents['reviews'] = []       #reviews will be stored in a list
@@ -161,7 +168,7 @@ def trail_link_crawl(file_contents, bs, url):
     content = content.split()
     content = ' '.join(content)
     file_contents['content'] = content
-    return
+    return True
                                 
             
 def get_robot(scheme: str, hostname: str): #tries to create a robot object, if an exception occurs returns none
