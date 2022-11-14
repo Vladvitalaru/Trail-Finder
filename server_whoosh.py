@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, request
+from flask import Flask, render_template, url_for, request, redirect
 import whoosh
 from whoosh.index import create_in
 from whoosh.index import open_dir
@@ -6,13 +6,11 @@ from whoosh.fields import *
 from whoosh.qparser import QueryParser
 from whoosh.qparser import MultifieldParser
 from whoosh import qparser
-
+from operator import itemgetter
 
 app = Flask(__name__)
 @app.route('/', methods=['GET', 'POST'])
 def index():
-	print("Someone is at the home page.")
-	#return render_template('Home.html')
 	return render_template('Home.html')
                         
 @app.route('/my-link/')
@@ -22,19 +20,41 @@ def my_link():
 
 @app.route('/results/', methods=['GET', 'POST'])
 def results():
-	global mySearcher
+	# # global mySearcher
+	# data = request
 	if request.method == 'POST':
 		data = request.form
-	else:
-		data = request.args
-
-	query = data.get('searchterm')
-	test = data.get('test')
-	titles, description = mySearcher.search(query)
-	print("You searched for: " + query)
-	print("Alternatively, the second box has: " + test)
+	
+	# query = data.get('search')
+	# 	data = request.form["search"]
+	# 	return redirect(url_for('results', input=data))
+	# else:
+	# 	# input = request.form["search"] 
+	# results = [{'title': 'Example Trail Title', 'length': '2.1 Miles'},
+    #        {'title': 'Example Trail Title2', 'length': '3.1 Miles'}]
+	links = ["https://www.traillink.com/trail/peninsula-crossing-trail/","https://www.traillink.com/trail/westside-trail/","https://www.traillink.com/trail/vera-katz-eastbank-esplanade/"]
+	titles = ["Peninsula Crossing Trail","Westside Trail", "Vera Katz Eastbank Esplanade"]
+	lengths = ['2.1 Miles', '3.1 Miles', '10.1 Miles']
+	images = ["https://cloudfront.traillink.com/photos/peninsula-crossing-trail_23816_sc.jpg",
+           "https://cloudfront.traillink.com/photos/westside-trail_107049_sc.jpg",
+           "https://cloudfront.traillink.com/photos/vera-katz-eastbank-esplanade_167510_sc.jpg"]
+	states = ["Oregon", "Oregon", "Oregon"]
+	county = ["Multnomah", "Washington","Multnomah" ]
+	descriptions = ["Peninsula Crossing Trail spans 5.1 from N. Carey Blvd. and N. Princeton St. to Columbia Slough Trail at N. Columbia Blvd.","Westside Trail spans 8.1 from Forest Park to Barrows Park.","Vera Katz Eastbank Esplanade spans 1.7 from Steel Bridge just west of NE Lloyd Blvd. to SE Caruthers St. just south of the Marquam Bridge."]
+	return render_template('results.html', results = zip(links, titles, lengths, images, states, county, descriptions) )
  
-	return render_template('results.html', query=query, results=zip(titles, description))
+ 
+	# 	data = request.args
+
+	# query = data.get('searchterm')
+	# test = data.get('test')
+	# titles, description = mySearcher.search(query)
+	# print("You searched for: " + query)
+	# print("Alternatively, the second box has: " + test)
+ 
+	# return render_template('results.html', query=query, results=zip(titles, description))
+	#return "Hello world!"
+	# return render_template('results.html')
 
 #Handle error 404
 @app.errorhandler(404)
@@ -61,7 +81,7 @@ class MyWhooshSearcher(object):
 				description.append(x['description'])
 			
 		return title, description
-	
+
 	def index(self):
 		schema = Schema(id=ID(stored=True), title=TEXT(stored=True), description=TEXT(stored=True))
 		indexer = create_in('myIndex', schema)
@@ -77,9 +97,9 @@ class MyWhooshSearcher(object):
 # search(indexer, 'nice')
 
 if __name__ == '__main__':
-	global mySearcher
-	mySearcher = MyWhooshSearcher()
-	mySearcher.index()
+	# global mySearcher
+	# mySearcher = MyWhooshSearcher()
+	# mySearcher.index()
 	#title, description = mySearcher.search('hello')
 	#print(title)
 	app.run(debug=True)
