@@ -145,14 +145,12 @@ form#search::after {
     background-color: #1B8D20;
     width: 920px;
     height: 50px;
-    border-bottom: 2px solid grey;
+    border-bottom: 1px solid grey;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     color: white;
     font-family: 'Roboto', sans-serif;
-    /* font-family: 'Recoleta', sans-serif; */
-
 }
 
 .TrailCard-header h2 {
@@ -189,8 +187,6 @@ form#search::after {
     height: 160px;
     color: black;
     font-family: 'Roboto', sans-serif; 
-    /* font-family: 'Recoleta', sans-serif; */
-
 }
 .TrailCard-image {  
     width: 210px;
@@ -200,6 +196,9 @@ form#search::after {
     display: block;
     border: 0px;
     border-bottom-left-radius: 5px;
+}
+.TrailCard-image:hover {
+    opacity: 0.7;
 }
 .TrailCard-description {
     display: flex;
@@ -214,7 +213,6 @@ form#search::after {
     font-weight: 700;
     font-size: 17px;
 }
-
 .TrailCard-description p {
     height: 60px;
     margin-top: 0%;
@@ -233,4 +231,67 @@ form#search::after {
     display: block;
     border: 0px;
     border-bottom-right-radius: 5px;
+}
+#LargeImage {
+    display: None;
+    border-radius: 10%;
+}
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 220px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,.92); /* Black w/ opacity */
+  }
+.modal-content {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 800px;
+}
+.close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 55px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+.close:hover, .close:focus {
+  color: #bbb;
+  text-decoration: none;
+  cursor: pointer;
+}
+#caption {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+    text-align: center;
+    color: #ccc;
+    padding: 10px 0;
+    height: 150px;
+    font-size: 22px;
+    font-family: 'Roboto', sans-serif;
+}
+.modal-content, #caption {  
+    -webkit-animation-name: zoom;
+    -webkit-animation-duration: 07s;
+    animation-name: zoom;
+    animation-duration: 0.7s;
+}
+@-webkit-keyframes zoom {
+    from {-webkit-transform:scale(0)} 
+    to {-webkit-transform:scale(1)}
+}
+  @keyframes zoom {
+    from {transform:scale(0)} 
+    to {transform:scale(1)}
 }

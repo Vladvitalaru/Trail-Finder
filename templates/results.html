@@ -4,20 +4,18 @@
 
 {% block cards %} 
 
-	{% for url, title, length, image, state, county, description in results %}
+	{% for url, title, length, image, state, county, description, styleID in results %}
 	<div class="TrailCard">
 		
 		<div class="TrailCard-header"> 	
 			<span class="length"> {{length}} </span>
 			<h2> {{title}} </h2>
 			<span class="difficulty"> Easy  </span>
-			<!-- <span> {{query}} </span> -->
 		</div>
 		
 		<div class="TrailCard-body">
-			<div class="TrailCard-image" style="background-image: url( {{image}} )"> </div> 
+			<div class="TrailCard-image" id=Img{{styleID}} style="background-image: url( {{image}} )" onclick="enlarge(id)" > </div> 
 
-			<!-- <img src=" {{image}} " alt=""> -->
 
 			<div class="TrailCard-description"> 
 				<h3> {{county}} County {{state}}</h3>
@@ -28,7 +26,13 @@
 		</div>
 		
 	</div>
+
+	<div id="myModalImg{{styleID}}" class="modal">
+		<span class="close" id="closeImg{{styleID}}">&times;</span>
+		<img class="modal-content" style="background-image: url( {{image}} )" src="{{image}}">
+		<div id="caption"> {{title}}</div> 
+	  </div>
+
 	{% endfor %}
 
 {% endblock %}
-

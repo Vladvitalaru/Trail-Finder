@@ -12,11 +12,6 @@ app = Flask(__name__)
 @app.route('/', methods=['GET', 'POST'])
 def index():
 	return render_template('Home.html')
-                        
-@app.route('/my-link/')
-def my_link():
-	print('I got clicked!')
-	return 'Click.'
 
 @app.route('/results/', methods=['GET', 'POST'])
 def results():
@@ -41,7 +36,8 @@ def results():
 	states = ["Oregon", "Oregon", "Oregon"]
 	county = ["Multnomah", "Washington","Multnomah" ]
 	descriptions = ["Peninsula Crossing Trail spans 5.1 from N. Carey Blvd. and N. Princeton St. to Columbia Slough Trail at N. Columbia Blvd.","Westside Trail spans 8.1 from Forest Park to Barrows Park.","Vera Katz Eastbank Esplanade spans 1.7 from Steel Bridge just west of NE Lloyd Blvd. to SE Caruthers St. just south of the Marquam Bridge."]
-	return render_template('results.html', results = zip(links, titles, lengths, images, states, county, descriptions) )
+	styleID = [1,2,3]
+	return render_template('results.html', results = zip(links, titles, lengths, images, states, county, descriptions, styleID) )
  
  
 	# 	data = request.args
