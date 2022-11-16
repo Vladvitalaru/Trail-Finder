@@ -48,44 +48,43 @@
 
 			<div class="filterOptions">
 
-				<div class="leftColumn">
-					<form id="leftColumn" method="post">
-						<label for="state"> State </label>
-						<input type="text" name="state">
+				<form id="advancedSearch" action="{{ url_for('advancedResults') }}" method="post">
+				
+					<div class="leftColumn">
+							<label for="state"> State </label>
+							<input type="text" name="state">
 
-						<label for="minLength"> Min Length</label>
-						<input type="text" name="minLength">
+							<label for="minLength"> Min Length</label>
+							<input type="text" name="minLength">
 
-						<label for="activities"> Activities</label>
-						<input type="text" name="activities">
-					</form>
-				</div>
+							<label for="activities"> Activities</label>
+							<input type="text" name="activities">
+					</div>
 					
-				<div class="rightColumn">
-					<form id="rightColumn" method="post">
-						<label for="county"> County </label>
-						<input type="text" name="county">
+					<div class="rightColumn">
+							<label for="county"> County </label>
+							<input type="text" name="county">
 
-						<label for="maxLength"> Max Length </label>
-						<input type="text" name="maxLength">
+							<label for="maxLength"> Max Length </label>
+							<input type="text" name="maxLength">
 
-						<label for="surfaces"> Surfaces </label>
-						<input type="text" name="surfaces">
-					</form>
-				</div> 
-
+							<label for="surfaces"> Surfaces </label>
+							<input type="text" name="surfaces">
+					</div> 
 			</div>
-			<div class="closeFlex"> 
-				<button class="closeFilter" id="closeFilter" type="submit" for="leftColumn"> Apply </button>
-			</div>
+
+				<div class="closeFlex"> 
+					<input type="text" name="advancedSearch" placeholder="Discover your next adventure">
+					<button class="advancedSearchButton" id="advancedSearchRequest" type="submit" for="advancedSearch"> Search </button>
+				</div>
+			</form>
 		</div>
+		<span class="close" id="closeFilter">&times;</span>
+
 	</div>
-
-
 
 	{% block information %}
 	<!-- <h1>Example</h1> -->
-	
 	{% endblock %}
 	
 	{% block cards %} {% endblock %}

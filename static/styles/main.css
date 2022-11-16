@@ -63,7 +63,6 @@
     -webkit-font-smoothing: antialiased;
 }
 
-
 .inputs {
     display: flex;
     justify-content: center;
@@ -124,13 +123,12 @@ form#search::after {
     display: table;
 }
 
-
 /* Filter Modal styles */
 .filterModal {
     display: none; 
     position: fixed; 
     z-index: 1; 
-    padding-top: 190px; 
+    padding-top: 174px; 
     left: 0;
     top: 0;
     width: 100%; 
@@ -138,7 +136,6 @@ form#search::after {
     background-color: rgb(0,0,0); 
     background-color: rgba(0,0,0,.72); 
     transition: 0.3s;
-
 }
 .filterModal-content {
     margin: auto;
@@ -160,28 +157,41 @@ form#search::after {
     padding-top: 24px;
     margin-top: 0px;
     color: #1B8D20;
-
 }
 .closeFlex {
     display: flex;
     justify-content: center;
     margin-top: 22px;
 }
-.closeFilter {
+.closeFlex input {
+    font-size: 18px;
+    width: 354px;
+    border: 1px solid black;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    padding: 12px;
+}
+.advancedSearchButton {
     color: black;
     font-size: 24px;
-    font-weight: bold;
-    transition: 0.3s;
+    font-weight: 400;
     border: 1px solid black;
-    padding: 14px;
+    padding: 8px;
     background-color:#E77F16;
     font-family: 'Roboto', sans-serif;
-    border-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
 }
-.closeFilter:hover, .close:focus {
+.advancedSearchButton:hover, .advancedSearchButton:focus {
     color: #bbb;
     text-decoration: none;
     cursor: pointer;
+}
+#advancedSearch {
+    display: flex;
+    justify-content: space-evenly;
+    margin-left: 30px;
+    margin-right: 30px;
 }
 .filterOptions {
     display: flex;
@@ -203,9 +213,8 @@ form#search::after {
 }
 
 .leftColumn, .rightColumn {
-    display: flex;
-    flex-direction: column;
-    color: black;
+    margin-left: 34px;
+    margin-right: 34px;
 }
 
 
