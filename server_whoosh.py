@@ -1,6 +1,7 @@
-from flask import Flask, render_template, url_for, request, redirect
+from flask import Flask, request, render_template, redirect, url_for
 from operator import itemgetter
 from mywhoosh import *
+from flask import Flask, request, render_template
 
 app = Flask(__name__)
 @app.route('/', methods=['GET', 'POST'])
@@ -12,10 +13,21 @@ def results():
 	# # global mySearcher
 	# data = request
 	if request.method == 'POST':
-		data = request.form
-	
-	# query = data.get('search')
-	# 	data = request.form["search"]
+		# query = request.form.get("search")
+		# query = search.get('search')
+		state = request.form.get("state")
+		query = request.form.get("search")
+		# state = request.form['state']
+		# state = advanced.get('state')
+		# county = data.get('county')
+		# print(query)
+		# state = request.form['state']
+
+		print(state, query)
+
+		# print(state)
+		# state = "test"
+		# print(county)
 	# 	return redirect(url_for('results', input=data))
 	# else:
 	# 	# input = request.form["search"] 

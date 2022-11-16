@@ -5,6 +5,8 @@
 	<head>
 		<meta charset="UTF-8">
 		<link rel="stylesheet" href="/static/styles/main.css">
+		<link rel="stylesheet" href="/static/styles/results.css">
+
 		<link rel="icon" type="image/x-icon" href="/static/images/favicon.ico">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		<link href="https://fonts.cdnfonts.com/css/recoleta" rel="stylesheet">
@@ -27,18 +29,58 @@
 				<img id="logo" src="/static/images/Logo.png" alt="logo">
 			</div>
 		</div>
+		
 
-
+	<!-- Search Bar, filter and search Button -->
 	<div class="inputs">
-		<form id="filter" action="{{ url_for('results') }}" method="post">
-			<button class="filterButton" type="button" name="filter"> <i class="fa-solid fa-bars"></i> </button>
-		</form>
+		<button class="filterButton" type="button" name="filter" onclick="openFilters()"> <i class="fa-solid fa-bars"></i> </button>
 
 		<form id="search" action="{{ url_for('results') }}" method="post">
 			<input type="text" placeholder="Discover your next adventure" name="search">
 			<button class="searchButton" type="submit" value="submit" for='search'> <i class="fa fa-search"></i> </button>
 		</form>
 	</div>
+
+	<!-- Advanced filter Modal -->
+	<div id="filterModal" class="filterModal">
+		<div class="filterModal-content"> 
+			<h3> <i class="fa-solid fa-bars largeFilter"> </i> Advanced Search</h3>
+
+			<div class="filterOptions">
+
+				<div class="leftColumn">
+					<form id="leftColumn" method="post">
+						<label for="state"> State </label>
+						<input type="text" name="state">
+
+						<label for="minLength"> Min Length</label>
+						<input type="text" name="minLength">
+
+						<label for="activities"> Activities</label>
+						<input type="text" name="activities">
+					</form>
+				</div>
+					
+				<div class="rightColumn">
+					<form id="rightColumn" method="post">
+						<label for="county"> County </label>
+						<input type="text" name="county">
+
+						<label for="maxLength"> Max Length </label>
+						<input type="text" name="maxLength">
+
+						<label for="surfaces"> Surfaces </label>
+						<input type="text" name="surfaces">
+					</form>
+				</div> 
+
+			</div>
+			<div class="closeFlex"> 
+				<button class="closeFilter" id="closeFilter" type="submit" for="leftColumn"> Apply </button>
+			</div>
+		</div>
+	</div>
+
 
 
 	{% block information %}

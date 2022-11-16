@@ -73,7 +73,7 @@
 }
   
 form#filter button:hover {
-    background: #E77F16;
+    background: #737373;
 }
 
 .filterButton {
@@ -89,13 +89,12 @@ form#filter button:hover {
     border-bottom-left-radius: 5px;
     padding: 15px
 }
-
   /* Style the submit button */
 .searchButton {
     float: left;
     width: 85px;
     padding: 15px;
-    background: #438b28;
+    background: #1B8D20;
     color: white;
     font-size: 17px;
     border: 1px solid grey;
@@ -114,184 +113,99 @@ form#search input[type=text] {
     background: #f1f1f1;
     font-family: 'Roboto', sans-serif;
 }
-
   
 form#search button:hover {
     background: #E77F16;
 }
-  
   /* Clear floats */
 form#search::after {
     content: "";
     clear: both;
     display: table;
 }
-/* Result card styles */
-.TrailCard {
-    display: block;
-    background-color:white;
-    margin-top: 35px;
-    margin-bottom: 0px;
-    width: 920px;
-    margin-left: auto;
-    margin-right: auto;
-    height: 212px;
-    border-bottom-right-radius: 5px;
-    border-bottom-left-radius: 5px;
-    filter: drop-shadow(3px 3px 5px rgba(60, 60, 60, 0.3));
-}
 
-.TrailCard-header {
-    background-color: #1B8D20;
-    width: 920px;
-    height: 50px;
-    border-bottom: 1px solid grey;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    color: white;
-    font-family: 'Roboto', sans-serif;
-}
 
-.TrailCard-header h2 {
-    font-size: 1.5em;
-    margin-top: auto;
-    margin-bottom: auto;
-    font-family: 'Recoleta', sans-serif;
-
-}
-
-.TrailCard-header .length {
-    line-height: 55px;
-    text-align: center;
-    display: block;
-    font-size: 1.2em;
-    font-weight: bold; 
-    margin-left: 50px;
-    width: 90px
-}
-
-.TrailCard-header .difficulty {
-    line-height: 55px;
-    text-align: center;
-    display: block;
-    font-size: 1.2em;
-    font-weight: bold; 
-    margin-right: 50px;
-    width: 90px
-}
-.TrailCard-body {
-    display: flex;
-    justify-content: space-between;
-    align-items: start;
-    height: 160px;
-    color: black;
-    font-family: 'Roboto', sans-serif; 
-}
-.TrailCard-image {  
-    width: 210px;
-    height: 160px;
-    /* background-image: url("/static/images/marine.jpg"); */
-    background-size: cover;
-    display: block;
-    border: 0px;
-    border-bottom-left-radius: 5px;
-}
-.TrailCard-image:hover {
-    opacity: 0.7;
-}
-.TrailCard-description {
-    display: flex;
-    width: 440px;
-    height: 160px;
-    flex-direction: column;
-    text-align: center;
-    justify-content: space-between;
-}
-.TrailCard-description h3 {
-    margin-top: 8px;
-    font-weight: 700;
-    font-size: 17px;
-}
-.TrailCard-description p {
-    height: 60px;
-    margin-top: 0%;
-}
-.TrailCard-description a {
-    color: #E77F16;
-    margin-bottom: 3px;
-    text-decoration: none;
-}
-.TrailCard-cloud { 
-    width: 210px;
-    height: 160px;
-    background-image: url("/static/images/cloud.png");
-    background-size: cover;
-    background-position: center;
-    display: block;
-    border: 0px;
-    border-bottom-right-radius: 5px;
-}
-#LargeImage {
-    display: None;
-    border-radius: 10%;
-}
-.modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    padding-top: 220px; /* Location of the box */
+/* Filter Modal styles */
+.filterModal {
+    display: none; 
+    position: fixed; 
+    z-index: 1; 
+    padding-top: 190px; 
     left: 0;
     top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,.92); /* Black w/ opacity */
-  }
-.modal-content {
+    width: 100%; 
+    height: 100%; 
+    background-color: rgb(0,0,0); 
+    background-color: rgba(0,0,0,.72); 
+    transition: 0.3s;
+
+}
+.filterModal-content {
     margin: auto;
     display: block;
-    width: 80%;
-    max-width: 800px;
+    background-color: #f1f1f1;
+    width: 640px;
+    height: 460px;
+    border-radius: 7px;
 }
-.close {
-    position: absolute;
-    top: 15px;
-    right: 35px;
-    color: #f1f1f1;
-    font-size: 55px;
+.largeFilter {
+    margin-right: 12px;
+}
+.filterModal h3 {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    font-size: 35px;
+    font-family: 'Recoleta', sans-serif;
+    padding-top: 24px;
+    margin-top: 0px;
+    color: #1B8D20;
+
+}
+.closeFlex {
+    display: flex;
+    justify-content: center;
+    margin-top: 22px;
+}
+.closeFilter {
+    color: black;
+    font-size: 24px;
     font-weight: bold;
     transition: 0.3s;
+    border: 1px solid black;
+    padding: 14px;
+    background-color:#E77F16;
+    font-family: 'Roboto', sans-serif;
+    border-radius: 5px;
 }
-.close:hover, .close:focus {
-  color: #bbb;
-  text-decoration: none;
-  cursor: pointer;
+.closeFilter:hover, .close:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
 }
-#caption {
-    margin: auto;
-    display: block;
-    width: 80%;
-    max-width: 700px;
-    text-align: center;
-    color: #ccc;
-    padding: 10px 0;
-    height: 150px;
-    font-size: 22px;
+.filterOptions {
+    display: flex;
+    justify-content: space-evenly;
     font-family: 'Roboto', sans-serif;
 }
-.modal-content, #caption {  
-    -webkit-animation-name: zoom;
-    -webkit-animation-duration: 07s;
-    animation-name: zoom;
-    animation-duration: 0.7s;
+.filterOptions label {
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    padding-bottom: 2px;
 }
-@-webkit-keyframes zoom {
-    from {-webkit-transform:scale(0)} 
-    to {-webkit-transform:scale(1)}
+.filterOptions input[type=text]  {
+    width: 186px;
+    margin-bottom: 32px;
+    padding: 3px;
+    border-radius: 3px;
+    border: 1px solid black;
 }
-  @keyframes zoom {
-    from {transform:scale(0)} 
-    to {transform:scale(1)}
+
+.leftColumn, .rightColumn {
+    display: flex;
+    flex-direction: column;
+    color: black;
 }
+
+
