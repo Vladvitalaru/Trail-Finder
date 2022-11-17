@@ -14,6 +14,7 @@ def results():
 	if request.method == 'POST':
 		query = request.form.get("search")
 		url, title, length, image, state, county, description, styleID = mySearcher.search(query)
+	print(title)
 	return render_template('results.html', results = zip(url, title, length, image, state, county, description, styleID))
 
 @app.route('/advancedResults/', methods=['GET', 'POST'])
@@ -52,6 +53,6 @@ def page_not_found(e):
 if __name__ == '__main__':
 	#global mySearcher
 	mySearcher = MyWhooshSearcher()
-	mySearcher.build_index() # Use this to build index first then uncomment
-	#mySearcher.existing_index()
+	#mySearcher.build_index() # Use this to build index first then uncomment
+	mySearcher.existing_index()
 	app.run(debug=True)

@@ -19,10 +19,10 @@ class MyWhooshSearcher(object):
 
 	def search(self, queryEntered):
 		"""Yet to be updated, should be updated to a general search with all the necessary fields and an advanced search as two separate methods"""
-		url, title, length, image, state, county, description, styleID = ([] for _ in range(8))
-		for _ in range(0, 10): styleID.append(random.randint(1, 4)) # generate random styleID list for testing
+		url, title, length, image, state, county, description = ([] for _ in range(7))
+		styleID = [i for i in range(1,11)]
 		with self.indexer.searcher() as search:
-			query = MultifieldParser(['url', 'length', 'title', 'state', 'county', 'activities'], schema=self.indexer.schema)
+			query = MultifieldParser([ 'length', 'title', 'state', 'county', 'activities', 'content'], schema=self.indexer.schema)
 			query = query.parse(queryEntered)
 			results = search.search(query, limit=10)
 			for x in results:
@@ -44,9 +44,9 @@ class MyWhooshSearcher(object):
 	def build_index(self):
 		"""Creates a new index based on the file path given containing documents"""
 		corpus_path = "./files"
-		schema = Schema(url=ID(stored=True), title=TEXT(stored=True), length=NUMERIC(int, decimal_places=2,stored=True, signed=False), 
+		schema = Schema(url=STORED, title=TEXT(stored=True), length=NUMERIC(int, decimal_places=2,stored=True, signed=False), 
 			image=STORED, state=KEYWORD(stored=True,commas=True), county=KEYWORD(stored=True,commas=True), 
-			description=STORED, trail_surfaces=KEYWORD(commas=True), activities=KEYWORD(commas=True), content=KEYWORD)
+			description=STORED, trail_surfaces=KEYWORD(commas=True), activities=KEYWORD(commas=True), content=KEYWORD, cloud_path=STORED)
 		indexer = create_in('myIndex', schema)
 		writer = indexer.writer()
 		file_names = os.listdir(corpus_path)
@@ -63,15 +63,15 @@ class MyWhooshSearcher(object):
 					writer.add_document(url=json_dict['url'], title=json_dict['title'], length=len_dec,
 						image=image_url, state=json_dict['facts']['States'], county=json_dict['facts']['Counties'],
 						description=json_dict['description'], trail_surfaces=json_dict['facts']['Trail surfaces'],
-						activities=activity_string, content=json_dict['content'])
+						activities=activity_string, content=json_dict['content'], cloud_path = review_cloud_path)
 		writer.commit()
 		self.indexer = indexer
 
 if __name__ == '__main__':
-	# global mySearcher #may want to uncomment?
-	mySearcher = MyWhooshSearcher()
+	"""global mySearcher #may want to uncomment?
+	#mySearcher = MyWhooshSearcher()
 	#mySearcher.build_index()
-	mySearcher.existing_index()
+	#mySearcher.existing_index()
 	title, state, county = mySearcher.search('gorge')
 	for a,b,c in zip(title, state, county):
-		print(f'{a} {b} {c}')
+		print(f'{a} {b} {c}')"""
