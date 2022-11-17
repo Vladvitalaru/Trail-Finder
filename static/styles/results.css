@@ -97,7 +97,7 @@
 .TrailCard-cloud { 
     width: 210px;
     height: 160px;
-    background-image: url("/static/images/cloud.png");
+    background-image: url("/static/images/cloud/cloud.png");
     background-size: cover;
     background-position: center;
     display: block;
