@@ -13,9 +13,9 @@ def results():
 	# # global mySearcher
 	if request.method == 'POST':
 		query = request.form.get("search")
-		url, title, length, image, state, county, description, styleID = mySearcher.search(query, 1)
+		url, title, length, image, state, county, description, styleID, activity, surfaces, cloud, difficulty = mySearcher.search(query)
 	#print(title)
-	return render_template('results.html', results = zip(url, title, length, image, state, county, description, styleID))
+	return render_template('results.html', results = zip(url, title, length, image, state, county, description, styleID, activity, surfaces, cloud, difficulty))
 
 @app.route('/advancedResults/', methods=['GET', 'POST'])
 def advancedResults():
@@ -29,7 +29,7 @@ def advancedResults():
 		surfaces_input = request.form.get("surfaces")
 		advancedSearch_input = request.form.get("advancedSearch")
 
-		url, title, length, image, state, county, description, styleID = mySearcher.advanced_search((state_input, county_input, minlength_input, maxlength_input, 
+		url, title, length, image, state, county, description, styleID, activity, surfaces, cloud, difficulty = mySearcher.advanced_search((state_input, county_input, minlength_input, maxlength_input, 
 		activities_input, surfaces_input, advancedSearch_input))
 
 		#print("advancedResults")
@@ -45,7 +45,7 @@ def advancedResults():
 	county = ["Multnomah", "Washington","Multnomah" ]
 	descriptions = ["Peninsula Crossing Trail spans 5.1 from N. Carey Blvd. and N. Princeton St. to Columbia Slough Trail at N. Columbia Blvd.","Westside Trail spans 8.1 from Forest Park to Barrows Park.","Vera Katz Eastbank Esplanade spans 1.7 from Steel Bridge just west of NE Lloyd Blvd. to SE Caruthers St. just south of the Marquam Bridge."]
 	styleID = [1,2,3]"""
-	return render_template('advancedResults.html', results = zip(url, title, length, image, state, county, description, styleID) )
+	return render_template('advancedResults.html', results = zip(url, title, length, image, state, county, description, styleID, activity, surfaces, cloud, difficulty) ) #add review cloud and difficulty level
  
 #Handle error 404
 @app.errorhandler(404)
@@ -56,6 +56,6 @@ def page_not_found(e):
 if __name__ == '__main__':
 	#global mySearcher
 	mySearcher = MyWhooshSearcher()
-	#mySearcher.build_index() # Use this to build index first then uncomment
-	mySearcher.existing_index()
+	mySearcher.build_index() # Use this to build index first then uncomment
+	#mySearcher.existing_index()
 	app.run(debug=True)
