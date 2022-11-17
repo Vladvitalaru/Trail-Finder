@@ -22,7 +22,7 @@ class MyWhooshSearcher(object):
 		url, title, length, image, state, county, description, styleID = ([] for _ in range(8))
 		for _ in range(0, 10): styleID.append(random.randint(1, 4)) # generate random styleID list for testing
 		with self.indexer.searcher() as search:
-			query = MultifieldParser(['url', 'length', 'title', 'image', 'state', 'county', 'description', 'activities'], schema=self.indexer.schema)
+			query = MultifieldParser(['url', 'length', 'title', 'state', 'county', 'activities'], schema=self.indexer.schema)
 			query = query.parse(queryEntered)
 			results = search.search(query, limit=10)
 			for x in results:
@@ -45,8 +45,8 @@ class MyWhooshSearcher(object):
 		"""Creates a new index based on the file path given containing documents"""
 		corpus_path = "./files"
 		schema = Schema(url=ID(stored=True), title=TEXT(stored=True), length=NUMERIC(int, decimal_places=2,stored=True, signed=False), 
-			image=TEXT(stored=True), state=KEYWORD(stored=True,commas=True), county=KEYWORD(stored=True,commas=True), 
-			description=TEXT(stored=True), trail_surfaces=KEYWORD(commas=True), activities=KEYWORD(commas=True), content=KEYWORD)
+			image=STORED, state=KEYWORD(stored=True,commas=True), county=KEYWORD(stored=True,commas=True), 
+			description=STORED, trail_surfaces=KEYWORD(commas=True), activities=KEYWORD(commas=True), content=KEYWORD)
 		indexer = create_in('myIndex', schema)
 		writer = indexer.writer()
 		file_names = os.listdir(corpus_path)
