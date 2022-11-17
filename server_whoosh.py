@@ -8,7 +8,6 @@ app = Flask(__name__)
 def index():
 	return render_template('Home.html')
 
-
 @app.route('/results/', methods=['GET', 'POST'])
 def results():
 	# # global mySearcher
