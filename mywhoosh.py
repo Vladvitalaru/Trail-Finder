@@ -17,15 +17,15 @@ class MyWhooshSearcher(object):
 	def __init__(self):
 		super(MyWhooshSearcher, self).__init__()
 
-	def search(self, queryEntered, pageNum):
-		"""Yet to be updated, should be updated to a general search with all the necessary fields and an advanced search as two separate methods"""
-		url, title, length, image, state, county, description = ([] for _ in range(7))
+	def search(self, queryEntered):
+		"""General search with all the necessary fields"""
+		url, title, length, image, state, county, description, activity, surfaces, cloud, difficulty = ([] for _ in range(11))
 		styleID = [i for i in range(1,11)]
 		with self.indexer.searcher() as search:
 			query = MultifieldParser([ 'length', 'title', 'state', 'county', 'activities', 'content'], schema=self.indexer.schema)
 			query = query.parse(queryEntered)
-			page = search.search_page(query, pageNum, pagelen=20)
-			for x in page.results:
+			results = search.search(query, limit=None)
+			for x in results:
 				if x['url'].endswith('trail-detail-reviews'): pass #will want to remove once crawler is fixed
 				else:
 					url.append(x['url'])
@@ -35,10 +35,21 @@ class MyWhooshSearcher(object):
 					state.append(x['state'])
 					county.append(x['county'])
 					description.append(x['description'])
-		return url, title, length, image, state, county, description, styleID
+					activity.append(x['activities'])
+					surfaces.append(x['trail_surfaces'])
+					cloud.append(x['cloud_path'])
+					len = float(x['length'])
+					if len < 5:
+						difficulty.append('easy')
+					elif len < 10:
+						difficulty.append('medium')
+					else:
+						difficulty.append('hard')
+
+		return url, title, length, image, state, county, description, styleID, activity, surfaces, cloud, difficulty
 
 	def advanced_search(self, queryEntered: tuple): #queryEntered = (state, county, minLength, maxLength, activities, surfaces, advSearch)
-		url, title, length, image, state, county, description = ([] for _ in range(7))
+		url, title, length, image, state, county, description, activity, surfaces, cloud, difficulty = ([] for _ in range(11))
 		styleID = [i for i in range(1,11)]
 		matched=list()
 
@@ -58,7 +69,7 @@ class MyWhooshSearcher(object):
 			general_query = general_query.parse(queryEntered[6])
 
 
-			results = search.search(state_query, limit=None)
+			results = search.search(state_query, limit=None) #make intersection
 			county_results = search.search(county_query, limit=None)
 			length_results = search.search(length_query, limit=None)
 			activity_results = search.search(activity_query, limit=None)
@@ -80,11 +91,22 @@ class MyWhooshSearcher(object):
 					state.append(x['state'])
 					county.append(x['county'])
 					description.append(x['description'])
+					activity.append(x['activities'])
+					surfaces.append(x['trail_surfaces'])
+					cloud.append(x['cloud_path'])
+					len = float(x['length'])
+					if len < 5:
+						difficulty.append('easy')
+					elif len < 10:
+						difficulty.append('medium')
+					else:
+						difficulty.append('hard')
+
 					#matching = []
 					#for term in x.matched_terms():
 						#matching.append(str(term[1]).lstrip('b'))
 					#matched.append(','.join(matching))
-		return url, title, length, image, state, county, description, styleID
+		return url, title, length, image, state, county, description, styleID, activity, surfaces, cloud, difficulty
 
 
 	def existing_index(self):
@@ -96,7 +118,7 @@ class MyWhooshSearcher(object):
 		corpus_path = "./files"
 		schema = Schema(url=STORED, title=TEXT(stored=True), length=NUMERIC(int, decimal_places=2,stored=True, signed=False), 
 			image=STORED, state=KEYWORD(stored=True,commas=True), county=KEYWORD(stored=True,commas=True), 
-			description=STORED, trail_surfaces=KEYWORD(commas=True), activities=KEYWORD(commas=True), content=KEYWORD, cloud_path=STORED)
+			description=STORED, trail_surfaces=KEYWORD(commas=True,stored=True), activities=KEYWORD(commas=True,stored=True), content=KEYWORD, cloud_path=STORED)
 		indexer = create_in('myIndex', schema)
 		writer = indexer.writer()
 		file_names = os.listdir(corpus_path)
