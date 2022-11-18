@@ -34,7 +34,7 @@
 	<!-- Search Bar, filter and search Button -->
 	<div class="inputs">
 
-		<form id="search" action="{{ url_for('results') }}" method="post">
+		<form id="search" autocomplete="off" action="{{ url_for('results') }}" method="post">
 			<button class="filterButton" type="button" name="filter" onclick="openFilters()"> <i class="fa-solid fa-bars"></i> </button>
 			<input type="text" placeholder="Discover your next adventure" name="search">
 			<button class="searchButton" type="submit" value="submit" for='search'> <i class="fa fa-search"></i> </button>
@@ -54,7 +54,7 @@
 
 			<div class="filterOptions">
 
-				<form id="advancedSearch" action="{{ url_for('advancedResults') }}" method="post">
+				<form id="advancedSearch" action="{{ url_for('advancedResults') }}" method="post" autocomplete="off">
 				
 					<div class="leftColumn">
 							<label for="state"> State </label>

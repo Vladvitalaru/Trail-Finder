@@ -1,4 +1,6 @@
 // Main Scripts
+
+//Enlarge images
 function enlarge(id) {
     let imgID = "myModal" + id.toString();
     let modal = document.getElementById(imgID);
@@ -11,6 +13,7 @@ function enlarge(id) {
        }
 }
 
+//Open/close advanced filters
 function openFilters() {
     let filterModal = document.getElementById("filterModal");
     console.log(filterModal);
@@ -19,10 +22,7 @@ function openFilters() {
     let filterClose = document.getElementById("closeFilter");
     filterClose.onclick = function() {
         filterModal.style.display = "none";
-        
-
     }
-
 }
 
 let titles = [
@@ -53,11 +53,8 @@ inputBox.onkeyup = (e)=> {
         emptyArray = emptyArray.map((data)=>{
             return data = '<li>' + data + '</li>';
         });
-        console.log(emptyArray);
-        // suggestionsBox.classList.add("active");
 
         showSuggestions(emptyArray);
-
         let allList = suggestionsBox.querySelectorAll("li");
         console.log(allList)
         for (let i = 0; i < allList.length; i++) {
@@ -70,14 +67,12 @@ inputBox.onkeyup = (e)=> {
 }
 
 function select(element) {
-    let selectUserData = element.textContent
-    console.log(selectUserData)
+    let selectUserData = element.textContent;
     inputBox.value = selectUserData; // set input as clicked suggestion
 }
 
 function showSuggestions(list) {
     let listData;
-
     // Show own input if no suggestions
     if(!list.length) {
         userInput = inputBox.value;
@@ -86,8 +81,8 @@ function showSuggestions(list) {
     // if more than 5 suggestions, only show 5
     }else if (list.length >= 5) {
 
-        let max = 5
-        let spliced = []
+        let max = 5;
+        let spliced = [];
 
         for (var i = 0; i < max; i++) {
             spliced.push(list[i]);
@@ -103,6 +98,5 @@ function showSuggestions(list) {
     if (typeof listData === 'undefined') {
        listData = '<li> </li>';
     };
- 
     suggestionsBox.innerHTML = listData;
 }
