@@ -70,6 +70,27 @@
     margin-top: 20px;
     align-items: center;
 }
+
+.suggestionsBox li{
+    background: #f1f1f1;
+    list-style: none;
+    padding-bottom: 5px;
+    padding-left: 16px;
+    width: 430px;
+    margin-left: 52px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 22px;
+
+}
+
+.suggestionsBox li:hover{
+    /* list-style: none;
+    padding: 8px;
+    width: 430px;
+    margin-left: 52px; */
+    background: #c4c3c3;
+
+}
   
 form#filter button:hover {
     background: #737373;
