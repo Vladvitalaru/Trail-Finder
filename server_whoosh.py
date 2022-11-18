@@ -56,6 +56,6 @@ def page_not_found(e):
 if __name__ == '__main__':
 	#global mySearcher
 	mySearcher = MyWhooshSearcher()
-	mySearcher.build_index() # Use this to build index first then uncomment
-	#mySearcher.existing_index()
+	#mySearcher.build_index() # Use this to build index first then uncomment
+	mySearcher.existing_index()
 	app.run(debug=True)

@@ -10,6 +10,9 @@ from whoosh import qparser
 import os
 import re
 import json
+import matplotlib.pyplot as plotter
+from wordcloud import WordCloud
+from wordcloud import STOPWORDS
 
 
 class MyWhooshSearcher(object):
@@ -59,8 +62,6 @@ class MyWhooshSearcher(object):
 			county_query = QueryParser('county', schema=self.indexer.schema)
 			county_query = county_query.parse(queryEntered[1])
 			length_query = NumericRange('length', queryEntered[2], queryEntered[3])
-			#length_query = QueryParser('length', schema=self.indexer.schema)
-			#length_query = length_query.parse(queryEntered[2] + ':' + queryEntered[3])
 			activity_query = QueryParser('activities', schema=self.indexer.schema)
 			activity_query = activity_query.parse(queryEntered[4])
 			surface_query = QueryParser('trail_surfaces', schema=self.indexer.schema)
@@ -122,6 +123,7 @@ class MyWhooshSearcher(object):
 		indexer = create_in('myIndex', schema)
 		writer = indexer.writer()
 		file_names = os.listdir(corpus_path)
+		titles_for_keyword = []
 		for name in file_names:
 			full_path = os.path.join(corpus_path, name)
 			if os.path.isfile(full_path): #make sure we aren't reading directories
@@ -130,20 +132,41 @@ class MyWhooshSearcher(object):
 					if len(json_dict['images']) > 0: image_url = json_dict['images'][0]
 					else: image_url = "https://www.traillink.com/images/tl/placeholders/No_Photo_Image_Thumbnail-trimmed.jpg"
 					activity_string = ",".join(json_dict['facts']['activities'])
-					review_cloud_path = "cloud.png" #temporary path based on our current default word cloud image
+					review = "".join(json_dict['reviews'])
+					review.strip()
+					review_cloud_path = name.rstrip('.txt') + '.png'
+					if os.path.exists('./static/images/cloud/' + review_cloud_path): pass
+					elif len(review) > 0:
+						review = "".join(json_dict['reviews'])
+						stopwords = set(STOPWORDS)
+						stopwords.add('trail')
+						word_cloud = WordCloud(width = 800, height = 600,
+						background_color='white', stopwords = stopwords,
+						min_font_size = 10).generate(review)
+						plotter.figure(figsize=(8,6), facecolor = None)
+						plotter.imshow(word_cloud)
+						plotter.axis('off')
+						plotter.tight_layout(pad=0)
+						plotter.savefig('./static/images/cloud/' + review_cloud_path)
+						plotter.close()
+					else: review_cloud_path = "cloud.png" #temporary path based on our current default word cloud image
 					len_dec = Decimal(json_dict['facts']['Length'].rstrip(" miles"))
 					writer.add_document(url=json_dict['url'], title=json_dict['title'], length=len_dec,
 						image=image_url, state=json_dict['facts']['States'], county=json_dict['facts']['Counties'],
 						description=json_dict['description'], trail_surfaces=json_dict['facts']['Trail surfaces'],
 						activities=activity_string, content=json_dict['content'], cloud_path = review_cloud_path)
+					titles_for_keyword.append(json_dict['title'])
 		writer.commit()
 		self.indexer = indexer
+		with open('./titles.txt', 'w') as f:
+			for line in titles_for_keyword:
+				f.write("\"" + line + "\",\n")
 
 if __name__ == '__main__':
 	#global mySearcher #may want to uncomment?
 	mySearcher = MyWhooshSearcher()
-	#mySearcher.build_index()
-	mySearcher.existing_index()
-	url, title, length, image, state, county, description, styleID = mySearcher.advanced_search(('Maine', 'Aroostook', 0, 200, 'ATV', 'Gravel', 'moose'))
+	mySearcher.build_index()
+	#mySearcher.existing_index()
+	"""url, title, length, image, state, county, description, styleID = mySearcher.advanced_search(('Maine', 'Aroostook', 0, 200, 'ATV', 'Gravel', 'moose'))
 	for a,b,c,d,e,f,g,h in zip(url, title, length, image, state, county, description, styleID):
-		print(f'{a} {b} {c} {d} {e} {f} {g} {h}')
+		print(f'{a} {b} {c} {d} {e} {f} {g} {h}')"""
