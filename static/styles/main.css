@@ -76,18 +76,14 @@
     list-style: none;
     padding-bottom: 5px;
     padding-left: 16px;
-    width: 430px;
-    margin-left: 52px;
+    width: 431px;
+    margin-left: 51px;
     font-family: 'Roboto', sans-serif;
     font-size: 22px;
 
 }
 
 .suggestionsBox li:hover{
-    /* list-style: none;
-    padding: 8px;
-    width: 430px;
-    margin-left: 52px; */
     background: #c4c3c3;
 
 }
@@ -202,6 +198,8 @@ form#search::after {
     font-family: 'Roboto', sans-serif;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
+    border-left: none; /* Prevent double borders */
+
 }
 .advancedSearchButton:hover, .advancedSearchButton:focus {
     color: #bbb;
