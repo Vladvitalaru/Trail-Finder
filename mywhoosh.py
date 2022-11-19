@@ -43,11 +43,11 @@ class MyWhooshSearcher(object):
 					cloud.append(x['cloud_path'])
 					len = float(x['length'])
 					if len < 5:
-						difficulty.append('easy')
-					elif len < 10:
-						difficulty.append('medium')
+						difficulty.append('Easy')
+					elif len < 15:
+						difficulty.append('Medium')
 					else:
-						difficulty.append('hard')
+						difficulty.append('Hard')
 
 		return url, title, length, image, state, county, description, styleID, activity, surfaces, cloud, difficulty
 
@@ -97,11 +97,11 @@ class MyWhooshSearcher(object):
 					cloud.append(x['cloud_path'])
 					len = float(x['length'])
 					if len < 5:
-						difficulty.append('easy')
-					elif len < 10:
-						difficulty.append('medium')
+						difficulty.append('Easy')
+					elif len < 12:
+						difficulty.append('Medium')
 					else:
-						difficulty.append('hard')
+						difficulty.append('Hard')
 
 					#matching = []
 					#for term in x.matched_terms():

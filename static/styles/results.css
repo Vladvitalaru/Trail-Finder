@@ -14,7 +14,7 @@
 }
 
 .TrailCard-header {
-    background-color: #1B8D20;
+    /* background-color: #1B8D20; */
     width: 920px;
     height: 50px;
     border-bottom: 1px solid grey;
@@ -50,6 +50,16 @@
     font-weight: bold; 
     margin-right: 50px;
     width: 90px
+}
+.Easy {
+    background-color: #1B8D20;
+
+}
+.Medium {
+    background-color: #E77F16
+}
+.Hard {
+    background-color: rgb(249, 16, 16);
 }
 .TrailCard-body {
     display: flex;

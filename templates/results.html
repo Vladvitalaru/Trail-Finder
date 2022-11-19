@@ -7,10 +7,10 @@
 	{% for url, title, length, image, state, county, description, styleID, activity, surfaces, cloud, difficulty in results %}
 	<div class="TrailCard">
 		
-		<div class="TrailCard-header"> 	
+		<div class="TrailCard-header {{difficulty}}"> 	
 			<span class="length"> {{length}} Miles </span>
 			<h2> {{title}} </h2>
-			<span class="difficulty"> Easy  </span>
+			<span class="difficulty"> {{difficulty}} </span>
 		</div>
 		
 		<div class="TrailCard-body">

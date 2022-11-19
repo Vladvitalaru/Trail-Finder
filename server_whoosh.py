@@ -14,7 +14,7 @@ def results():
 	if request.method == 'POST':
 		query = request.form.get("search")
 		url, title, length, image, state, county, description, styleID, activity, surfaces, cloud, difficulty = mySearcher.search(query)
-	#print(title)
+  
 	return render_template('results.html', results = zip(url, title, length, image, state, county, description, styleID, activity, surfaces, cloud, difficulty))
 
 @app.route('/advancedResults/', methods=['GET', 'POST'])
