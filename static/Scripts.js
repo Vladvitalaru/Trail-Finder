@@ -13,6 +13,19 @@ function enlarge(id) {
        }
 }
 
+//Enlarge cloud
+function enlargeCloud(id) {
+    let imgID = "modal" + id.toString();
+    let modal = document.getElementById(imgID);
+    modal.style.display = "block";
+
+    let close = "close" + id.toString();
+    let closeButton = document.getElementById(close);
+    closeButton.onclick = function() { 
+        modal.style.display = "none";
+       }
+}
+
 //Open/close advanced filters
 function openFilters() {
     let filterModal = document.getElementById("filterModal");

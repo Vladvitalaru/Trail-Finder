@@ -29,8 +29,7 @@
     font-size: 1.5em;
     margin-top: auto;
     margin-bottom: auto;
-    font-family: 'Recoleta', sans-serif;
-
+    font-family: 'Roboto', sans-serif; 
 }
 
 .TrailCard-header .length {
@@ -63,7 +62,6 @@
 .TrailCard-image {  
     width: 210px;
     height: 160px;
-    /* background-image: url("/static/images/marine.jpg"); */
     background-size: cover;
     display: block;
     border: 0px;
@@ -116,10 +114,9 @@
     top: 0;
     width: 100%; 
     height: 100%; 
-    overflow: auto; 
     background-color: rgb(0,0,0); 
     background-color: rgba(0,0,0,.92); 
-  }
+}
 .modal-content {
     margin: auto;
     display: block;
@@ -152,7 +149,7 @@
     font-size: 22px;
     font-family: 'Roboto', sans-serif;
 }
-.modal-content, #caption {  
+.modal-content, #caption, .cloud-content {  
     -webkit-animation-name: zoom;
     -webkit-animation-duration: 07s;
     animation-name: zoom;
@@ -166,3 +163,21 @@
     from {transform:scale(0)} 
     to {transform:scale(1)}
 }
+.cloud-content {
+    margin: auto;
+    display: block;;
+    max-height: 800px;
+    max-width: 800px;
+}
+.cloud-modal {
+    display: none; 
+    position: fixed; 
+    z-index: 1; 
+    padding-top: 120px; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    background-color: rgb(0,0,0); 
+    background-color: rgba(0,0,0,.92); 
+  }

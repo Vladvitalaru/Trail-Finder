@@ -22,14 +22,19 @@
 				<p> {{description}} </p>
 				<a href=" {{url}} "> TrailLink page </a></a>
 			</div>
-			<div class="TrailCard-cloud" style="background-image: url( /static/images/cloud/{{cloud}} )"> </div>
+			<div class="TrailCard-cloud" id="Cloud{{styleID}}" style="background-image: url( /static/images/cloud/{{cloud}} )"  onclick="enlargeCloud(id)"> </div>
 		</div>
-		
 	</div>
 
 	<div id="myModalImg{{styleID}}" class="modal">
 		<span class="close" id="closeImg{{styleID}}">&times;</span>
 		<img class="modal-content" style="background-image: url( {{image}} )" src="{{image}}">
+		<div id="caption"> {{title}}</div> 
+	</div>
+
+	<div id="modalCloud{{styleID}}" class="cloud-modal">
+		<span class="close" id="closeCloud{{styleID}}">&times;</span>
+		<img class="cloud-content" style="background-image: url( /static/images/cloud/{{cloud}} )" src="/static/images/cloud/{{cloud}}">
 		<div id="caption"> {{title}}</div> 
 	</div>
 
