@@ -6,9 +6,7 @@ from whoosh.fields import *
 from whoosh.query import NumericRange
 from whoosh.qparser import QueryParser
 from whoosh.qparser import MultifieldParser
-from whoosh import qparser
 import os
-import re
 import json
 import matplotlib.pyplot as plotter
 from wordcloud import WordCloud

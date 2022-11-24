@@ -2,12 +2,9 @@ import requests
 from bs4 import BeautifulSoup
 import queue
 import json
-import pickle
-import pandas as pd
 import networkx as nx
 from urllib import parse
 from urllib import robotparser #json library can dump dictionary into xml, pickle can save as object
-import time
 import socket
 import os
 import signal
