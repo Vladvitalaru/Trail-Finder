@@ -41,14 +41,15 @@ class MyWhooshSearcher(object):
 					activity.append(x['activities'])
 					surfaces.append(x['trail_surfaces'])
 					cloud.append(x['cloud_path'])
-					len = float(x['length'])
-					if len < 5:
-						difficulty.append('Easy')
-					elif len < 15:
-						difficulty.append('Medium')
+					len_for_diff = float(x['length'])
+					if len_for_diff < 8:
+						difficulty.append('easy')
+					elif len_for_diff < 15:
+						difficulty.append('medium')
 					else:
 						difficulty.append('Hard')
 
+		styleID = [i for i in range(1,len(url)+1)]
 		return url, title, length, image, state, county, description, styleID, activity, surfaces, cloud, difficulty
 
 	def advanced_search(self, queryEntered: tuple): #queryEntered = (state, county, minLength, maxLength, activities, surfaces, advSearch)
