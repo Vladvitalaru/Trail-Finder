@@ -2,6 +2,9 @@ import requests
 from bs4 import BeautifulSoup
 import queue
 import json
+import pickle
+import pandas as pd
+import networkx as nx
 from urllib import parse
 from urllib import robotparser #json library can dump dictionary into xml, pickle can save as object
 import time
@@ -27,21 +30,24 @@ def main():
 
     q = queue.Queue()
     for link in seed:
-        q.put(link)
+        q.put((link, ""))
     breadth_first_crawl(q, path, num_pages)
 
 def breadth_first_crawl(q: queue.Queue, path: str, num_pages: int):     #this method follows the basic algorithm outlined in the slides with the exception of not building an index
     url: str
+    parent: str
     count: int
     file_path = path + '/files'
-    adj_sites = {}
+    #adj_sites = {}
+    adj_sites = nx.DiGraph()
     robot_dict: dict[str, (list[str], robotparser.RobotFileParser)] = {}    #this dictionary will store the hostname as a key and the value will be a tuple containing a list of urls belonging to a hostname as well as a robot object
     count = 0
     signal.signal(signal.SIGINT, ExitHandler((path, adj_sites)))            #allows user to press CTRL+C in order to exit program while running while still saving the adjacency matrix
     hostname_crawlable_dict = {'www.traillink.com': 'https://www.traillink.com/trail/'}
+    queue_stop = {'https://www.traillink.com/membership', 'https://www.traillink.com/profiles', 'https://www.traillink.com/mobile-apps' 'https://www.traillink.com/splash/'} #don't bother adding these to the queue
 
     while (not q.empty() and count < num_pages):
-        url = q.get()
+        url, parent = q.get()
         print(f'Popping {url} from Queue')
         split_url = parse.urlsplit(url)
         #print(f'{split_url.hostname}')
@@ -51,7 +57,7 @@ def breadth_first_crawl(q: queue.Queue, path: str, num_pages: int):     #this me
                 robot = robot_dict[split_url.hostname][1] #assign pre-created robot object to current url
             else:
                 robot = get_robot(split_url.scheme, split_url.hostname)
-                robot_dict[split_url.hostname] = ([], robot)
+                robot_dict[split_url.hostname] = (set(), robot)
 
             if robot is not None and url not in robot_dict[split_url.hostname][0]: #ensures we have a proper robots.txt and url has not been visited yet
                 if robot.can_fetch('*', url):
@@ -67,37 +73,47 @@ def breadth_first_crawl(q: queue.Queue, path: str, num_pages: int):     #this me
                             if 'text/html' in content_type:                     #continue loop if page grabbed is not of correct type
                                 print(f'Adding {url} to visited list.')
                                 file_contents = {}  #empty dict that will store everything we grab from the page
-                                robot_dict[split_url.hostname][0].append(url)
+                                robot_dict[split_url.hostname][0].add(url)
                                 bs = BeautifulSoup(raw_page.text, 'lxml')
                                 #check here if crawled page is of correct type
                                 if(split_url.hostname in hostname_crawlable_dict and url.startswith(hostname_crawlable_dict[split_url.hostname])):
+                                    if parent != "":
+                                        if not adj_sites.has_node(parent):       #check if nodes already exist
+                                            adj_sites.add_node(parent) 
+                                        if not adj_sites.has_node(url):
+                                            adj_sites.add_node(url)
+                                        adj_sites.add_edge(parent, url)         #add edge between nodes for pagerank
                                     count += 1
                                     print(f'Number of pages crawled: {count}')
                                     url_filename = url.replace("/", "").replace(":", "").replace("?", "")
-                                    if len(url_filename) >= 200:                        #hash filename to fit linux max filename size
+                                    if len(url_filename) >= 200:                        #hash filename to comfortably fit max filename size
                                         url_filename = str(hash(url_filename))
                                     is_crawlable = trail_link_crawl(file_contents, bs, url)
                                     if is_crawlable is True:
                                         with open(f'{file_path}/{url_filename}.txt', 'w') as f:
-                                            json.dump(file_contents, f) #instead of writing line by line, why not take advantage of JSON?
+                                            json.dump(file_contents, f) #can't use pickle here without changing how file contents are stored
                                     else:
                                         count -=1               #wasn't able to crawl page, have to decrement count
                                 for link in bs.find_all('a'): #gets all anchor text
-                                    cleaned_link = link.get('href')
+                                    cleaned_link:str = link.get('href') #ensure it's a trail finder link here
                                     if cleaned_link is not None and cleaned_link != "":
                                         if cleaned_link[0] == '/':
                                             cleaned_link = parse.urljoin(url, cleaned_link)
-                                            cleaned_link_domain = parse.urlsplit(cleaned_link).hostname
-                                        if 'http' in cleaned_link and cleaned_link_domain == split_url.hostname:
-                                            if cleaned_link not in adj_sites:       #create new linked list to store adjacencies
-                                                adj_sites[cleaned_link] = [url]
-                                            else:                                   #append to existing list and replace
-                                                if url not in adj_sites[cleaned_link]:
-                                                    adj_sites[cleaned_link].append(url) 
-                                            q.put(cleaned_link)
+                                        cleaned_link = parse.urlsplit(cleaned_link)
+                                        cleaned_link_domain = cleaned_link.hostname
+                                        if cleaned_link.fragment != '' or cleaned_link.query != '':
+                                            cleaned_link = parse.SplitResult(cleaned_link.scheme, cleaned_link.netloc, cleaned_link.path, '', '')
+                                        cleaned_link = parse.urlunsplit(cleaned_link)
+                                        if 'http' in cleaned_link and cleaned_link_domain == split_url.hostname: #check if within domain
+                                            isStopped = False
+                                            for stop_link in queue_stop:
+                                                if stop_link in cleaned_link:
+                                                    isStopped = True
+                                                    break
+                                            if isStopped == False:
+                                                q.put((cleaned_link, url))
     print(f'Dumping adjacency matrix to \'adjacent_links\' in current directory.')
-    with open(f'{path}/adjacent_links', 'w') as f:
-        json.dump(adj_sites, f)
+    nx.write_gpickle(adj_sites, "adjacent_links.gpickle")
 
 def trail_link_crawl(file_contents, bs, url):
     """Will crawl the trail page on traillink, won't work for any other page"""
@@ -192,8 +208,7 @@ class ExitHandler:                          #saves current state of adjacency ma
         self.my_tuple = tuple
     def __call__(self, signo, frame):
         print(f'Dumping adjacency matrix to \'adjacent_links\' in current directory.')
-        with open(f'{self.my_tuple[0]}/adjacent_links', 'w') as f:
-            json.dump(self.my_tuple[1], f)
+        nx.write_gpickle(self.my_tuple[1], "adjacent_links.gpickle")
         os._exit(0)
 
 
