@@ -36,7 +36,7 @@ class MyWhooshSearcher(object):
 					state.append(x['state'])
 					county.append(x['county'])
 					description.append(x['description'])
-					activity.append(x['activities'])
+					activity.append(x['activities'].replace(',' , ', '))
 					surfaces.append(x['trail_surfaces'])
 					cloud.append(x['cloud_path'])
 					len_for_diff = float(x['length'])
@@ -46,7 +46,6 @@ class MyWhooshSearcher(object):
 						difficulty.append('Medium')
 					else:
 						difficulty.append('Hard')
-
 		styleID = [i for i in range(1,len(url)+1)]
 		return url, title, length, image, state, county, description, styleID, activity, surfaces, cloud, difficulty
 

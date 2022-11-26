@@ -74,7 +74,7 @@
 							<label for="maxLength"> Max Length </label>
 							<input type="text" name="maxLength">
 
-							<label for="surfaces"> Surfaces </label>
+							<label for="surfaces"> Terrain </label>
 							<input type="text" name="surfaces">
 					</div> 
 			</div>
@@ -86,13 +86,15 @@
 			</form>
 		</div>
 		<span class="close" id="closeFilter">&times;</span>
-
 	</div>
 
 	{% block information %}
-	<!-- <h1>Example</h1> -->
+	<div class="introText">
+		<p> Search for trails all around the US! <br> Utilize the advanced search to narrow down preferences based on state, distance, activities & terrain.  </p>
+	</div>
 	{% endblock %}
 	
+	<!-- Cards to be inserted -->
 	{% block cards %} {% endblock %}
 
 	<script src="{{url_for('static', filename='Scripts.js')}}">

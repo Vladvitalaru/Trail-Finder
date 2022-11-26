@@ -89,18 +89,28 @@
     justify-content: space-between;
 }
 .TrailCard-description h3 {
-    margin-top: 8px;
+    margin-top: 4px;
+    margin-bottom: 2px;
     font-weight: 700;
-    font-size: 17px;
+    font-size: 16px;
+}
+.TrailCard-description h4 {
+    margin-top: 4px;
+    margin-bottom: 5px;
+    font-weight: 700;
+    font-size: 14px;
 }
 .TrailCard-description p {
     height: 60px;
-    margin-top: 0%;
+    margin-top: 0px;
+    margin-bottom: 4px;
+    font-size: 14px;
 }
 .TrailCard-description a {
     color: #E77F16;
     margin-bottom: 3px;
     text-decoration: none;
+    font-size: 14px;
 }
 .TrailCard-cloud { 
     width: 210px;

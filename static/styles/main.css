@@ -69,6 +69,8 @@
     filter: drop-shadow(3px 3px 5px rgba(60, 60, 60, 0.3));
     margin-top: 20px;
     align-items: center;
+
+    z-index: 1;
 }
 
 .suggestionsBox li{
@@ -80,7 +82,6 @@
     margin-left: 51px;
     font-family: 'Roboto', sans-serif;
     font-size: 22px;
-
 }
 
 .suggestionsBox li:hover{
@@ -236,4 +237,20 @@ form#search::after {
     margin-right: 34px;
 }
 
+.introText {
+    font-family: 'Recoleta', sans-serif;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 750px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+    color: #1B8D20;  
+
+}
+.introText p {
+    font-size: 32px;
+}
 
