@@ -41,9 +41,9 @@ class MyWhooshSearcher(object):
 					cloud.append(x['cloud_path'])
 					len_for_diff = float(x['length'])
 					if len_for_diff < 8:
-						difficulty.append('easy')
+						difficulty.append('Easy')
 					elif len_for_diff < 15:
-						difficulty.append('medium')
+						difficulty.append('Medium')
 					else:
 						difficulty.append('Hard')
 
