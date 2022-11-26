@@ -1,6 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
-import queue
+from collections import deque
 import json
 import networkx as nx
 from urllib import parse
@@ -25,12 +25,12 @@ def main():
     path = os.path.dirname(__file__)
     os.makedirs(path + '/files', exist_ok=True)
 
-    q = queue.Queue()
+    q = deque()
     for link in seed:
-        q.put((link, ""))
+        q.append((link, ""))
     breadth_first_crawl(q, path, num_pages)
 
-def breadth_first_crawl(q: queue.Queue, path: str, num_pages: int):     #this method follows the basic algorithm outlined in the slides with the exception of not building an index
+def breadth_first_crawl(q: deque, path: str, num_pages: int):     #this method follows the basic algorithm outlined in the slides with the exception of not building an index
     url: str
     parent: str
     count: int
@@ -45,8 +45,8 @@ def breadth_first_crawl(q: queue.Queue, path: str, num_pages: int):     #this me
     hostname_crawlable_dict = {'www.traillink.com': 'https://www.traillink.com/trail/'}
     queue_stop = {'https://www.traillink.com/membership', 'https://www.traillink.com/profiles', 'https://www.traillink.com/mobile-apps' 'https://www.traillink.com/splash/'} #don't bother adding these to the queue
 
-    while (not q.empty() and count < num_pages):
-        url, parent = q.get()
+    while (q and count < num_pages):
+        url, parent = q.popleft()
         print(f'Popping {url} from Queue')
         
         split_url = parse.urlsplit(url)
@@ -102,7 +102,7 @@ def breadth_first_crawl(q: queue.Queue, path: str, num_pages: int):     #this me
                                                 isStopped = True
                                                 break
                                         if isStopped == False and cleaned_link not in visited_sites:
-                                            q.put((cleaned_link, url))
+                                            q.append((cleaned_link, url))
         elif url not in visited_sites: #url can't be split
             visited_sites.add(url)
 
