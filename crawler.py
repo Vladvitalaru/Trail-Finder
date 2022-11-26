@@ -2,12 +2,9 @@ import requests
 from bs4 import BeautifulSoup
 import queue
 import json
-import pickle
-import pandas as pd
 import networkx as nx
 from urllib import parse
 from urllib import robotparser #json library can dump dictionary into xml, pickle can save as object
-import time
 import socket
 import os
 import signal
@@ -38,9 +35,11 @@ def breadth_first_crawl(q: queue.Queue, path: str, num_pages: int):     #this me
     parent: str
     count: int
     file_path = path + '/files'
-    #adj_sites = {}
     adj_sites = nx.DiGraph()
-    robot_dict: dict[str, (list[str], robotparser.RobotFileParser)] = {}    #this dictionary will store the hostname as a key and the value will be a tuple containing a list of urls belonging to a hostname as well as a robot object
+    visited_sites = set()
+    #robot_dict: dict[str, (list[str], robotparser.RobotFileParser)] = {}    #this dictionary will store the hostname as a key and the value will be a tuple containing a list of urls belonging to a hostname as well as a robot object
+    traillink_main = parse.urlsplit('https://www.traillink.com')
+    robot = get_robot(traillink_main.scheme, traillink_main.hostname)
     count = 0
     signal.signal(signal.SIGINT, ExitHandler((path, adj_sites)))            #allows user to press CTRL+C in order to exit program while running while still saving the adjacency matrix
     hostname_crawlable_dict = {'www.traillink.com': 'https://www.traillink.com/trail/'}
@@ -49,69 +48,64 @@ def breadth_first_crawl(q: queue.Queue, path: str, num_pages: int):     #this me
     while (not q.empty() and count < num_pages):
         url, parent = q.get()
         print(f'Popping {url} from Queue')
+        
         split_url = parse.urlsplit(url)
-        #print(f'{split_url.hostname}')
 
-        if split_url is not None:
-            if split_url.hostname in robot_dict:
-                robot = robot_dict[split_url.hostname][1] #assign pre-created robot object to current url
-            else:
-                robot = get_robot(split_url.scheme, split_url.hostname)
-                robot_dict[split_url.hostname] = (set(), robot)
+        if split_url is not None and url not in visited_sites:
+            visited_sites.add(url)
+            if robot.can_fetch('*', url):
+                print(f'Currently in: {url}')
+                #delay_time = robot.crawl_delay('*')
+                #if delay_time is not None and delay_time <= 15:             #limiting to 15 because certain websites have 30 seconds of delay yet don't ban for breaking the rule
+                    #time.sleep(delay_time)
+                raw_page = get_page(url)
+                if raw_page is not None:
+                    content_type = raw_page.headers.get('content-type')
+                    if content_type is not None:
+                        print(f'URL is of type: {content_type}')
+                        if 'text/html' in content_type:                     #continue loop if page grabbed is not of correct type
+                            file_contents = {}  #empty dict that will store everything we grab from the page
+                            
+                            bs = BeautifulSoup(raw_page.text, 'lxml')
+                            if(split_url.hostname in hostname_crawlable_dict and url.startswith(hostname_crawlable_dict[split_url.hostname])):
+                                if parent != "":
+                                    if not adj_sites.has_node(parent):       #check if nodes already exist
+                                        adj_sites.add_node(parent) 
+                                    if not adj_sites.has_node(url):
+                                        adj_sites.add_node(url)
+                                    adj_sites.add_edge(parent, url)         #add edge between nodes for pagerank
+                                count += 1
+                                print(f'Number of pages crawled: {count}')
+                                url_filename = url.replace("/", "").replace(":", "").replace("?", "")
+                                if len(url_filename) >= 200:                        #hash filename to comfortably fit max filename size
+                                    url_filename = str(hash(url_filename))
+                                is_crawlable = trail_link_crawl(file_contents, bs, url)
+                                if is_crawlable is True:
+                                    with open(f'{file_path}/{url_filename}.txt', 'w') as f:
+                                        json.dump(file_contents, f) #can't use pickle here without changing how file contents are stored
+                                else:
+                                    count -=1               #wasn't able to crawl page, have to decrement count
+                            for link in bs.find_all('a'): #gets all anchor text
+                                cleaned_link:str = link.get('href') #ensure it's a trail finder link here
+                                if cleaned_link is not None and cleaned_link != "":
+                                    if cleaned_link[0] == '/':
+                                        cleaned_link = parse.urljoin(url, cleaned_link)
+                                    cleaned_link = parse.urlsplit(cleaned_link)
+                                    cleaned_link_domain = cleaned_link.hostname
+                                    if cleaned_link.fragment != '' or cleaned_link.query != '':
+                                        cleaned_link = parse.SplitResult(cleaned_link.scheme, cleaned_link.netloc, cleaned_link.path, '', '')
+                                    cleaned_link = parse.urlunsplit(cleaned_link)
+                                    if 'http' in cleaned_link and cleaned_link_domain == split_url.hostname: #check if within domain
+                                        isStopped = False
+                                        for stop_link in queue_stop:
+                                            if stop_link in cleaned_link:
+                                                isStopped = True
+                                                break
+                                        if isStopped == False and cleaned_link not in visited_sites:
+                                            q.put((cleaned_link, url))
+        elif url not in visited_sites: #url can't be split
+            visited_sites.add(url)
 
-            if robot is not None and url not in robot_dict[split_url.hostname][0]: #ensures we have a proper robots.txt and url has not been visited yet
-                if robot.can_fetch('*', url):
-                    print(f'Currently in: {url}')
-                    #delay_time = robot.crawl_delay('*')
-                    #if delay_time is not None and delay_time <= 15:             #limiting to 15 because certain websites have 30 seconds of delay yet don't ban for breaking the rule
-                        #time.sleep(delay_time)
-                    raw_page = get_page(url)
-                    if raw_page is not None:
-                        content_type = raw_page.headers.get('content-type')
-                        if content_type is not None:
-                            print(f'URL is of type: {content_type}')
-                            if 'text/html' in content_type:                     #continue loop if page grabbed is not of correct type
-                                print(f'Adding {url} to visited list.')
-                                file_contents = {}  #empty dict that will store everything we grab from the page
-                                robot_dict[split_url.hostname][0].add(url)
-                                bs = BeautifulSoup(raw_page.text, 'lxml')
-                                #check here if crawled page is of correct type
-                                if(split_url.hostname in hostname_crawlable_dict and url.startswith(hostname_crawlable_dict[split_url.hostname])):
-                                    if parent != "":
-                                        if not adj_sites.has_node(parent):       #check if nodes already exist
-                                            adj_sites.add_node(parent) 
-                                        if not adj_sites.has_node(url):
-                                            adj_sites.add_node(url)
-                                        adj_sites.add_edge(parent, url)         #add edge between nodes for pagerank
-                                    count += 1
-                                    print(f'Number of pages crawled: {count}')
-                                    url_filename = url.replace("/", "").replace(":", "").replace("?", "")
-                                    if len(url_filename) >= 200:                        #hash filename to comfortably fit max filename size
-                                        url_filename = str(hash(url_filename))
-                                    is_crawlable = trail_link_crawl(file_contents, bs, url)
-                                    if is_crawlable is True:
-                                        with open(f'{file_path}/{url_filename}.txt', 'w') as f:
-                                            json.dump(file_contents, f) #can't use pickle here without changing how file contents are stored
-                                    else:
-                                        count -=1               #wasn't able to crawl page, have to decrement count
-                                for link in bs.find_all('a'): #gets all anchor text
-                                    cleaned_link:str = link.get('href') #ensure it's a trail finder link here
-                                    if cleaned_link is not None and cleaned_link != "":
-                                        if cleaned_link[0] == '/':
-                                            cleaned_link = parse.urljoin(url, cleaned_link)
-                                        cleaned_link = parse.urlsplit(cleaned_link)
-                                        cleaned_link_domain = cleaned_link.hostname
-                                        if cleaned_link.fragment != '' or cleaned_link.query != '':
-                                            cleaned_link = parse.SplitResult(cleaned_link.scheme, cleaned_link.netloc, cleaned_link.path, '', '')
-                                        cleaned_link = parse.urlunsplit(cleaned_link)
-                                        if 'http' in cleaned_link and cleaned_link_domain == split_url.hostname: #check if within domain
-                                            isStopped = False
-                                            for stop_link in queue_stop:
-                                                if stop_link in cleaned_link:
-                                                    isStopped = True
-                                                    break
-                                            if isStopped == False:
-                                                q.put((cleaned_link, url))
     print(f'Dumping adjacency matrix to \'adjacent_links\' in current directory.')
     nx.write_gpickle(adj_sites, "adjacent_links.gpickle")
 
