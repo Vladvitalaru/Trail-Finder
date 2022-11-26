@@ -35,9 +35,11 @@ def breadth_first_crawl(q: queue.Queue, path: str, num_pages: int):     #this me
     parent: str
     count: int
     file_path = path + '/files'
-    #adj_sites = {}
     adj_sites = nx.DiGraph()
-    robot_dict: dict[str, (list[str], robotparser.RobotFileParser)] = {}    #this dictionary will store the hostname as a key and the value will be a tuple containing a list of urls belonging to a hostname as well as a robot object
+    visited_sites = set()
+    #robot_dict: dict[str, (list[str], robotparser.RobotFileParser)] = {}    #this dictionary will store the hostname as a key and the value will be a tuple containing a list of urls belonging to a hostname as well as a robot object
+    traillink_main = parse.urlsplit('https://www.traillink.com')
+    robot = get_robot(traillink_main.scheme, traillink_main.hostname)
     count = 0
     signal.signal(signal.SIGINT, ExitHandler((path, adj_sites)))            #allows user to press CTRL+C in order to exit program while running while still saving the adjacency matrix
     hostname_crawlable_dict = {'www.traillink.com': 'https://www.traillink.com/trail/'}
@@ -50,13 +52,13 @@ def breadth_first_crawl(q: queue.Queue, path: str, num_pages: int):     #this me
         #print(f'{split_url.hostname}')
 
         if split_url is not None:
-            if split_url.hostname in robot_dict:
+            """if split_url.hostname in robot_dict:
                 robot = robot_dict[split_url.hostname][1] #assign pre-created robot object to current url
             else:
                 robot = get_robot(split_url.scheme, split_url.hostname)
-                robot_dict[split_url.hostname] = (set(), robot)
+                robot_dict[split_url.hostname] = (set(), robot)"""
 
-            if robot is not None and url not in robot_dict[split_url.hostname][0]: #ensures we have a proper robots.txt and url has not been visited yet
+            if robot is not None and url not in visited_sites: #ensures we have a proper robots.txt and url has not been visited yet
                 if robot.can_fetch('*', url):
                     print(f'Currently in: {url}')
                     #delay_time = robot.crawl_delay('*')
@@ -70,7 +72,7 @@ def breadth_first_crawl(q: queue.Queue, path: str, num_pages: int):     #this me
                             if 'text/html' in content_type:                     #continue loop if page grabbed is not of correct type
                                 print(f'Adding {url} to visited list.')
                                 file_contents = {}  #empty dict that will store everything we grab from the page
-                                robot_dict[split_url.hostname][0].add(url)
+                                visited_sites.add(url)
                                 bs = BeautifulSoup(raw_page.text, 'lxml')
                                 #check here if crawled page is of correct type
                                 if(split_url.hostname in hostname_crawlable_dict and url.startswith(hostname_crawlable_dict[split_url.hostname])):
@@ -107,7 +109,7 @@ def breadth_first_crawl(q: queue.Queue, path: str, num_pages: int):     #this me
                                                 if stop_link in cleaned_link:
                                                     isStopped = True
                                                     break
-                                            if isStopped == False:
+                                            if isStopped == False and cleaned_link not in visited_sites:
                                                 q.put((cleaned_link, url))
     print(f'Dumping adjacency matrix to \'adjacent_links\' in current directory.')
     nx.write_gpickle(adj_sites, "adjacent_links.gpickle")
