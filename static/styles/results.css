@@ -240,16 +240,12 @@
 }
 
 .pagination {
-    display: flex;
-    justify-content: center;
-    margin-top: 35px;
-}
-
-.pagination {
     display: -ms-flexbox;
     display: flex;
     padding-left: 0;
     list-style: none;
+    justify-content: center;
+    margin-top: 35px;
     border-radius: .25rem
 }
 
