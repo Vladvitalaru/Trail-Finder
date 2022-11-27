@@ -4,7 +4,7 @@ from operator import itemgetter
 from mywhoosh import *
 import json
 
-results = list()
+results, url, title, length, image, state, county, description, styleID, activity, surfaces, cloud, difficulty = ([] for _ in range(13))
 
 app = Flask(__name__)
 @app.route('/', methods=['GET', 'POST'])
