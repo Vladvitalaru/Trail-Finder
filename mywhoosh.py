@@ -1,4 +1,3 @@
-
 import whoosh
 from whoosh.index import create_in
 from whoosh.index import open_dir
@@ -11,7 +10,6 @@ import json
 import matplotlib.pyplot as plotter
 from wordcloud import WordCloud
 from wordcloud import STOPWORDS
-
 
 class MyWhooshSearcher(object):
 	"""Class to be used for indexing and searching"""
@@ -37,7 +35,8 @@ class MyWhooshSearcher(object):
 					county.append(x['county'])
 					description.append(x['description'])
 					activity.append(x['activities'].replace(',' , ', '))
-					surfaces.append(x['trail_surfaces'])
+					try: surfaces.append(x['trail_surfaces'])
+					except: surfaces.append(queryEntered)
 					cloud.append(x['cloud_path'])
 					len_for_diff = float(x['length'])
 					if len_for_diff < 8:
