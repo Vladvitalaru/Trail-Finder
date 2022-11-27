@@ -1,14 +1,15 @@
-
 .header {
     display: flex;
     justify-content: center;
     margin-top: 64px;
 }
+
 .topText {
     display: flex;
     justify-content: flex-end;
     flex-direction: column;
 }
+
 #logo {
     padding-left: 12px;
     height: 110px;
@@ -24,8 +25,9 @@
     font-size: 110px;
     padding-bottom: 20px;
     height: 90px;
-    color: #1B8D20 ;
+    color: #1B8D20;
 }
+
 #finder {
     padding-left: 25px;
     display: flex;
@@ -37,10 +39,11 @@
     color: #E77F16;
 }
 
-.backgroundImage { /*Header background */
+.backgroundImage {
+    /*Header background */
     display: block;
     width: 100%;
-    height:220px;
+    height: 220px;
     padding: 0;
     margin: 0;
     border: 0;
@@ -49,7 +52,7 @@
     z-index: -1;
     position: absolute;
     background-image: url("/static/images/backgroundHeader.png");
-    background-size:  100% 180%;
+    background-size: 100% 180%;
     background-position: center
 }
 
@@ -58,6 +61,7 @@
     justify-content: center;
     flex-direction: column;
 }
+
 .background {
     background: #E9E8E4;
     -webkit-font-smoothing: antialiased;
@@ -73,7 +77,7 @@
     z-index: 1;
 }
 
-.suggestionsBox li{
+.suggestionsBox li {
     background: #f1f1f1;
     list-style: none;
     padding-bottom: 5px;
@@ -84,11 +88,11 @@
     font-size: 22px;
 }
 
-.suggestionsBox li:hover{
+.suggestionsBox li:hover {
     background: #c4c3c3;
 
 }
-  
+
 form#filter button:hover {
     background: #737373;
 }
@@ -100,13 +104,15 @@ form#filter button:hover {
     width: 50px;
     font-size: 17px;
     border: 1px solid grey;
-    border-left: none; /* Prevent double borders */
+    border-left: none;
+    /* Prevent double borders */
     cursor: pointer;
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
     padding: 15px
 }
-  /* Style the submit button */
+
+/* Style the submit button */
 .searchButton {
     float: left;
     width: 85px;
@@ -115,12 +121,14 @@ form#filter button:hover {
     color: white;
     font-size: 17px;
     border: 1px solid grey;
-    border-left: none; /* Prevent double borders */
+    border-left: none;
+    /* Prevent double borders */
     cursor: pointer;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
-  }
-  /* Style the search field */
+}
+
+/* Style the search field */
 form#search input[type=text] {
     padding: 13.5px;
     font-size: 19px;
@@ -130,11 +138,12 @@ form#search input[type=text] {
     background: #f1f1f1;
     font-family: 'Roboto', sans-serif;
 }
-  
+
 form#search button:hover {
     background: #E77F16;
 }
-  /* Clear floats */
+
+/* Clear floats */
 form#search::after {
     content: "";
     clear: both;
@@ -143,18 +152,19 @@ form#search::after {
 
 /* Filter Modal styles */
 .filterModal {
-    display: none; 
-    position: fixed; 
-    z-index: 1; 
-    padding-top: 174px; 
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 174px;
     left: 0;
     top: 0;
-    width: 100%; 
-    height: 100%; 
-    background-color: rgb(0,0,0); 
-    background-color: rgba(0,0,0,.72); 
+    width: 100%;
+    height: 100%;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, .72);
     transition: 0.3s;
 }
+
 .filterModal-content {
     margin: auto;
     display: block;
@@ -163,9 +173,11 @@ form#search::after {
     height: 460px;
     border-radius: 7px;
 }
+
 .largeFilter {
     margin-right: 12px;
 }
+
 .filterModal h3 {
     display: flex;
     justify-content: center;
@@ -176,11 +188,13 @@ form#search::after {
     margin-top: 0px;
     color: #1B8D20;
 }
+
 .closeFlex {
     display: flex;
     justify-content: center;
     margin-top: 22px;
 }
+
 .closeFlex input {
     font-size: 18px;
     width: 354px;
@@ -189,42 +203,50 @@ form#search::after {
     border-bottom-left-radius: 5px;
     padding: 12px;
 }
+
 .advancedSearchButton {
     color: black;
     font-size: 24px;
     font-weight: 400;
     border: 1px solid black;
     padding: 8px;
-    background-color:#E77F16;
+    background-color: #E77F16;
     font-family: 'Roboto', sans-serif;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
-    border-left: none; /* Prevent double borders */
+    border-left: none;
+    /* Prevent double borders */
 
 }
-.advancedSearchButton:hover, .advancedSearchButton:focus {
+
+.advancedSearchButton:hover,
+.advancedSearchButton:focus {
     color: #bbb;
     text-decoration: none;
     cursor: pointer;
 }
+
 #advancedSearch {
     display: flex;
     justify-content: space-evenly;
     margin-left: 30px;
     margin-right: 30px;
 }
+
 .filterOptions {
     display: flex;
     justify-content: space-evenly;
     font-family: 'Roboto', sans-serif;
 }
+
 .filterOptions label {
     font-size: 20px;
     display: flex;
     justify-content: center;
     padding-bottom: 2px;
 }
-.filterOptions input[type=text]  {
+
+.filterOptions input[type=text] {
     width: 186px;
     margin-bottom: 32px;
     padding: 3px;
@@ -232,7 +254,8 @@ form#search::after {
     border: 1px solid black;
 }
 
-.leftColumn, .rightColumn {
+.leftColumn,
+.rightColumn {
     margin-left: 34px;
     margin-right: 34px;
 }
@@ -247,10 +270,10 @@ form#search::after {
     margin-left: auto;
     margin-right: auto;
     margin-top: 50px;
-    color: #1B8D20;  
+    color: #1B8D20;
 
 }
+
 .introText p {
     font-size: 32px;
 }
-

@@ -1,21 +1,33 @@
 from flask import Flask, render_template, url_for, request, redirect
+from flask_paginate import Pagination, get_page_args
 from operator import itemgetter
 from mywhoosh import *
 import json
+
+results = list()
 
 app = Flask(__name__)
 @app.route('/', methods=['GET', 'POST'])
 def index():
 	return render_template('Home.html')
 
+def get_results(offset=0, per_page=10):
+    return results[offset: offset + per_page]
+
 @app.route('/results/', methods=['GET', 'POST'])
 def results():
 	# # global mySearcher
 	if request.method == 'POST':
 		query = request.form.get("search")
+		global url, title, length, image, state, county, description, styleID, activity, surfaces, cloud, difficulty
 		url, title, length, image, state, county, description, styleID, activity, surfaces, cloud, difficulty = mySearcher.search(query)
-  
-	return render_template('results.html', results = zip(url, title, length, image, state, county, description, styleID, activity, surfaces, cloud, difficulty))
+	global results
+	results = list(zip(url, title, length, image, state, county, description, styleID, activity, surfaces, cloud, difficulty))
+	total = len(styleID)
+	page, per_page, offset = get_page_args(page_parameter='page', per_page_parameter='per_page')
+	pagination_pages = get_results(offset=offset, per_page=per_page)
+	pagination = Pagination(page=page, per_page=per_page, total=total, css_framework='bootstrap4')
+	return render_template('results.html', results=pagination_pages, page=page, per_page=per_page, pagination=pagination)
 
 @app.route('/advancedResults/', methods=['GET', 'POST'])
 def advancedResults():

@@ -1,7 +1,7 @@
 /* Result card styles */
 .TrailCard {
     display: block;
-    background-color:white;
+    background-color: white;
     margin-top: 35px;
     margin-bottom: 0px;
     width: 920px;
@@ -29,7 +29,7 @@
     font-size: 1.5em;
     margin-top: auto;
     margin-bottom: auto;
-    font-family: 'Roboto', sans-serif; 
+    font-family: 'Roboto', sans-serif;
 }
 
 .TrailCard-header .length {
@@ -37,7 +37,7 @@
     text-align: center;
     display: block;
     font-size: 1.2em;
-    font-weight: bold; 
+    font-weight: bold;
     margin-left: 50px;
     width: 90px
 }
@@ -47,29 +47,34 @@
     text-align: center;
     display: block;
     font-size: 1.2em;
-    font-weight: bold; 
+    font-weight: bold;
     margin-right: 50px;
     width: 90px
 }
+
 .Easy {
     background-color: #1B8D20;
 
 }
+
 .Medium {
     background-color: #E77F16
 }
+
 .Hard {
     background-color: rgb(249, 16, 16);
 }
+
 .TrailCard-body {
     display: flex;
     justify-content: space-between;
     align-items: start;
     height: 160px;
     color: black;
-    font-family: 'Roboto', sans-serif; 
+    font-family: 'Roboto', sans-serif;
 }
-.TrailCard-image {  
+
+.TrailCard-image {
     width: 210px;
     height: 160px;
     background-size: cover;
@@ -77,9 +82,11 @@
     border: 0px;
     border-bottom-left-radius: 5px;
 }
+
 .TrailCard-image:hover {
     opacity: 0.7;
 }
+
 .TrailCard-description {
     display: flex;
     width: 440px;
@@ -88,31 +95,36 @@
     text-align: center;
     justify-content: space-between;
 }
+
 .TrailCard-description h3 {
     margin-top: 4px;
     margin-bottom: 2px;
     font-weight: 700;
     font-size: 16px;
 }
+
 .TrailCard-description h4 {
     margin-top: 4px;
     margin-bottom: 5px;
     font-weight: 700;
     font-size: 14px;
 }
+
 .TrailCard-description p {
     height: 60px;
     margin-top: 0px;
     margin-bottom: 4px;
     font-size: 14px;
 }
+
 .TrailCard-description a {
     color: #E77F16;
     margin-bottom: 3px;
     text-decoration: none;
     font-size: 14px;
 }
-.TrailCard-cloud { 
+
+.TrailCard-cloud {
     width: 210px;
     height: 160px;
     background-size: cover;
@@ -121,28 +133,32 @@
     border: 0px;
     border-bottom-right-radius: 5px;
 }
+
 #LargeImage {
     display: None;
     border-radius: 10%;
 }
+
 .modal {
-    display: none; 
-    position: fixed; 
-    z-index: 1; 
-    padding-top: 220px; 
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 220px;
     left: 0;
     top: 0;
-    width: 100%; 
-    height: 100%; 
-    background-color: rgb(0,0,0); 
-    background-color: rgba(0,0,0,.92); 
+    width: 100%;
+    height: 100%;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, .92);
 }
+
 .modal-content {
     margin: auto;
     display: block;
     width: 80%;
     max-width: 800px;
 }
+
 .close {
     position: absolute;
     top: 15px;
@@ -152,11 +168,14 @@
     font-weight: bold;
     transition: 0.3s;
 }
-.close:hover, .close:focus {
-  color: #bbb;
-  text-decoration: none;
-  cursor: pointer;
+
+.close:hover,
+.close:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
 }
+
 #caption {
     margin: auto;
     display: block;
@@ -169,35 +188,143 @@
     font-size: 22px;
     font-family: 'Roboto', sans-serif;
 }
-.modal-content, #caption, .cloud-content {  
+
+.modal-content,
+#caption,
+.cloud-content {
     -webkit-animation-name: zoom;
     -webkit-animation-duration: 07s;
     animation-name: zoom;
     animation-duration: 0.7s;
 }
+
 @-webkit-keyframes zoom {
-    from {-webkit-transform:scale(0)} 
-    to {-webkit-transform:scale(1)}
+    from {
+        -webkit-transform: scale(0)
+    }
+
+    to {
+        -webkit-transform: scale(1)
+    }
 }
+
 @keyframes zoom {
-    from {transform:scale(0)} 
-    to {transform:scale(1)}
+    from {
+        transform: scale(0)
+    }
+
+    to {
+        transform: scale(1)
+    }
 }
+
 .cloud-content {
     margin: auto;
-    display: block;;
+    display: block;
+    ;
     max-height: 800px;
     max-width: 800px;
 }
+
 .cloud-modal {
-    display: none; 
-    position: fixed; 
-    z-index: 1; 
-    padding-top: 120px; 
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 120px;
     left: 0;
     top: 0;
-    width: 100%; 
-    height: 100%; 
-    background-color: rgb(0,0,0); 
-    background-color: rgba(0,0,0,.92); 
-  }
+    width: 100%;
+    height: 100%;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, .92);
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 35px;
+}
+
+.pagination {
+    display: -ms-flexbox;
+    display: flex;
+    padding-left: 0;
+    list-style: none;
+    border-radius: .25rem
+}
+
+.page-item:first-child .page-link {
+    margin-left: 0;
+    border-top-left-radius: .25rem;
+    border-bottom-left-radius: .25rem
+}
+
+.page-item:last-child .page-link {
+    border-top-right-radius: .25rem;
+    border-bottom-right-radius: .25rem
+}
+
+.page-item.active .page-link {
+    z-index: 2;
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff
+}
+
+.page-item.disabled .page-link {
+    color: #868e96;
+    pointer-events: none;
+    background-color: #fff;
+    border-color: #ddd
+}
+
+.page-link {
+    position: relative;
+    display: block;
+    padding: .5rem .75rem;
+    margin-left: -1px;
+    line-height: 1.25;
+    color: #007bff;
+    background-color: #fff;
+    border: 1px solid #ddd
+}
+
+.page-link:focus,
+.page-link:hover {
+    color: #0056b3;
+    text-decoration: none;
+    background-color: #e9ecef;
+    border-color: #ddd
+}
+
+.pagination-lg .page-link {
+    padding: .75rem 1.5rem;
+    font-size: 1.25rem;
+    line-height: 1.5
+}
+
+.pagination-lg .page-item:first-child .page-link {
+    border-top-left-radius: .3rem;
+    border-bottom-left-radius: .3rem
+}
+
+.pagination-lg .page-item:last-child .page-link {
+    border-top-right-radius: .3rem;
+    border-bottom-right-radius: .3rem
+}
+
+.pagination-sm .page-link {
+    padding: .25rem .5rem;
+    font-size: .875rem;
+    line-height: 1.5
+}
+
+.pagination-sm .page-item:first-child .page-link {
+    border-top-left-radius: .2rem;
+    border-bottom-left-radius: .2rem
+}
+
+.pagination-sm .page-item:last-child .page-link {
+    border-top-right-radius: .2rem;
+    border-bottom-right-radius: .2rem
+}
