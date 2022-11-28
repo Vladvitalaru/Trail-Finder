@@ -1,3 +1,5 @@
+
+import decimal
 import whoosh
 from whoosh.index import create_in
 from whoosh.index import open_dir
@@ -126,9 +128,17 @@ class MyWhooshSearcher(object):
 			if os.path.isfile(full_path): #make sure we aren't reading directories
 				with open(full_path, 'r') as f: #open file and begin parsing
 					json_dict = json.loads(f.readline())
+					if 'oregonhikers' in json_dict['url']:
+						desc = json_dict['description'].split('.')
+						desc = desc[0] + '.'
+					else:
+						desc = json_dict['description']
 					if len(json_dict['images']) > 0: image_url = json_dict['images'][0]
 					else: image_url = "https://www.traillink.com/images/tl/placeholders/No_Photo_Image_Thumbnail-trimmed.jpg"
-					activity_string = ",".join(json_dict['facts']['activities'])
+					try:
+						activity_string = ",".join(json_dict['facts']['activities'])
+					except:
+						activity_string = ''
 					review = "".join(json_dict['reviews'])
 					review.strip()
 					review_cloud_path = name.rstrip('.txt') + '.png'
@@ -147,10 +157,10 @@ class MyWhooshSearcher(object):
 						plotter.savefig('./static/images/cloud/' + review_cloud_path)
 						plotter.close()
 					else: review_cloud_path = "cloud.png" #temporary path based on our current default word cloud image
-					len_dec = Decimal(json_dict['facts']['Length'].rstrip(" miles"))
+					len_dec = Decimal(json_dict['facts']['Length'].rstrip(" miles").lstrip('~'))
 					writer.add_document(url=json_dict['url'], title=json_dict['title'], length=len_dec,
 						image=image_url, state=json_dict['facts']['States'], county=json_dict['facts']['Counties'],
-						description=json_dict['description'], trail_surfaces=json_dict['facts']['Trail surfaces'],
+						description=desc, trail_surfaces=json_dict['facts']['Trail surfaces'],
 						activities=activity_string, content=json_dict['content'], cloud_path = review_cloud_path)
 					titles_for_keyword.append(json_dict['title'])
 		writer.commit()
@@ -161,6 +171,7 @@ class MyWhooshSearcher(object):
 
 if __name__ == '__main__':
 	#global mySearcher #may want to uncomment?
+	decimal.getcontext().prec = 2
 	mySearcher = MyWhooshSearcher()
 	mySearcher.build_index()
 	#mySearcher.existing_index()
