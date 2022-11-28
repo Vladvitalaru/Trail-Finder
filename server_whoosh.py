@@ -67,6 +67,7 @@ def page_not_found(e):
 		
 if __name__ == '__main__':
 	#global mySearcher
+	decimal.getcontext().prec = 2
 	mySearcher = MyWhooshSearcher()
 	#mySearcher.build_index() # Use this to build index first then uncomment
 	mySearcher.existing_index()
