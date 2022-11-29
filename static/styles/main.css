@@ -139,6 +139,11 @@ form#search input[type=text] {
     font-family: 'Roboto', sans-serif;
 }
 
+.closeFlex input[type=text]:focus,
+.filterOptions input[type=text]:focus,
+form#search input[type=text]:focus {
+    outline : none;
+}
 form#search button:hover {
     background: #E77F16;
 }

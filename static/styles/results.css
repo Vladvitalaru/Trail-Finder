@@ -26,10 +26,11 @@
 }
 
 .TrailCard-header h2 {
-    font-size: 1.5em;
+    font-size: 1.3em;
     margin-top: auto;
     margin-bottom: auto;
     font-family: 'Roboto', sans-serif;
+    text-align: center
 }
 
 .TrailCard-header .length {
@@ -102,6 +103,7 @@
     font-weight: 700;
     font-size: 16px;
 }
+
 
 .TrailCard-description h4 {
     margin-top: 4px;
@@ -263,8 +265,8 @@
 .page-item.active .page-link {
     z-index: 2;
     color: #fff;
-    background-color: #007bff;
-    border-color: #007bff
+    border-color: #007bff;
+    background-color: #E77F16;
 }
 
 .page-item.disabled .page-link {
