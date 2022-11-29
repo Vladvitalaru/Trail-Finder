@@ -51,3 +51,13 @@ Pip install the following modules:
 - Extract either samplefiles.zip or fullset.zip in the root directory so the .txt files are inside root/files/file.txt
 - Indexing trail pages may take some time, there are roughly 25k pages in the fullset.zip and 10k in the samplefiles.zip
 - Will also generate word cloud reviews if no matching filename for the cloud image is found.
+- All crawlers can be ran separately to generate files for Whoosh
+- Pagerank calculator relies on Traillink and Oregontrails being crawled at least once
+
+## To Run:
+- If using the existing index:
+    - Run 'python ./server_whoosh.py'
+- If building a new index:
+    - Go into server_whoosh.py, comment out 'mySearcher.existing_index()'
+    - uncomment 'mySearcher.build_index()'
+    - Run 'python ./server_whoosh.py'
