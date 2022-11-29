@@ -59,5 +59,5 @@ Pip install the following modules:
     - Run 'python ./server_whoosh.py'
 - If building a new index:
     - Go into server_whoosh.py, comment out 'mySearcher.existing_index()'
-    - uncomment 'mySearcher.build_index()'
+    - Uncomment 'mySearcher.build_index()'
     - Run 'python ./server_whoosh.py'
