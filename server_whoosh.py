@@ -40,24 +40,16 @@ def advancedResults():
 		activities_input = request.form.get("activities")
 		surfaces_input = request.form.get("surfaces")
 		advancedSearch_input = request.form.get("advancedSearch")
-
+		global url, title, length, image, state, county, description, styleID, activity, surfaces, cloud, difficulty
 		url, title, length, image, state, county, description, styleID, activity, surfaces, cloud, difficulty = mySearcher.advanced_search((state_input, county_input, minlength_input, maxlength_input, 
-		activities_input, surfaces_input, advancedSearch_input))
-
-		#print("advancedResults")
-		#print(state, county, minlength, maxlength, activities, surfaces, advancedSearch )
-
-	"""links = ["https://www.traillink.com/trail/peninsula-crossing-trail/","https://www.traillink.com/trail/westside-trail/","https://www.traillink.com/trail/vera-katz-eastbank-esplanade/"]
-	titles = ["Peninsula Crossing Trail","Westside Trail", "Vera Katz Eastbank Esplanade"]
-	lengths = ['2.1', '3.1', '10.1']
-	images = ["https://cloudfront.traillink.com/photos/peninsula-crossing-trail_23816_sc.jpg",
-           "https://cloudfront.traillink.com/photos/westside-trail_107049_sc.jpg",
-           "https://cloudfront.traillink.com/photos/vera-katz-eastbank-esplanade_167510_sc.jpg"]
-	states = ["Oregon", "Oregon", "Oregon"]
-	county = ["Multnomah", "Washington","Multnomah" ]
-	descriptions = ["Peninsula Crossing Trail spans 5.1 from N. Carey Blvd. and N. Princeton St. to Columbia Slough Trail at N. Columbia Blvd.","Westside Trail spans 8.1 from Forest Park to Barrows Park.","Vera Katz Eastbank Esplanade spans 1.7 from Steel Bridge just west of NE Lloyd Blvd. to SE Caruthers St. just south of the Marquam Bridge."]
-	styleID = [1,2,3]"""
-	return render_template('advancedResults.html', results = zip(url, title, length, image, state, county, description, styleID, activity, surfaces, cloud, difficulty) ) #add review cloud and difficulty level
+			activities_input, surfaces_input, advancedSearch_input))
+	global results
+	results = list(zip(url, title, length, image, state, county, description, styleID, activity, surfaces, cloud, difficulty))
+	total = len(styleID)
+	page, per_page, offset = get_page_args(page_parameter='page', per_page_parameter='per_page')
+	pagination_pages = get_results(offset=offset, per_page=per_page)
+	pagination = Pagination(page=page, per_page=per_page, total=total, css_framework='bootstrap4')
+	return render_template('results.html', results=pagination_pages, page=page, per_page=per_page, pagination=pagination) #add review cloud and difficulty level
  
 #Handle error 404
 @app.errorhandler(404)
