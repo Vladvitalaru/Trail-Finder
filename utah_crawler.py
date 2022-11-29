@@ -1,11 +1,11 @@
 import json
 import csv
 import os
-from enum import Enum
+
 csv_attr = {'PrimaryName':1, 'DesignatedUses':4, 'SurfaceType':5, 'Class':6, 'CartoCode': 7, 'HorseAllowed': 9, 'MotorizedAllowed': 10, 'County': 15, 'SHAPE_Length':26}
 def main():
     existing_trails = {}
-    with open("./Utah_Trails_and_Pathways.csv", 'r') as input_file:
+    with open("./csv/Utah_Trails_and_Pathways.csv", 'r') as input_file:
         csv_reader = csv.reader(input_file, delimiter=',')
         next(csv_reader) #skip header
         for tuple in csv_reader:
@@ -27,7 +27,7 @@ def write_files(trail, path):
     fact_dict = {}
     fact_dict['States'] = 'Utah'
     fact_dict['Counties'] = trail[csv_attr['County']].lower().capitalize()
-    fact_dict['Length'] = str(float(trail[csv_attr['SHAPE_Length']]) / 5280)
+    fact_dict['Length'] = str(round(float(trail[csv_attr['SHAPE_Length']]) / 5280, 1))
     fact_dict['Trail surfaces'] = trail[csv_attr['SurfaceType']]
     if trail[csv_attr['CartoCode']].startswith('1'):
         fact_dict['activities'] = ['Hiking']
