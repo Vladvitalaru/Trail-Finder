@@ -4,6 +4,7 @@ import os
 
 csv_attr = {'DOGS':16, 'TRAIL_NAME':13, 'BICYCLES':2, 'LENGTH_MILE':11, 'TRAIL_TYPE': 4, 'HORSES': 8, 'DOGREG': 18}
 def main():
+    """Parses specified csv file then outputs json strings for Whoosh"""
     existing_trails = {}
     with open("./csv/OSMP_Trails.csv", 'r') as input_file:
         csv_reader = csv.reader(input_file, delimiter=',')

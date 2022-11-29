@@ -57,6 +57,7 @@ class MyWhooshSearcher(object):
 			return url, title, length, image, state, county, description, styleID, activity, surfaces, cloud, difficulty
 
 	def advanced_search(self, queryEntered: tuple): #queryEntered = (state, county, minLength, maxLength, activities, surfaces, advSearch)
+		"""Advanced Search where query goes to specific fields, works even if all fields are not present"""
 		url, title, length, image, state, county, description, activity, surfaces, cloud, difficulty = ([] for _ in range(11))
 		with open('traillinkPR.txt', 'r') as f:
 			traillinkPR = json.loads(f.read())
@@ -117,7 +118,7 @@ class MyWhooshSearcher(object):
 						state.append(x['state'])
 						county.append(x['county'])
 						description.append(x['description'])
-						activity.append(x['activities'])
+						activity.append(x['activities'].replace(',' , ', '))
 						try: surfaces.append(x['trail_surfaces'])
 						except: surfaces.append(queryEntered)
 						cloud.append(x['cloud_path'])
@@ -209,7 +210,7 @@ class MyWhooshSearcher(object):
 if __name__ == '__main__':
 	mySearcher = MyWhooshSearcher()
 	mySearcher.build_index()
-	mySearcher.existing_index()
+	#mySearcher.existing_index()
 	"""url, title, length, image, state, county, description, styleID, activity, surfaces, cloud, difficulty = mySearcher.advanced_search(('Maine', 'Aroostook', 0, 200, 'ATV', 'Gravel', 'moose'))
 	for a,b,c,d,e,f,g,h,i,j,k,l in zip(url, title, length, image, state, county, description, styleID, activity, surfaces, cloud, difficulty):
 		print(f'{a} {b} {c} {d} {e} {f} {g} {h} {i} {j} {k} {l}')"""
