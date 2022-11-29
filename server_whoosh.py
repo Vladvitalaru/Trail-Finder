@@ -62,4 +62,4 @@ if __name__ == '__main__':
 	mySearcher = MyWhooshSearcher()
 	#mySearcher.build_index() # Use this to build index first then uncomment
 	mySearcher.existing_index()
-	app.run(debug=True)
+	app.run(debug=True,port=5000)

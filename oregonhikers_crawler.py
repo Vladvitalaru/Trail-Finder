@@ -12,6 +12,7 @@ import re
 
 
 def main(): 
+    """Crawls oregonhikers.org and outputs trail pages into a file"""
     num_pages = 5000
     seed = ['https://www.oregonhikers.org/'] #input()
     #seed = ['https://www.oregonhikers.org/field_guide/Wahclella_Falls_Hike']
@@ -146,9 +147,6 @@ def oregon_hikers_crawl(file_contents, bs, url):
         list_images.append(image_url)
     except AttributeError:
         pass
-    """if content is None:
-        return False
-    content = content.find(itemprop='description')"""
     activities = []
     try:
         if 'Yes' in fact_dict['backpackable']:

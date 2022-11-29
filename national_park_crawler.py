@@ -4,6 +4,7 @@ import os
 
 csv_attr = {'TRLNAME':1, 'TRALTNAME':2, 'TRLSURFACE':5, 'TRLUSE':8, 'UNITNAME': 14, 'LENGTH':41}
 def main():
+    """Parses specified csv file then outputs json strings for Whoosh"""
     existing_trails = {}
     with open("./csv/NPS_-_Trails_-_Geographic_Coordinate_System.csv", 'r') as input_file:
         csv_reader = csv.reader(input_file, delimiter=',')

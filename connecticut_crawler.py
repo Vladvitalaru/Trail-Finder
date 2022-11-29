@@ -4,6 +4,7 @@ import os
 
 csv_attr = {'TRAILSYSID':1, 'TRAILNAME':2, 'TRAILCLASS':4, 'TRAILSURF':5, 'PUBACCESS': 7, 'HIKE': 8, 'WALK':9, 'RUN': 10, 'INLINSKATE':11, 'BIKE': 12, 'MTNBIKE': 13, 'MOTORBIKE': 14, 'ALLTERVEH':15, 'SNOWMOBILE': 16, 'CROSSCSKI':17, 'EQUESTRIAN':18, 'ADAACCESS':19, 'DOGLEASH':20, 'DOGUNLEASH':21, 'Shape__Length':28}
 def main():
+    """Parses specified csv file then outputs json strings for Whoosh"""
     existing_trails = {}
     with open("./csv/DEEP_Trails_Set.csv", 'r') as input_file:
         csv_reader = csv.reader(input_file, delimiter=',')
