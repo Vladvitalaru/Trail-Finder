@@ -181,7 +181,19 @@ class MyWhooshSearcher(object):
 						plotter.tight_layout(pad=0)
 						plotter.savefig('./static/images/cloud/' + review_cloud_path)
 						plotter.close()
-					else: review_cloud_path = "cloud.png" #temporary path based on our current default word cloud image
+					elif 'oregonhikers' in json_dict['url']:
+						stopwords = set(STOPWORDS)
+						stopwords.add('trail')
+						word_cloud = WordCloud(width = 800, height = 600,
+						background_color='white', stopwords = stopwords,
+						min_font_size = 10).generate(json_dict['description'])
+						plotter.figure(figsize=(8,6), facecolor = None)
+						plotter.imshow(word_cloud)
+						plotter.axis('off')
+						plotter.tight_layout(pad=0)
+						plotter.savefig('./static/images/cloud/' + review_cloud_path)
+						plotter.close()
+					else: review_cloud_path = "cloud.png" #path based on our current default word cloud image
 					len_dec = Decimal(json_dict['facts']['Length'].rstrip(" miles").lstrip('~'))
 					writer.add_document(url=json_dict['url'], title=json_dict['title'], length=len_dec,
 						image=image_url, state=json_dict['facts']['States'], county=json_dict['facts']['Counties'],
@@ -195,10 +207,9 @@ class MyWhooshSearcher(object):
 				f.write("\"" + line + "\",\n")
 
 if __name__ == '__main__':
-	#global mySearcher #may want to uncomment?
 	mySearcher = MyWhooshSearcher()
-	#mySearcher.build_index()
+	mySearcher.build_index()
 	mySearcher.existing_index()
-	url, title, length, image, state, county, description, styleID, activity, surfaces, cloud, difficulty = mySearcher.advanced_search(('Maine', 'Aroostook', 0, 200, 'ATV', 'Gravel', 'moose'))
+	"""url, title, length, image, state, county, description, styleID, activity, surfaces, cloud, difficulty = mySearcher.advanced_search(('Maine', 'Aroostook', 0, 200, 'ATV', 'Gravel', 'moose'))
 	for a,b,c,d,e,f,g,h,i,j,k,l in zip(url, title, length, image, state, county, description, styleID, activity, surfaces, cloud, difficulty):
-		print(f'{a} {b} {c} {d} {e} {f} {g} {h} {i} {j} {k} {l}')
+		print(f'{a} {b} {c} {d} {e} {f} {g} {h} {i} {j} {k} {l}')"""
