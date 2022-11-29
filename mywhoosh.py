@@ -171,7 +171,6 @@ class MyWhooshSearcher(object):
 
 if __name__ == '__main__':
 	#global mySearcher #may want to uncomment?
-	decimal.getcontext().prec = 2
 	mySearcher = MyWhooshSearcher()
 	mySearcher.build_index()
 	#mySearcher.existing_index()
