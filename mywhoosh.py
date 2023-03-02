@@ -203,9 +203,9 @@ class MyWhooshSearcher(object):
 					titles_for_keyword.append(json_dict['title'])
 		writer.commit()
 		self.indexer = indexer
-		with open('./titles.txt', 'w') as f:
+		with open('./static/titles.txt', 'w') as f:
 			for line in titles_for_keyword:
-				f.write("\"" + line + "\",\n")
+				f.write(line + "\n")
 
 if __name__ == '__main__':
 	mySearcher = MyWhooshSearcher()
