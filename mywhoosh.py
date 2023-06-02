@@ -10,8 +10,8 @@ from whoosh.qparser import MultifieldParser
 import os
 import json
 import matplotlib.pyplot as plotter
-from wordcloud import WordCloud
-from wordcloud import STOPWORDS
+# from wordcloud import WordCloud
+# from wordcloud import STOPWORDS
 
 class MyWhooshSearcher(object):
 	"""Class to be used for indexing and searching"""
@@ -169,31 +169,31 @@ class MyWhooshSearcher(object):
 					review.strip()
 					review_cloud_path = name.rstrip('.txt') + '.png'
 					if os.path.exists('./static/images/cloud/' + review_cloud_path): pass
-					elif len(review) > 0:
-						review = "".join(json_dict['reviews'])
-						stopwords = set(STOPWORDS)
-						stopwords.add('trail')
-						word_cloud = WordCloud(width = 800, height = 600,
-						background_color='white', stopwords = stopwords,
-						min_font_size = 10).generate(review)
-						plotter.figure(figsize=(8,6), facecolor = None)
-						plotter.imshow(word_cloud)
-						plotter.axis('off')
-						plotter.tight_layout(pad=0)
-						plotter.savefig('./static/images/cloud/' + review_cloud_path)
-						plotter.close()
-					elif 'oregonhikers' in json_dict['url']:
-						stopwords = set(STOPWORDS)
-						stopwords.add('trail')
-						word_cloud = WordCloud(width = 800, height = 600,
-						background_color='white', stopwords = stopwords,
-						min_font_size = 10).generate(json_dict['description'])
-						plotter.figure(figsize=(8,6), facecolor = None)
-						plotter.imshow(word_cloud)
-						plotter.axis('off')
-						plotter.tight_layout(pad=0)
-						plotter.savefig('./static/images/cloud/' + review_cloud_path)
-						plotter.close()
+					# elif len(review) > 0:
+					# 	review = "".join(json_dict['reviews'])
+					# 	stopwords = set(STOPWORDS)
+					# 	stopwords.add('trail')
+					# 	word_cloud = WordCloud(width = 800, height = 600,
+					# 	background_color='white', stopwords = stopwords,
+					# 	min_font_size = 10).generate(review)
+					# 	plotter.figure(figsize=(8,6), facecolor = None)
+					# 	plotter.imshow(word_cloud)
+					# 	plotter.axis('off')
+					# 	plotter.tight_layout(pad=0)
+					# 	plotter.savefig('./static/images/cloud/' + review_cloud_path)
+					# 	plotter.close()
+					# elif 'oregonhikers' in json_dict['url']:
+					# 	stopwords = set(STOPWORDS)
+					# 	stopwords.add('trail')
+					# 	word_cloud = WordCloud(width = 800, height = 600,
+					# 	background_color='white', stopwords = stopwords,
+					# 	min_font_size = 10).generate(json_dict['description'])
+					# 	plotter.figure(figsize=(8,6), facecolor = None)
+					# 	plotter.imshow(word_cloud)
+					# 	plotter.axis('off')
+					# 	plotter.tight_layout(pad=0)
+					# 	plotter.savefig('./static/images/cloud/' + review_cloud_path)
+					# 	plotter.close()
 					else: review_cloud_path = "cloud.png" #path based on our current default word cloud image
 					len_dec = Decimal(json_dict['facts']['Length'].rstrip(" miles").lstrip('~'))
 					writer.add_document(url=json_dict['url'], title=json_dict['title'], length=len_dec,
