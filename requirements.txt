@@ -1,0 +1,10 @@
+Flask
+flask-paginate
+Jinja2
+lxml
+matplotlib
+numpy
+Whoosh
+pandas
+beautifulsoup4
+python-dotenv
