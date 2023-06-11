@@ -10,8 +10,8 @@ from whoosh.qparser import MultifieldParser
 import os
 import json
 import matplotlib.pyplot as plotter
-from wordcloud import WordCloud
-from wordcloud import STOPWORDS
+# from wordcloud import WordCloud
+# from wordcloud import STOPWORDS
 
 class MyWhooshSearcher(object):
 	"""Class to be used for indexing and searching"""
@@ -50,9 +50,9 @@ class MyWhooshSearcher(object):
 						except: surfaces.append(queryEntered)
 						cloud.append(x['cloud_path'])
 						len_for_diff = float(x['length'])
-						if len_for_diff < 8: difficulty.append('Easy')
+						if len_for_diff < 8: difficulty.append('Short')
 						elif len_for_diff < 15: difficulty.append('Medium')
-						else: difficulty.append('Hard')
+						else: difficulty.append('Long')
 			styleID = [i for i in range(1,len(url)+1)]
 			return url, title, length, image, state, county, description, styleID, activity, surfaces, cloud, difficulty
 
@@ -123,9 +123,9 @@ class MyWhooshSearcher(object):
 						except: surfaces.append(queryEntered)
 						cloud.append(x['cloud_path'])
 						len_for_diff = float(x['length'])
-						if len_for_diff < 5: difficulty.append('Easy')
+						if len_for_diff < 5: difficulty.append('Short')
 						elif len_for_diff < 12: difficulty.append('Medium')
-						else: difficulty.append('Hard')
+						else: difficulty.append('Long')
 						#matching = []
 						#for term in x.matched_terms():
 							#matching.append(str(term[1]).lstrip('b'))
@@ -169,31 +169,31 @@ class MyWhooshSearcher(object):
 					review.strip()
 					review_cloud_path = name.rstrip('.txt') + '.png'
 					if os.path.exists('./static/images/cloud/' + review_cloud_path): pass
-					elif len(review) > 0:
-						review = "".join(json_dict['reviews'])
-						stopwords = set(STOPWORDS)
-						stopwords.add('trail')
-						word_cloud = WordCloud(width = 800, height = 600,
-						background_color='white', stopwords = stopwords,
-						min_font_size = 10).generate(review)
-						plotter.figure(figsize=(8,6), facecolor = None)
-						plotter.imshow(word_cloud)
-						plotter.axis('off')
-						plotter.tight_layout(pad=0)
-						plotter.savefig('./static/images/cloud/' + review_cloud_path)
-						plotter.close()
-					elif 'oregonhikers' in json_dict['url']:
-						stopwords = set(STOPWORDS)
-						stopwords.add('trail')
-						word_cloud = WordCloud(width = 800, height = 600,
-						background_color='white', stopwords = stopwords,
-						min_font_size = 10).generate(json_dict['description'])
-						plotter.figure(figsize=(8,6), facecolor = None)
-						plotter.imshow(word_cloud)
-						plotter.axis('off')
-						plotter.tight_layout(pad=0)
-						plotter.savefig('./static/images/cloud/' + review_cloud_path)
-						plotter.close()
+					# elif len(review) > 0:
+					# 	review = "".join(json_dict['reviews'])
+					# 	stopwords = set(STOPWORDS)
+					# 	stopwords.add('trail')
+					# 	word_cloud = WordCloud(width = 800, height = 600,
+					# 	background_color='white', stopwords = stopwords,
+					# 	min_font_size = 10).generate(review)
+					# 	plotter.figure(figsize=(8,6), facecolor = None)
+					# 	plotter.imshow(word_cloud)
+					# 	plotter.axis('off')
+					# 	plotter.tight_layout(pad=0)
+					# 	plotter.savefig('./static/images/cloud/' + review_cloud_path)
+					# 	plotter.close()
+					# elif 'oregonhikers' in json_dict['url']:
+					# 	stopwords = set(STOPWORDS)
+					# 	stopwords.add('trail')
+					# 	word_cloud = WordCloud(width = 800, height = 600,
+					# 	background_color='white', stopwords = stopwords,
+					# 	min_font_size = 10).generate(json_dict['description'])
+					# 	plotter.figure(figsize=(8,6), facecolor = None)
+					# 	plotter.imshow(word_cloud)
+					# 	plotter.axis('off')
+					# 	plotter.tight_layout(pad=0)
+					# 	plotter.savefig('./static/images/cloud/' + review_cloud_path)
+					# 	plotter.close()
 					else: review_cloud_path = "cloud.png" #path based on our current default word cloud image
 					len_dec = Decimal(json_dict['facts']['Length'].rstrip(" miles").lstrip('~'))
 					writer.add_document(url=json_dict['url'], title=json_dict['title'], length=len_dec,

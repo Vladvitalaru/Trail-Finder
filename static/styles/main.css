@@ -76,28 +76,32 @@
 
     z-index: 1;
 }
-
+.suggestionsBox {
+    border-radius: 10px 0px 0px 0px;
+    margin-top: 15px;
+}
 .suggestionsBox li {
     background: #f1f1f1;
     list-style: none;
-    padding-bottom: 5px;
+    padding-bottom: 3px;
+    padding-top: 3px;
     padding-left: 16px;
-    width: 431px;
-    margin-left: 51px;
+    width: 472px;
     font-family: 'Roboto', sans-serif;
     font-size: 22px;
+    
 }
 
 .suggestionsBox li:hover {
     background: #c4c3c3;
-
 }
 
 form#filter button:hover {
     background: #737373;
 }
 
-.filterButton {
+/* Style not in use */
+.filterButton { 
     float: left;
     background: grey;
     color: white;
@@ -105,7 +109,6 @@ form#filter button:hover {
     font-size: 17px;
     border: 1px solid grey;
     border-left: none;
-    /* Prevent double borders */
     cursor: pointer;
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
@@ -122,10 +125,8 @@ form#filter button:hover {
     font-size: 17px;
     border: 1px solid grey;
     border-left: none;
-    /* Prevent double borders */
     cursor: pointer;
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
+    border-radius: 0px 10px 10px 0px
 }
 
 /* Style the search field */
@@ -134,9 +135,10 @@ form#search input[type=text] {
     font-size: 19px;
     border: .5px solid grey;
     float: left;
-    width: 420px;
+    width: 460px;
     background: #f1f1f1;
     font-family: 'Roboto', sans-serif;
+    border-radius: 10px 0px 0px 10px
 }
 
 .closeFlex input[type=text]:focus,
