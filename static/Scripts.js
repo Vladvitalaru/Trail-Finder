@@ -39,7 +39,7 @@ function openFilters() {
 }
 
 
-const seachWrapper = document.querySelector(".inputs");
+const searchWrapper = document.querySelector(".inputs");
 const inputBox = document.querySelector("input");
 const suggestionsBox = document.querySelector(".suggestionsBox");
 
@@ -55,17 +55,16 @@ inputBox.onkeyup = (e)=> {
         emptyArray = emptyArray.map((data)=>{
             return data = '<li>' + data + '</li>';
         });
-
-        showSuggestions(emptyArray);
+        
         let allList = suggestionsBox.querySelectorAll("li");
-        console.log(allList)
+        console.log(allList);
         for (let i = 0; i < allList.length; i++) {
             // on click ability for suggestions
             allList[i].setAttribute("onclick", "select(this)");
         }
     } else {
-
     }
+    showSuggestions(emptyArray);
 }
 
 function select(element) {

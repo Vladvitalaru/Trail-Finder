@@ -50,9 +50,9 @@ class MyWhooshSearcher(object):
 						except: surfaces.append(queryEntered)
 						cloud.append(x['cloud_path'])
 						len_for_diff = float(x['length'])
-						if len_for_diff < 8: difficulty.append('Easy')
+						if len_for_diff < 8: difficulty.append('Short')
 						elif len_for_diff < 15: difficulty.append('Medium')
-						else: difficulty.append('Hard')
+						else: difficulty.append('Long')
 			styleID = [i for i in range(1,len(url)+1)]
 			return url, title, length, image, state, county, description, styleID, activity, surfaces, cloud, difficulty
 
@@ -123,9 +123,9 @@ class MyWhooshSearcher(object):
 						except: surfaces.append(queryEntered)
 						cloud.append(x['cloud_path'])
 						len_for_diff = float(x['length'])
-						if len_for_diff < 5: difficulty.append('Easy')
+						if len_for_diff < 5: difficulty.append('Short')
 						elif len_for_diff < 12: difficulty.append('Medium')
-						else: difficulty.append('Hard')
+						else: difficulty.append('Long')
 						#matching = []
 						#for term in x.matched_terms():
 							#matching.append(str(term[1]).lstrip('b'))
