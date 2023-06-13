@@ -75,9 +75,9 @@ function showSuggestions(list) {
         userInput = inputBox.value;
         listData = `<li>${userInput}</li>`;
 
-    // if more than 5 suggestions, only show 5
-    }else if (list.length >= 5) {
-        let max = 5;
+    // if more than 6 suggestions, only show 6
+    }else if (list.length >= 6) {
+        let max = 6;
         let spliced = [];
 
         for (var i = 0; i < max; i++) {

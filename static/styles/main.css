@@ -72,6 +72,7 @@
     justify-content: center;
     filter: drop-shadow(3px 3px 5px rgba(60, 60, 60, 0.3));
     margin-top: 20px;
+    margin-bottom: 25px;
     align-items: center;
     position: relative;
     z-index: 30
@@ -101,8 +102,6 @@
 
 li.active {
     display: list-item;
-    position: relative;
-    z-index: 40;
 }
 
 .suggestionsBox li:hover {
