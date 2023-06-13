@@ -11,6 +11,8 @@
     border-bottom-right-radius: 5px;
     border-bottom-left-radius: 5px;
     filter: drop-shadow(3px 3px 5px rgba(60, 60, 60, 0.3));
+    z-index: 10;
+    position: relative;
 }
 
 .TrailCard-header {
@@ -63,7 +65,7 @@
 }
 
 .Long {
-    background-color: rgb(249, 16, 16);
+    background-color: rgb(247, 41, 41);
 }
 
 .TrailCard-body {
@@ -147,7 +149,7 @@
 .modal {
     display: none;
     position: fixed;
-    z-index: 1;
+    z-index: 30;
     padding-top: 10%;
     left: 0;
     top: 0;
@@ -226,18 +228,17 @@
 .cloud-content {
     margin: auto;
     display: block;
-    ;
     max-height: 800px;
     max-width: 800px;
 }
 .pagination {
-    display: -ms-flexbox;
     display: flex;
     padding-left: 0;
     list-style: none;
     justify-content: center;
     margin-top: 35px;
-    border-radius: .25rem
+    margin-bottom: 30px;
+    font-family: 'Roboto', sans-serif;
 }
 
 .page-item:first-child .page-link {
@@ -248,20 +249,20 @@
 
 .page-item:last-child .page-link {
     border-top-right-radius: .25rem;
-    border-bottom-right-radius: .25rem
+    border-bottom-right-radius: .25rem;
+    color: #fff;
 }
 
 .page-item.active .page-link {
     z-index: 2;
     color: #fff;
-    border-color: #007bff;
-    background-color: #E77F16;
+    background-color: #1B8D20;
 }
 
 .page-item.disabled .page-link {
-    color: #868e96;
+    color: #fff;
     pointer-events: none;
-    background-color: #fff;
+    background-color: #E77F16;
     border-color: #ddd
 }
 
@@ -271,17 +272,17 @@
     padding: .5rem .75rem;
     margin-left: -1px;
     line-height: 1.25;
-    color: #007bff;
-    background-color: #fff;
-    border: 1px solid #ddd;
+    color: #fff;
+    background-color: #E77F16;
     text-decoration: none;
+    font-size: 1.3rem
 }
 
 .page-link:focus,
 .page-link:hover {
-    color: #0056b3;
+    color: #1B8D20;
     text-decoration: none;
-    background-color: #e9ecef;
+    background-color: #E77F16;
     border-color: #ddd
 }
 
