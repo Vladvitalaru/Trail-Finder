@@ -26,7 +26,7 @@ function enlargeCloud(id) {
        }
 }
 
-//Open/close advanced filters
+//Open/close advanced filters (Not in use)
 function openFilters() {
     let filterModal = document.getElementById("filterModal");
     console.log(filterModal);
@@ -48,32 +48,28 @@ inputBox.onkeyup = (e)=> {
     let userData = e.target.value; // user input data
     let emptyArray = []
     if (userData) {
+
         emptyArray = titles.filter((data)=>{
             // Filter array values to lowercase and return titles which start with user entered data
             return data.toLocaleUpperCase().startsWith(userData.toLocaleUpperCase());
         });
         emptyArray = emptyArray.map((data)=>{
-            return data = '<li>' + data + '</li>';
+            return data = '<li class=\"active\" >' + data + '</li>';
         });
-        
-        let allList = suggestionsBox.querySelectorAll("li");
-        console.log(allList);
-        for (let i = 0; i < allList.length; i++) {
-            // on click ability for suggestions
-            allList[i].setAttribute("onclick", "select(this)");
-        }
-    } else {
-    }
+    } 
     showSuggestions(emptyArray);
 }
 
+//Function to display user selected suggestion
 function select(element) {
     let selectUserData = element.textContent;
     inputBox.value = selectUserData; // set input as clicked suggestion
 }
 
+//Display search suggestions
 function showSuggestions(list) {
     let listData;
+    console.log(listData)
     // Show own input if no suggestions
     if(!list.length) {
         userInput = inputBox.value;
@@ -81,7 +77,6 @@ function showSuggestions(list) {
 
     // if more than 5 suggestions, only show 5
     }else if (list.length >= 5) {
-
         let max = 5;
         let spliced = [];
 
@@ -95,11 +90,16 @@ function showSuggestions(list) {
         listData = list.join('');
     }
 
-    console.log(listData)
     if (typeof listData === 'undefined') {
        listData = '<li> </li>';
     };
     suggestionsBox.innerHTML = listData;
+
+    let allList = suggestionsBox.querySelectorAll(".active");
+     // on click ability for suggestions
+    for (let i = 0; i < allList.length; i++) {
+        allList[i].setAttribute("onclick", "select(this)");
+    }
 }
 
 let titles = [];

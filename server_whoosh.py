@@ -26,9 +26,10 @@ def results():
 	total = len(styleID)
 	page, per_page, offset = get_page_args(page_parameter='page', per_page_parameter='per_page')
 	pagination_pages = get_results(offset=offset, per_page=per_page)
-	pagination = Pagination(page=page, per_page=per_page, total=total, css_framework='bootstrap4')
+	pagination = Pagination(page=page, per_page=per_page, total=total, css_framework='bootstrap4', next_label= '&gt;', prev_label='&lt;', outer_window=0, inner_window=2)
 	return render_template('results.html', results=pagination_pages, page=page, per_page=per_page, pagination=pagination)
 
+# Not in use
 @app.route('/advancedResults/', methods=['GET', 'POST'])
 def advancedResults():
 	# # global mySearcher

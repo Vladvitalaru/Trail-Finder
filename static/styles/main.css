@@ -73,23 +73,36 @@
     filter: drop-shadow(3px 3px 5px rgba(60, 60, 60, 0.3));
     margin-top: 20px;
     align-items: center;
-
-    z-index: 1;
+    position: relative;
+    z-index: 30
 }
+
 .suggestionsBox {
     border-radius: 10px 0px 0px 0px;
     margin-top: 15px;
+    position: fixed;
+    z-index: 30;
+    top: 37px;
+    margin-left: 9px;
 }
+
 .suggestionsBox li {
     background: #f1f1f1;
     list-style: none;
     padding-bottom: 3px;
     padding-top: 3px;
     padding-left: 16px;
-    width: 472px;
+    width: 463px;
     font-family: 'Roboto', sans-serif;
     font-size: 22px;
-    
+    display: none;
+    /* z-index: 40; */
+}
+
+li.active {
+    display: list-item;
+    position: relative;
+    z-index: 40;
 }
 
 .suggestionsBox li:hover {
