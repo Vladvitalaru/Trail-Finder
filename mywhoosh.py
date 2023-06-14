@@ -10,8 +10,8 @@ from whoosh.qparser import MultifieldParser
 import os
 import json
 import matplotlib.pyplot as plotter
-# from wordcloud import WordCloud
-# from wordcloud import STOPWORDS
+from wordcloud import WordCloud
+from wordcloud import STOPWORDS
 
 class MyWhooshSearcher(object):
 	"""Class to be used for indexing and searching"""
@@ -50,8 +50,8 @@ class MyWhooshSearcher(object):
 						except: surfaces.append(queryEntered)
 						cloud.append(x['cloud_path'])
 						len_for_diff = float(x['length'])
-						if len_for_diff < 8: difficulty.append('Short')
-						elif len_for_diff < 15: difficulty.append('Medium')
+						if len_for_diff < 6: difficulty.append('Short')
+						elif len_for_diff < 12: difficulty.append('Medium')
 						else: difficulty.append('Long')
 			styleID = [i for i in range(1,len(url)+1)]
 			return url, title, length, image, state, county, description, styleID, activity, surfaces, cloud, difficulty
@@ -136,7 +136,22 @@ class MyWhooshSearcher(object):
 	def existing_index(self):
 		"""Loads an existing index at /myIndex/"""
 		self.indexer = open_dir('myIndex')
-
+  
+	def build_cloud(self):
+		word_cloud = WordCloud(width = 600, height = 600,
+		min_font_size = 120,
+  		max_font_size=200,
+		stopwords="none",
+    	colormap="winter",
+		font_path="/Users/vladvitalaru/Documents/Trailfinder/Trail-Finder/static/fonts/Recoleta-Regular.ttf",
+     	background_color="#ffffff").generate("No No Reviews")
+		plotter.figure(figsize=(8,6), facecolor = None)
+		plotter.imshow(word_cloud,interpolation="bilinear")
+		plotter.axis('off')
+		plotter.tight_layout(pad=0)
+		plotter.savefig('./static/images/cloud/cloud2.png' )
+		plotter.close()
+ 
 	def build_index(self):
 		"""Creates a new index based on the file path given containing documents"""
 		corpus_path = "./files"
@@ -169,7 +184,7 @@ class MyWhooshSearcher(object):
 					review.strip()
 					review_cloud_path = name.rstrip('.txt') + '.png'
 					if os.path.exists('./static/images/cloud/' + review_cloud_path): pass
-					# elif len(review) > 0:
+					elif len(review) > 0:
 					# 	review = "".join(json_dict['reviews'])
 					# 	stopwords = set(STOPWORDS)
 					# 	stopwords.add('trail')
@@ -182,7 +197,27 @@ class MyWhooshSearcher(object):
 					# 	plotter.tight_layout(pad=0)
 					# 	plotter.savefig('./static/images/cloud/' + review_cloud_path)
 					# 	plotter.close()
-					# elif 'oregonhikers' in json_dict['url']:
+     
+					# New code
+						review = "".join(json_dict['reviews'])
+						stopwords = set(STOPWORDS)
+						stopwords.add('trail')
+						stopwords.add('trails')
+						word_cloud = WordCloud(width = 800, height = 600,
+                        stopwords=stopwords,
+						min_font_size = 25,
+						max_font_size=180,
+						colormap="winter",
+						font_path="/Users/vladvitalaru/Documents/Trailfinder/Trail-Finder/static/fonts/Recoleta-Regular.ttf",
+						background_color="#ffffff").generate(review)
+						plotter.figure(figsize=(8,6), facecolor = None)
+						plotter.imshow(word_cloud,interpolation="bilinear")
+						plotter.axis('off')
+						plotter.tight_layout(pad=0)
+						plotter.savefig('./static/images/cloud/' + review_cloud_path)
+						plotter.close()
+     
+					elif 'oregonhikers' in json_dict['url']:
 					# 	stopwords = set(STOPWORDS)
 					# 	stopwords.add('trail')
 					# 	word_cloud = WordCloud(width = 800, height = 600,
@@ -194,6 +229,24 @@ class MyWhooshSearcher(object):
 					# 	plotter.tight_layout(pad=0)
 					# 	plotter.savefig('./static/images/cloud/' + review_cloud_path)
 					# 	plotter.close()
+     
+						stopwords = set(STOPWORDS)
+						stopwords.add('trail')
+						stopwords.add('trails')
+						word_cloud = WordCloud(width = 800, height = 600,
+						stopwords=stopwords,
+						min_font_size = 25,
+						max_font_size=180,
+						colormap="winter",
+						font_path="/Users/vladvitalaru/Documents/Trailfinder/Trail-Finder/static/fonts/Recoleta-Regular.ttf",
+						background_color="#ffffff").generate(json_dict['description'])
+						plotter.figure(figsize=(8,6), facecolor = None)
+						plotter.imshow(word_cloud,interpolation="bilinear")
+						plotter.axis('off')
+						plotter.tight_layout(pad=0)
+						plotter.savefig('./static/images/cloud/' + review_cloud_path)
+						plotter.close()
+      
 					else: review_cloud_path = "cloud.png" #path based on our current default word cloud image
 					len_dec = Decimal(json_dict['facts']['Length'].rstrip(" miles").lstrip('~'))
 					writer.add_document(url=json_dict['url'], title=json_dict['title'], length=len_dec,
@@ -210,6 +263,7 @@ class MyWhooshSearcher(object):
 if __name__ == '__main__':
 	mySearcher = MyWhooshSearcher()
 	mySearcher.build_index()
+	#mySearcher.build_cloud()
 	#mySearcher.existing_index()
 	"""url, title, length, image, state, county, description, styleID, activity, surfaces, cloud, difficulty = mySearcher.advanced_search(('Maine', 'Aroostook', 0, 200, 'ATV', 'Gravel', 'moose'))
 	for a,b,c,d,e,f,g,h,i,j,k,l in zip(url, title, length, image, state, county, description, styleID, activity, surfaces, cloud, difficulty):
