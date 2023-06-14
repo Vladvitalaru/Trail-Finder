@@ -1,7 +1,7 @@
 /* Result card styles */
 .TrailCard {
     display: block;
-    background-color: white;
+    background-color: #ffffff;
     margin-bottom: 30px;
     width: 920px;
     margin-left: auto;
@@ -22,7 +22,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    color: white;
+    color: #ffffff;
     font-family: 'Roboto', sans-serif;
 }
 
@@ -65,7 +65,7 @@
 }
 
 .Long {
-    background-color: rgb(247, 41, 41);
+    background-color: rgb(220, 0, 0);
 }
 
 .TrailCard-body {
