@@ -38,7 +38,9 @@
     height: 90px;
     color: #E77F16;
 }
-
+.highlight {
+    background-color: #c4c3c3;
+}
 .backgroundImage {
     /*Header background */
     display: block;
@@ -79,25 +81,24 @@
 }
 
 .suggestionsBox {
-    border-radius: 10px 0px 0px 0px;
     margin-top: 15px;
     position: fixed;
     z-index: 30;
     top: 37px;
     margin-left: 9px;
+    background: #f1f1f1;
 }
 
 .suggestionsBox li {
-    background: #f1f1f1;
+    /* background: #f1f1f1; */
     list-style: none;
     padding-bottom: 3px;
     padding-top: 3px;
     padding-left: 10px;
-    width: 463px;
+    width: 469px;
     font-family: 'Roboto', sans-serif;
     font-size: 22px;
     display: none;
-    /* z-index: 40; */
 }
 
 li.active {
@@ -186,3 +187,6 @@ form#search::after {
 .introText p {
     font-size: 32px;
 }
+/* .highlight {
+    background-color: #E77F16;
+} */
