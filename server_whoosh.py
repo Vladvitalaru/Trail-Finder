@@ -29,28 +29,6 @@ def results():
 	pagination = Pagination(page=page, per_page=per_page, total=total, css_framework='bootstrap4', next_label= '&gt;', prev_label='&lt;', outer_window=0, inner_window=2)
 	return render_template('results.html', results=pagination_pages, page=page, per_page=per_page, pagination=pagination)
 
-# Not in use
-@app.route('/advancedResults/', methods=['GET', 'POST'])
-def advancedResults():
-	# # global mySearcher
-	if request.method == 'POST':
-		state_input = request.form.get("state")
-		county_input = request.form.get("county")
-		minlength_input = request.form.get("minLength")
-		maxlength_input = request.form.get("maxLength")
-		activities_input = request.form.get("activities")
-		surfaces_input = request.form.get("surfaces")
-		advancedSearch_input = request.form.get("advancedSearch")
-		global url, title, length, image, state, county, description, styleID, activity, surfaces, cloud, difficulty
-		url, title, length, image, state, county, description, styleID, activity, surfaces, cloud, difficulty = mySearcher.advanced_search((state_input, county_input, minlength_input, maxlength_input, 
-			activities_input, surfaces_input, advancedSearch_input))
-	global results
-	results = list(zip(url, title, length, image, state, county, description, styleID, activity, surfaces, cloud, difficulty))
-	total = len(styleID)
-	page, per_page, offset = get_page_args(page_parameter='page', per_page_parameter='per_page')
-	pagination_pages = get_results(offset=offset, per_page=per_page)
-	pagination = Pagination(page=page, per_page=per_page, total=total, css_framework='bootstrap4')
-	return render_template('results.html', results=pagination_pages, page=page, per_page=per_page, pagination=pagination) #add review cloud and difficulty level
  
 #Handle error 404
 @app.errorhandler(404)
@@ -59,7 +37,6 @@ def page_not_found(e):
     return render_template('404.html'), 404
 		
 if __name__ == '__main__':
-	#global mySearcher
 	mySearcher = MyWhooshSearcher()
 	#mySearcher.build_cloud()
 	#mySearcher.build_index() # Use this to build index first then uncomment

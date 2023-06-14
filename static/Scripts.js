@@ -26,18 +26,6 @@ function enlargeCloud(id) {
        }
 }
 
-//Open/close advanced filters (Not in use)
-function openFilters() {
-    let filterModal = document.getElementById("filterModal");
-    console.log(filterModal);
-    filterModal.style.display = "block";
-
-    let filterClose = document.getElementById("closeFilter");
-    filterClose.onclick = function() {
-        filterModal.style.display = "none";
-    }
-}
-
 
 const searchWrapper = document.querySelector(".inputs");
 const inputBox = document.querySelector("input");
@@ -46,6 +34,7 @@ const suggestionsBox = document.querySelector(".suggestionsBox");
 // User pressing keys
 inputBox.onkeyup = (e)=> {
     let userData = e.target.value; // user input data
+    console.log(userData);
     let emptyArray = []
     if (userData) {
 
@@ -69,7 +58,6 @@ function select(element) {
 //Display search suggestions
 function showSuggestions(list) {
     let listData;
-    console.log(listData)
     // Show own input if no suggestions
     if(!list.length) {
         userInput = inputBox.value;

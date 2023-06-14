@@ -10,8 +10,8 @@ from whoosh.qparser import MultifieldParser
 import os
 import json
 import matplotlib.pyplot as plotter
-from wordcloud import WordCloud
-from wordcloud import STOPWORDS
+# from wordcloud import WordCloud
+# from wordcloud import STOPWORDS
 
 class MyWhooshSearcher(object):
 	"""Class to be used for indexing and searching"""
@@ -56,87 +56,11 @@ class MyWhooshSearcher(object):
 			styleID = [i for i in range(1,len(url)+1)]
 			return url, title, length, image, state, county, description, styleID, activity, surfaces, cloud, difficulty
 
-	def advanced_search(self, queryEntered: tuple): #queryEntered = (state, county, minLength, maxLength, activities, surfaces, advSearch)
-		"""Advanced Search where query goes to specific fields, works even if all fields are not present"""
-		url, title, length, image, state, county, description, activity, surfaces, cloud, difficulty = ([] for _ in range(11))
-		with open('traillinkPR.txt', 'r') as f:
-			traillinkPR = json.loads(f.read())
-			with self.indexer.searcher() as search: #minLength:maxLength
-				state_query = QueryParser('state', schema=self.indexer.schema)
-				state_query = state_query.parse(queryEntered[0])
-				county_query = QueryParser('county', schema=self.indexer.schema)
-				county_query = county_query.parse(queryEntered[1])
-
-				if queryEntered[2] and queryEntered[3]: #min and max entered
-					length_query = NumericRange('length', queryEntered[2], queryEntered[3])
-				elif not queryEntered[2] and queryEntered[3]: #only max entered
-					length_query = NumericRange('length', 0, queryEntered[3])
-				elif queryEntered[2] and not queryEntered[3]: #only min entered
-					length_query = NumericRange('length', queryEntered[2], 9999)
-				elif not queryEntered[2] and not queryEntered[3]: #neither entered
-					length_query = NumericRange('length', 0, 9999)
-
-				activity_query = QueryParser('activities', schema=self.indexer.schema)
-				activity_query = activity_query.parse(queryEntered[4])
-				surface_query = QueryParser('trail_surfaces', schema=self.indexer.schema)
-				surface_query = surface_query.parse(queryEntered[5])
-				general_query = MultifieldParser(['titles','content'], schema=self.indexer.schema)
-				general_query = general_query.parse(queryEntered[6])
-
-				results = search.search(length_query, limit=None)
-				if county_query:
-					county_results = search.search(county_query, limit=None)
-					results.filter(county_results)
-				if activity_query:
-					activity_results = search.search(activity_query, limit=None)
-					results.filter(activity_results)
-				if surface_query:
-					surface_results = search.search(surface_query, limit=None)
-					results.filter(surface_results)
-				if state_query:
-					state_results = search.search(state_query, limit=None)
-					results.filter(state_results)
-				if general_query:
-					general_results = search.search(general_query, limit=None)
-					results.filter(general_results)
-
-				list_to_sort = []
-				for x in results:
-					try:
-						url_score = x.score + traillinkPR(x['url'])
-					except:
-						url_score = x.score
-					list_to_sort.append((x, url_score))
-					list_to_sort.sort(key= lambda x: x[1], reverse=True)
-				for x, x.score in list_to_sort:
-					if x['url'].endswith('trail-detail-reviews'): pass #will want to remove once crawler is fixed
-					else:
-						url.append(x['url'])
-						title.append(x['title'])
-						length.append(x['length'])
-						image.append(x['image'])
-						state.append(x['state'])
-						county.append(x['county'])
-						description.append(x['description'])
-						activity.append(x['activities'].replace(',' , ', '))
-						try: surfaces.append(x['trail_surfaces'])
-						except: surfaces.append(queryEntered)
-						cloud.append(x['cloud_path'])
-						len_for_diff = float(x['length'])
-						if len_for_diff < 5: difficulty.append('Short')
-						elif len_for_diff < 12: difficulty.append('Medium')
-						else: difficulty.append('Long')
-						#matching = []
-						#for term in x.matched_terms():
-							#matching.append(str(term[1]).lstrip('b'))
-						#matched.append(','.join(matching))
-			styleID = [i for i in range(1,len(url)+1)]
-			return url, title, length, image, state, county, description, styleID, activity, surfaces, cloud, difficulty
-
 	def existing_index(self):
 		"""Loads an existing index at /myIndex/"""
 		self.indexer = open_dir('myIndex')
-  
+
+	# used to generate No Reviews cloud 
 	def build_cloud(self):
 		word_cloud = WordCloud(width = 600, height = 600,
 		min_font_size = 120,
@@ -144,7 +68,7 @@ class MyWhooshSearcher(object):
 		stopwords="none",
     	colormap="winter",
 		font_path="/Users/vladvitalaru/Documents/Trailfinder/Trail-Finder/static/fonts/Recoleta-Regular.ttf",
-     	background_color="#ffffff").generate("No No Reviews")
+     	background_color="#ffffff").generate("No Reviews")
 		plotter.figure(figsize=(8,6), facecolor = None)
 		plotter.imshow(word_cloud,interpolation="bilinear")
 		plotter.axis('off')
@@ -184,69 +108,41 @@ class MyWhooshSearcher(object):
 					review.strip()
 					review_cloud_path = name.rstrip('.txt') + '.png'
 					if os.path.exists('./static/images/cloud/' + review_cloud_path): pass
-					elif len(review) > 0:
-					# 	review = "".join(json_dict['reviews'])
-					# 	stopwords = set(STOPWORDS)
-					# 	stopwords.add('trail')
-					# 	word_cloud = WordCloud(width = 800, height = 600,
-					# 	background_color='white', stopwords = stopwords,
-					# 	min_font_size = 10).generate(review)
-					# 	plotter.figure(figsize=(8,6), facecolor = None)
-					# 	plotter.imshow(word_cloud)
-					# 	plotter.axis('off')
-					# 	plotter.tight_layout(pad=0)
-					# 	plotter.savefig('./static/images/cloud/' + review_cloud_path)
-					# 	plotter.close()
-     
-					# New code
-						review = "".join(json_dict['reviews'])
-						stopwords = set(STOPWORDS)
-						stopwords.add('trail')
-						stopwords.add('trails')
-						word_cloud = WordCloud(width = 800, height = 600,
-                        stopwords=stopwords,
-						min_font_size = 25,
-						max_font_size=180,
-						colormap="winter",
-						font_path="/Users/vladvitalaru/Documents/Trailfinder/Trail-Finder/static/fonts/Recoleta-Regular.ttf",
-						background_color="#ffffff").generate(review)
-						plotter.figure(figsize=(8,6), facecolor = None)
-						plotter.imshow(word_cloud,interpolation="bilinear")
-						plotter.axis('off')
-						plotter.tight_layout(pad=0)
-						plotter.savefig('./static/images/cloud/' + review_cloud_path)
-						plotter.close()
-     
-					elif 'oregonhikers' in json_dict['url']:
-					# 	stopwords = set(STOPWORDS)
-					# 	stopwords.add('trail')
-					# 	word_cloud = WordCloud(width = 800, height = 600,
-					# 	background_color='white', stopwords = stopwords,
-					# 	min_font_size = 10).generate(json_dict['description'])
-					# 	plotter.figure(figsize=(8,6), facecolor = None)
-					# 	plotter.imshow(word_cloud)
-					# 	plotter.axis('off')
-					# 	plotter.tight_layout(pad=0)
-					# 	plotter.savefig('./static/images/cloud/' + review_cloud_path)
-					# 	plotter.close()
-     
-						stopwords = set(STOPWORDS)
-						stopwords.add('trail')
-						stopwords.add('trails')
-						word_cloud = WordCloud(width = 800, height = 600,
-						stopwords=stopwords,
-						min_font_size = 25,
-						max_font_size=180,
-						colormap="winter",
-						font_path="/Users/vladvitalaru/Documents/Trailfinder/Trail-Finder/static/fonts/Recoleta-Regular.ttf",
-						background_color="#ffffff").generate(json_dict['description'])
-						plotter.figure(figsize=(8,6), facecolor = None)
-						plotter.imshow(word_cloud,interpolation="bilinear")
-						plotter.axis('off')
-						plotter.tight_layout(pad=0)
-						plotter.savefig('./static/images/cloud/' + review_cloud_path)
-						plotter.close()
-      
+					# elif len(review) > 0:
+						# review = "".join(json_dict['reviews'])
+						# stopwords = set(STOPWORDS)
+						# stopwords.add('trail')
+						# stopwords.add('trails')
+						# word_cloud = WordCloud(width = 800, height = 600,
+                        # stopwords=stopwords,
+						# min_font_size = 25,
+						# max_font_size=180,
+						# colormap="winter",
+						# font_path="/Users/vladvitalaru/Documents/Trailfinder/Trail-Finder/static/fonts/Recoleta-Regular.ttf",
+						# background_color="#ffffff").generate(review)
+						# plotter.figure(figsize=(8,6), facecolor = None)
+						# plotter.imshow(word_cloud,interpolation="bilinear")
+						# plotter.axis('off')
+						# plotter.tight_layout(pad=0)
+						# plotter.savefig('./static/images/cloud/' + review_cloud_path)
+						# plotter.close()
+					# elif 'oregonhikers' in json_dict['url']:
+						# stopwords = set(STOPWORDS)
+						# stopwords.add('trail')
+						# stopwords.add('trails')
+						# word_cloud = WordCloud(width = 800, height = 600,
+						# stopwords=stopwords,
+						# min_font_size = 25,
+						# max_font_size=180,
+						# colormap="winter",
+						# font_path="/Users/vladvitalaru/Documents/Trailfinder/Trail-Finder/static/fonts/Recoleta-Regular.ttf",
+						# background_color="#ffffff").generate(json_dict['description'])
+						# plotter.figure(figsize=(8,6), facecolor = None)
+						# plotter.imshow(word_cloud,interpolation="bilinear")
+						# plotter.axis('off')
+						# plotter.tight_layout(pad=0)
+						# plotter.savefig('./static/images/cloud/' + review_cloud_path)
+						# plotter.close()
 					else: review_cloud_path = "cloud.png" #path based on our current default word cloud image
 					len_dec = Decimal(json_dict['facts']['Length'].rstrip(" miles").lstrip('~'))
 					writer.add_document(url=json_dict['url'], title=json_dict['title'], length=len_dec,
