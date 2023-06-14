@@ -26,38 +26,77 @@ function enlargeCloud(id) {
        }
 }
 
-//Open/close advanced filters (Not in use)
-function openFilters() {
-    let filterModal = document.getElementById("filterModal");
-    console.log(filterModal);
-    filterModal.style.display = "block";
-
-    let filterClose = document.getElementById("closeFilter");
-    filterClose.onclick = function() {
-        filterModal.style.display = "none";
-    }
-}
-
 
 const searchWrapper = document.querySelector(".inputs");
 const inputBox = document.querySelector("input");
 const suggestionsBox = document.querySelector(".suggestionsBox");
+let sIndex = -1;
 
 // User pressing keys
 inputBox.onkeyup = (e)=> {
     let userData = e.target.value; // user input data
-    let emptyArray = []
+    console.log(userData);
+
+    let results = []
     if (userData) {
 
-        emptyArray = titles.filter((data)=>{
+        results = titles.filter((data)=>{
             // Filter array values to lowercase and return titles which start with user entered data
             return data.toLocaleUpperCase().startsWith(userData.toLocaleUpperCase());
         });
-        emptyArray = emptyArray.map((data)=>{
+        results = results.map((data)=>{
             return data = '<li class=\"active\" >' + data + '</li>';
         });
     } 
-    showSuggestions(emptyArray);
+
+    // set suggestions for arrow keys
+    var filtered = calculateSuggestions(results)
+  
+    let count = Object.keys(filtered).length - 1
+    console.log(count);
+    
+    //If Down Arrow is pressed
+    if (e.key === "ArrowDown") {
+        if (sIndex === -1) {    //If not highlighted
+            filtered[++sIndex].classList.add("highlight")
+            select(filtered[sIndex]);
+        }
+        else if (sIndex === count) {    //If at last index
+            filtered[sIndex].classList.remove("highlight");
+            sIndex = 0;
+            filtered[sIndex].classList.add("highlight");
+        }
+        else {      //All other cases
+            filtered[sIndex].classList.remove("highlight");
+            filtered[++sIndex].classList.add("highlight");
+            select(filtered[sIndex]);
+        }
+
+    }
+    //If Up Arrow is pressed
+    else if (e.key === "ArrowUp") {
+        console.log("Up arrow pressed")
+        if (sIndex === -1) {    //If not highlighted
+            sIndex = count
+            filtered[sIndex].classList.add("highlight");
+            select(filtered[sIndex])
+        }
+        else if (sIndex === 0) {    //If at first index
+            filtered[sIndex].classList.remove("highlight");
+            sIndex = count;
+            filtered[sIndex].classList.add("highlight");
+        }
+        else {      //All other cases
+            filtered[sIndex].classList.remove("highlight");
+            filtered[--sIndex].classList.add("highlight");
+            select(filtered[sIndex]);
+        }
+    }
+    else {
+        // Display suggestions
+        sIndex = -1;
+        showSuggestions(results);
+    }
 }
 
 //Function to display user selected suggestion
@@ -69,10 +108,9 @@ function select(element) {
 //Display search suggestions
 function showSuggestions(list) {
     let listData;
-    console.log(listData)
     // Show own input if no suggestions
     if(!list.length) {
-        userInput = inputBox.value;
+        var userInput = inputBox.value;
         listData = `<li>${userInput}</li>`;
 
     // if more than 6 suggestions, only show 6
@@ -88,6 +126,7 @@ function showSuggestions(list) {
     // Show suggestions
     } else {
         listData = list.join('');
+        console.log(listData);
     }
 
     if (typeof listData === 'undefined') {
@@ -102,8 +141,29 @@ function showSuggestions(list) {
     }
 }
 
-let titles = [];
+function calculateSuggestions(list) {
+    let listData;
 
+    // if more than 6 suggestions, only calculate 6
+    if (list.length >= 6) {
+        let max = 6;
+        let spliced = [];
+
+        for (var i = 0; i < max; i++) {
+            spliced.push(list[i]);
+        }
+       listData = spliced.join('');
+    }
+    let allList = suggestionsBox.querySelectorAll(".active");
+     // on click ability for suggestions
+    for (let i = 0; i < allList.length; i++) {
+        allList[i].setAttribute("onclick", "select(this)");
+    }
+    return allList;
+}
+
+
+let titles = [];
 function loadTitles(){
     file_path = "/static/titles.txt";
     let request = new XMLHttpRequest();

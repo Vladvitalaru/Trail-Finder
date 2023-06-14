@@ -30,7 +30,6 @@
 			</div>
 		</div>
 		
-
 	<!-- Search Bar, filter and search Button -->
 	<div class="inputs">
 
@@ -38,55 +37,14 @@
 			<!-- <button class="filterButton" type="button" name="filter" onclick="openFilters()"> <i class="fa-solid fa-bars"></i> </button> -->
 			<input type="text" placeholder="Discover your next adventure" name="search">
 			<button class="searchButton" type="submit" value="submit" for='search' id='searchBtn'> <i class="fa fa-search"></i> </button>
-			
+		
 			<div class="suggestionsBox">
 				<li> </li>
-
 			</div>
 
 		</form>
 	</div>
 
-	<!-- Advanced filter Modal -->
-	<div id="filterModal" class="filterModal">
-		<div class="filterModal-content"> 
-			<h3> <i class="fa-solid fa-bars largeFilter"> </i> Advanced Search</h3>
-
-			<div class="filterOptions">
-
-				<form id="advancedSearch" action="{{ url_for('advancedResults') }}" method="post" autocomplete="off">
-				
-					<div class="leftColumn">
-							<label for="state"> State </label>
-							<input type="text" name="state">
-
-							<label for="minLength"> Min Length</label>
-							<input type="text" name="minLength">
-
-							<label for="activities"> Activities</label>
-							<input type="text" name="activities">
-					</div>
-					
-					<div class="rightColumn">
-							<label for="county"> County </label>
-							<input type="text" name="county">
-
-							<label for="maxLength"> Max Length </label>
-							<input type="text" name="maxLength">
-
-							<label for="surfaces"> Terrain </label>
-							<input type="text" name="surfaces">
-					</div> 
-			</div>
-
-				<div class="closeFlex"> 
-					<input type="text" name="advancedSearch" placeholder="Discover your next adventure">
-					<button class="advancedSearchButton" id="advancedSearchRequest" type="submit" for="advancedSearch"> Search </button>
-				</div>
-			</form>
-		</div>
-		<span class="close" id="closeFilter">&times;</span>
-	</div>
 
 	{% block information %}
 	<div class="introText">
