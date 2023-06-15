@@ -1,1 +1,2 @@
 FLASK_APP=server_whoosh.py
+FLASK_DEBUG=1

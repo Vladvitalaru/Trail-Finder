@@ -35,7 +35,7 @@
 
 		<form id="search" autocomplete="off" action="{{ url_for('results') }}" method="post">
 			<!-- <button class="filterButton" type="button" name="filter" onclick="openFilters()"> <i class="fa-solid fa-bars"></i> </button> -->
-			<input type="text" placeholder="Discover your next adventure" name="search">
+			<input type="text" placeholder="Discover your next adventure" name="search" spellcheck="false">
 			<button class="searchButton" type="submit" value="submit" for='search' id='searchBtn'> <i class="fa fa-search"></i> </button>
 		
 			<div class="suggestionsBox">
