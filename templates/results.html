@@ -4,6 +4,7 @@
 
 {% block cards %} 
 
+<div class="grid"> 
 	{% for url, title, length, image, state, county, description, styleID, activity, surfaces, cloud, difficulty in results %}
 	<div class="TrailCard">
 		
@@ -40,7 +41,7 @@
 	</div>
 
 	{% endfor %}
-
+</div>
 	<div id='pagination'>
 
 		{{pagination.links}}
