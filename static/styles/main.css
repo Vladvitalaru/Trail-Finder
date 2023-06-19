@@ -1,7 +1,7 @@
 .header {
     display: flex;
     justify-content: center;
-    margin-top: 64px;
+    margin-top: max(4%,84px);
 }
 
 .topText {
@@ -15,6 +15,7 @@
     height: 110px;
     width: 110px;
     filter: drop-shadow(1px 1px 3px rgba(0, 0, 0, 0.8));
+    cursor: pointer;
 }
 
 #title {
@@ -26,6 +27,7 @@
     padding-bottom: 20px;
     height: 90px;
     color: #1B8D20;
+    cursor: pointer;
 }
 
 #finder {
@@ -45,7 +47,9 @@
     /*Header background */
     display: block;
     width: 100%;
-    height: 220px;
+    height: 26%;
+    max-height: 258px;
+    min-height: 18%;
     padding: 0;
     margin: 0;
     border: 0;
@@ -181,12 +185,8 @@ form#search::after {
     margin-right: auto;
     margin-top: 50px;
     color: #1B8D20;
-
 }
 
 .introText p {
     font-size: 32px;
 }
-/* .highlight {
-    background-color: #E77F16;
-} */
