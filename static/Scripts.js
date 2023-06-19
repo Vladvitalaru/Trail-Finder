@@ -188,3 +188,8 @@ function loadTitles(){
         request.open( 'GET', file_path ); // initialize request. 
         request.send();                   // execute request
 };
+
+    //!! Change to homepage URL !!
+function Homepage() {
+    window.location.replace("http://127.0.0.1:5000/")
+}
