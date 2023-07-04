@@ -6,15 +6,18 @@
     width: 44%;
     min-width: 720px;
     max-width: 980px;
-    border-bottom-right-radius: 5px;
-    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
     filter: drop-shadow(3px 3px 5px rgba(60, 60, 60, 0.3));
     z-index: 10;
     position: relative;
 }
-/* .TrailCard:hover {
-    scale: 1.02;
-} */
+.TrailCard:hover { 
+    box-shadow: 3px, 3px 5px rgba(60, 60, 60, 0.3);
+    -webkit-box-shadow: 0px 5px 50px -10px rgba(0,0,0,0.57);
+    -moz-box-shadow: 0px 5px 50px -10px rgba(0,0,0,0.57);
+    transition: all 0.2s ease 0s;
+}
 
 .TrailCard-header {
     border-bottom: 1px solid grey;
@@ -82,15 +85,15 @@
     background-size: cover;
     display: block;
     border: 0px;
-    border-bottom-left-radius: 5px;
+    border-bottom-left-radius: 10px;
 }
 
 .TrailCard-image:hover {
-    opacity: 0.7;
+    opacity: 0.8;
     cursor: pointer
 }
 .TrailCard-cloud:hover  {
-    opacity: 0.5;
+    opacity: 0.6;
     cursor: pointer
 }
 
@@ -146,7 +149,7 @@
     background-position: center;
     display: block;
     border: 0px;
-    border-bottom-right-radius: 5px;
+    border-bottom-right-radius: 10px;
 }
 
 #LargeImage {
@@ -281,7 +284,6 @@
     position: relative;
     display: block;
     padding: .5rem .75rem;
-    margin-left: -1px;
     line-height: 1.25;
     color: #fff;
     background-color: #E77F16;
