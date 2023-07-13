@@ -8,21 +8,21 @@
 	{% for url, title, length, image, state, county, description, styleID, activity, surfaces, cloud, difficulty in results %}
 	<div class="TrailCard">
 		
-		<div class="TrailCard-header {{difficulty}}" onclick="window.location.href='{{url}}'" > 	
+		<div class="TrailCard-header {{difficulty}}" onclick="window.location.href='{{url}}'"> 	
 			<span class="length"> {{length}} mi. </span>
 			<h2> {{title}} </h2>
 			<span class="difficulty"> {{difficulty}} </span>
 		</div>
 		
 		<div class="TrailCard-body">
-			<div class="TrailCard-image" id=Img{{styleID}} style="background-image: url( {{image}} )" onclick="enlarge(id)" > </div> 
+			<div class="TrailCard-image" id=Img{{styleID}} style="background-image: url( {{image}} )" onclick="enlarge(id)"> </div> 
 
 
 			<div class="TrailCard-description"> 
-				<h3> State: {{state}} &nbsp|&nbsp County: {{county}} </h3>
-				<p> {{description}} </p>
-				<h4> {{activity}} </h4>
-				<a href=" {{url}} "> Source </a></a>
+				<h3>State: {{state}} &nbsp|&nbsp County: {{county}}</h3>
+				<p>{{description}}</p>
+				<h4>{{activity}}</h4>
+				<a href=" {{url}} ">Source</a>
 			</div>
 			<div class="TrailCard-cloud" id="Cloud{{styleID}}" style="background-image: url( /static/images/cloud/{{cloud}} )"  onclick="enlargeCloud(id)"> </div>
 		</div>
@@ -31,13 +31,13 @@
 	<div id="myModalImg{{styleID}}" class="modal">
 		<span class="close" id="closeImg{{styleID}}">&times;</span>
 		<img class="modal-content" style="background-image: url( {{image}} )" src="{{image}}">
-		<div id="caption"> {{title}}</div> 
+		<div class="caption"> {{title}}</div> 
 	</div>
 
 	<div id="modalCloud{{styleID}}" class="modal">
 		<span class="close" id="closeCloud{{styleID}}">&times;</span>
 		<img class="cloud-content" style="background-image: url( /static/images/cloud/{{cloud}} )" src="/static/images/cloud/{{cloud}}">
-		<div id="caption"> {{title}}</div> 
+		<div class="caption"> {{title}}</div> 
 	</div>
 
 	{% endfor %}

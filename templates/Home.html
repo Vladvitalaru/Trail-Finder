@@ -4,20 +4,19 @@
 
 	<head>
 		<meta charset="UTF-8">
+		<title>Trail Finder</title>
 		<link rel="stylesheet" href="/static/styles/main.css">
 		<link rel="stylesheet" href="/static/styles/results.css">
 
 		<link rel="icon" type="image/x-icon" href="/static/images/favicon.ico">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		<link href="https://fonts.cdnfonts.com/css/recoleta" rel="stylesheet">
-		<script src="https://kit.fontawesome.com/93eb3aaca8.js" crossorigin="anonymous"></script>
 
-		<title>Trail Finder</title>
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 	</head>
-		<body onload = "loadTitles()">
+		<body onload="loadTitles()">
 
 		<div>
 			<div class="backgroundImage"> </div>
@@ -48,8 +47,45 @@
 
 	{% block information %}
 	<div class="introText">
-		<p> Search for trails all around the US! <br> Utilize the advanced search to narrow down preferences based on state, distance, activities & terrain.  </p>
+		<p> Search engine for trails across the US <br> Example trail information card with review clouds  </p>
+		<div class="TrailCard TrailCard-example">
+		
+			<div class="TrailCard-header Medium" onclick=ExampleLink()> 	
+				<span class="length"> 10.5 mi. </span>
+				<h2> Praeri Rail Trail </h2>
+				<span class="difficulty"> Medium </span>
+			</div>
+			
+			<div class="TrailCard-body">
+				<div class="TrailCard-image" id=Img{{styleID}} style="background-image: url(https://cloudfront.traillink.com/photos/praeri-rail-trail_209248_sc.jpg)" onclick="enlarge(id)"> </div> 
+	
+	
+				<div class="TrailCard-description"> 
+					<h3>State: Iowa &nbsp|&nbsp County: Story</h3>
+					<p>Praeri Rail Trail spans 10.5 from N. Park St. and National St. (Roland) to US 65 just south of W. Main St. (Zearing)</p>
+					<h4>Inline Skating, Horseback Riding, Mountain Biking, Snowmobiling, Walking, Cross Country Skiing</h4>
+					<a href="https://www.traillink.com/trail/praeri-rail-trail/">Source</a>
+				</div>
+				<div class="TrailCard-cloud" id="Cloud{{styleID}}" style="background-image: url(/static/images/cloud/httpswww.traillink.comtrailpraeri-rail-trail.png)"  onclick="enlargeCloud(id)"> </div>
+			</div>
+		</div>
+
+		
 	</div>
+	<div id="myModalImg{{styleID}}" class="modal">
+		<span class="close" id="closeImg{{styleID}}">&times;</span>
+		<img class="modal-content" style="background-image: url(https://cloudfront.traillink.com/photos/praeri-rail-trail_209248_sc.jpg)" src="https://cloudfront.traillink.com/photos/praeri-rail-trail_209248_sc.jpg">
+		<div class="caption"> Praeri Rail Trail</div> 
+	</div>
+
+
+	<div id="modalCloud{{styleID}}" class="modal">
+		<span class="close" id="closeCloud{{styleID}}">&times;</span>
+		<img class="cloud-content" style="background-image: url( /static/images/cloud/httpswww.traillink.comtrailpraeri-rail-trail.png)" src="/static/images/cloud/httpswww.traillink.comtrailpraeri-rail-trail.png ">
+		<div class="caption"> Praeri Rail Trail</div>  
+	</div>
+
+	
 	{% endblock %}
 	
 	<!-- Cards to be inserted -->
