@@ -339,3 +339,12 @@
     column-gap: 3%;
     width: 97%;
 }
+.No-results {
+    display: flex;
+    margin: auto;
+    justify-content: center;
+    color: #1B8D20;
+    font-size: 2.4em;
+    font-family: 'Roboto', sans-serif;
+    font-style: italic;
+}
