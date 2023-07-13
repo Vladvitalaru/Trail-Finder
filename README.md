@@ -2,23 +2,22 @@
 
 ### Web application which allows users to search for trails across the US
 
-![frontpage](https://user-images.githubusercontent.com/78878935/204413857-045650f7-d682-4f68-915f-3f5c63ed30f1.JPG)
+![homepage](https://github.com/Vladvitalaru/Trail-Finder/assets/78878935/22fbd1a9-849d-4773-83ee-779d8022c079)
 
 ### Live search suggestions based on trail names 
 
-![livesearch](https://user-images.githubusercontent.com/78878935/204431279-6573761e-7177-4b3c-b584-d1966a45df16.JPG)
+![livesearch](https://github.com/Vladvitalaru/Trail-Finder/assets/78878935/dfa24894-18c2-49d3-8abc-d01ca0a5a834)
+
 
 ### Trails returned as cards with information such as location, length, images & activities
 
-![results](https://user-images.githubusercontent.com/78878935/204414248-0098bd03-6b1f-49a5-9710-619fe5c9939c.JPG)
+![results](https://github.com/Vladvitalaru/Trail-Finder/assets/78878935/1bc7f104-8950-40b2-a7ba-c6433f55bbc4)
+
 
 ### Word cloud generated based on reviews from scraped sites
 
-![cloud](https://user-images.githubusercontent.com/78878935/204432064-77ee3337-628e-4fce-9f4c-508066416f99.JPG)
+![cloud](https://github.com/Vladvitalaru/Trail-Finder/assets/78878935/1d3c399c-01f9-4af3-92d8-cabcf0ed8fbc)
 
-### Advanced search filters may be used to narrow search 
-
-![advsearch](https://user-images.githubusercontent.com/78878935/204431056-18beb70b-757f-40bd-b4d2-1dbd3fc500e8.JPG)
 
 ## Scraped sites :mag:
 Trail cards are built using data scraped from the following sites:
@@ -39,13 +38,17 @@ Trail cards are built using data scraped from the following sites:
 
 ## Dependencies :electric_plug:
 Python 3.8 and newer required, 
-Pip install the following modules:
+The following modules were used
 - Flask
 - flask-paginate
+- Jinja2
+- lxml
 - Whoosh
 - matplotlib
+- numpy
 - pandas
 - wordcloud
+- beautifulsoup4
 
 ## Important :exclamation:
 - Extract either samplefiles.zip or fullset.zip in the root directory so the .txt files are inside root/files/file.txt
@@ -54,7 +57,8 @@ Pip install the following modules:
 - All crawlers can be ran separately to generate files for Whoosh
 - Pagerank calculator relies on Traillink and Oregontrails being crawled at least once
 
-## To Run:
+## To Run locally:
+- **By default, an existing index is used**
 - If using the existing index:
     - Run 'python ./server_whoosh.py'
 - If building a new index:
