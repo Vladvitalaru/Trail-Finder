@@ -175,11 +175,12 @@ form#search::after {
 }
 
 .introText {
-    font-family: 'Recoleta', sans-serif;
+    font-family: 'Roboto', sans-serif;
+    font-weight: lighter;
     display: flex;
     justify-content: center;
     flex-direction: column;
-    width: 750px;
+    /* width: 45%; */
     text-align: center;
     margin-left: auto;
     margin-right: auto;
@@ -188,5 +189,7 @@ form#search::after {
 }
 
 .introText p {
-    font-size: 32px;
+    font-size: 30px;
+    line-height: 1.4em;
+    margin-bottom: 14px;
 }

@@ -18,7 +18,9 @@
     -moz-box-shadow: 0px 5px 50px -10px rgba(0,0,0,0.57);
     transition: all 0.2s ease 0s;
 }
-
+.TrailCard-example {
+    align-self: center;
+}
 .TrailCard-header {
     border-bottom: 1px solid grey;
     display: flex;
@@ -196,7 +198,7 @@
     cursor: pointer;
 }
 
-#caption {
+.caption {
     margin: auto;
     display: block;
     width: 80%;
@@ -210,7 +212,7 @@
 }
 
 .modal-content,
-#caption,
+.caption,
 .cloud-content {
     -webkit-animation-name: zoom;
     -webkit-animation-duration: 04s;
@@ -265,7 +267,6 @@
 .page-item:last-child .page-link {
     border-top-right-radius: .25rem;
     border-bottom-right-radius: .25rem;
-    color: #fff;
 }
 
 .page-item.active .page-link {

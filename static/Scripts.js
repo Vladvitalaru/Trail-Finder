@@ -191,5 +191,9 @@ function loadTitles(){
 
     //!! Change to homepage URL !!
 function Homepage() {
-    window.location.replace("http://127.0.0.1:5000/")
+    window.location.assign("http://127.0.0.1:5000/")
+}
+
+function ExampleLink() {
+    window.location.assign("https://www.traillink.com/trail/praeri-rail-trail/")
 }
