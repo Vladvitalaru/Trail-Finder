@@ -192,4 +192,5 @@ form#search::after {
     font-size: 30px;
     line-height: 1.4em;
     margin-bottom: 14px;
+    margin-top: 4px;
 }
