@@ -19,6 +19,7 @@ class MyWhooshSearcher(object):
 		super(MyWhooshSearcher, self).__init__()
 
 	def search(self, queryEntered):
+		queryEntered = queryEntered.strip('"')
 		"""General search with all the necessary fields"""
 		with open('traillinkPR.txt', 'r') as f:
 			traillinkPR = json.loads(f.read())
