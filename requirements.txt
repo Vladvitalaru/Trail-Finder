@@ -1,10 +1,7 @@
-Flask
-flask-paginate
-Jinja2
-lxml
-matplotlib
-numpy
-Whoosh
-pandas
-beautifulsoup4
-python-dotenv
+Flask==2.2.2
+flask-paginate==2022.1.8
+itsdangerous==2.1.2
+Jinja2==3.1.2
+matplotlib==3.5.3
+numpy==1.21.6
+Whoosh==2.7.4
