@@ -12,12 +12,15 @@
     z-index: 10;
     position: relative;
 }
+
 .TrailCard:hover { 
     transform: translate(0em, -3px);
 }
+
 .TrailCard-example {
     align-self: center;
 }
+
 .TrailCard-header {
     border-bottom: 1px solid grey;
     display: flex;
@@ -172,8 +175,7 @@
 .modal-content {
     margin: auto;
     display: block;
-    width: 80%;
-    max-width: 800px;
+    width: 40%;
     border-radius: 10px;
     border: black solid .5px;
 }
@@ -204,7 +206,7 @@
     color: #E9E8E4;
     padding: 10px 0;
     height: 150px;
-    font-size: 24px;
+    font-size: 28px;
     font-family: 'Roboto', sans-serif;
 }
 
@@ -240,8 +242,7 @@
 .cloud-content {
     margin: auto;
     display: block;
-    max-height: 800px;
-    max-width: 800px;
+    width: 40%;
     border-radius: 12px;
     border: black solid .5px;
 }
