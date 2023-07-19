@@ -1,0 +1,7 @@
+csv/
+crawlers/
+adjacent_links_traillink.gpickle
+adjacent_links_oregonhikers.gpickle
+pagerank_calculator.py
+README.md
+__pycache__

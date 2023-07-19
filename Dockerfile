@@ -1,21 +1,23 @@
 # syntax=docker/dockerfile:1
-#init a base image
-FROM python:3.10-slim-bullseye
+
+#Set a base image
+FROM python:3.10-slim-buster
+
+#Expose port 5000
+EXPOSE 5000/tcp
 
 #Update pip to minimize dependency errors
+WORKDIR /app
 
-WORKDIR /python-docker
-
-COPY requirements.txt requirements.txt
+#Copy dependencies file to working directory
+COPY requirements.txt .
 
 #Upgrade pip and install all dependencies in requirements.txt
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
-#Expose port 5000
-EXPOSE 5000 
-
+#Copy content of local dir to working directory
 COPY . .
 
-# CMD [ "python3", "-m" , "flask", "run", "--host=5.0.0.6"]
-CMD python ./server_whoosh.py
+#Command to run container
+CMD [ "python", "./application.py" ]
