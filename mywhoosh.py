@@ -27,7 +27,7 @@ class MyWhooshSearcher(object):
 			with self.indexer.searcher() as search:
 				query = MultifieldParser(['length', 'title', 'state', 'county', 'activities', 'content'], schema=self.indexer.schema)
 				query = query.parse(queryEntered)
-				results = search.search(query, limit=None)
+				results = search.search(query, limit=120)
 				list_to_sort = []
 				for x in results:
 					try:
@@ -159,9 +159,9 @@ class MyWhooshSearcher(object):
 
 if __name__ == '__main__':
 	mySearcher = MyWhooshSearcher()
-	mySearcher.build_index()
+	#mySearcher.build_index()
 	#mySearcher.build_cloud()
-	#mySearcher.existing_index()
+	mySearcher.existing_index()
 	"""url, title, length, image, state, county, description, styleID, activity, surfaces, cloud, difficulty = mySearcher.advanced_search(('Maine', 'Aroostook', 0, 200, 'ATV', 'Gravel', 'moose'))
 	for a,b,c,d,e,f,g,h,i,j,k,l in zip(url, title, length, image, state, county, description, styleID, activity, surfaces, cloud, difficulty):
 		print(f'{a} {b} {c} {d} {e} {f} {g} {h} {i} {j} {k} {l}')"""
