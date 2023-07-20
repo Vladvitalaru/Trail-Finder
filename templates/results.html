@@ -1,11 +1,11 @@
-{% extends "Home.html" %}
+{% extends "home.html" %}
 
 {% block information %} {% endblock %}
 
 {% block cards %} 	
 
 {% if results|length < 1 %}
-	<div class="No-results">		
+	<div class="no-results">		
 		<p>No trails found for "{{query}}"</p>
 
 	</div>
@@ -14,46 +14,44 @@
 
 <div class="grid"> 
 	{% for url, title, length, image, state, county, description, styleID, activity, surfaces, cloud, difficulty in results %}
-	<div class="TrailCard">
+	<div class="trail-card">
 		
-		<div class="TrailCard-header {{difficulty}}" onclick="window.location.href='{{url}}'"> 	
+		<div class="trail-card-header {{difficulty}}" id="{{url}}" onclick="openTab(id)"> 	
 			<span class="length"> {{length}} mi. </span>
 			<h2> {{title}} </h2>
-			<span class="difficulty"> {{difficulty}} </span>
+			<span class="difficulty">{{difficulty | capitalize}}</span>
 		</div>
 		
-		<div class="TrailCard-body">
-			<div class="TrailCard-image" id=Img{{styleID}} style="background-image: url( {{image}} )" onclick="enlarge(id)"> </div> 
+		<div class="trail-card-body">
+			<div class="trail-card-image" id=Img{{styleID}} style="background-image: url( '{{image}}' )" onclick="enlarge(id)"></div> 
 
-
-			<div class="TrailCard-description"> 
+			<div class="trail-card-description"> 
 				<h3>State: {{state}} &nbsp|&nbsp County: {{county}}</h3>
 				<p>{{description}}</p>
 				<h4>{{activity}}</h4>
-				<a href=" {{url}} ">Source</a>
+				<a target="_blank" href=" {{url}} ">Source</a>
 			</div>
-			<div class="TrailCard-cloud" id="Cloud{{styleID}}" style="background-image: url( /static/images/cloud/{{cloud}} )"  onclick="enlargeCloud(id)"> </div>
+			<div class="trail-card-cloud" id="Cloud{{styleID}}" style="background-image: url( '/static/images/cloud/{{cloud}}' )" onclick="enlargeCloud(id)"></div>
 		</div>
 	</div>
 
 	<div id="myModalImg{{styleID}}" class="modal">
 		<span class="close" id="closeImg{{styleID}}">&times;</span>
 		<img class="modal-content" style="background-image: url( {{image}} )" src="{{image}}">
-		<div class="caption"> {{title}}</div> 
+		<div class="caption">{{title}}</div> 
 	</div>
 
 	<div id="modalCloud{{styleID}}" class="modal">
 		<span class="close" id="closeCloud{{styleID}}">&times;</span>
 		<img class="cloud-content" style="background-image: url( /static/images/cloud/{{cloud}} )" src="/static/images/cloud/{{cloud}}">
-		<div class="caption"> {{title}}</div> 
+		<div class="caption">{{title}}</div> 
 	</div>
-
 	{% endfor %}
+	
 </div>
-	<div id='pagination'>
 
-		{{pagination.links}}
-		
-	</div>
+<div class="pagination">
+	{{pagination.links}}
+</div>
 
 {% endblock %}

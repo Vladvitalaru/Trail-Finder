@@ -1,41 +1,12 @@
 // Main Scripts
-
-//Enlarge images
-function enlarge(id) {
-    let imgID = "myModal" + id.toString();
-    let modal = document.getElementById(imgID);
-    modal.style.display = "block";
-
-    let close = "close" + id.toString();
-    let closeButton = document.getElementById(close);
-    closeButton.onclick = function() { 
-        modal.style.display = "none";
-       }
-}
-
-//Enlarge cloud
-function enlargeCloud(id) {
-    let imgID = "modal" + id.toString();
-    let modal = document.getElementById(imgID);
-    modal.style.display = "block";
-
-    let close = "close" + id.toString();
-    let closeButton = document.getElementById(close);
-    closeButton.onclick = function() { 
-        modal.style.display = "none";
-       }
-}
-
-
 const searchWrapper = document.querySelector(".inputs");
 const inputBox = document.querySelector("input");
-const suggestionsBox = document.querySelector(".suggestionsBox");
+const suggestionsBox = document.querySelector(".suggestions-box");
 let sIndex = -1;
 
-// User pressing keys
+// User pressing keys within search box
 inputBox.onkeyup = (e)=> {
     let userData = e.target.value; // user input data
-    console.log(userData);
 
     let results = []
     if (userData) {
@@ -53,7 +24,6 @@ inputBox.onkeyup = (e)=> {
     var filtered = calculateSuggestions(results)
   
     let count = Object.keys(filtered).length - 1
-    console.log(count);
     
     //If Down Arrow is pressed
     if (e.key === "ArrowDown") {
@@ -75,7 +45,6 @@ inputBox.onkeyup = (e)=> {
     }
     //If Up Arrow is pressed
     else if (e.key === "ArrowUp") {
-        console.log("Up arrow pressed")
         if (sIndex === -1) {    //If not highlighted
             sIndex = count
             filtered[sIndex].classList.add("highlight");
@@ -126,10 +95,9 @@ function showSuggestions(list) {
     // Show suggestions
     } else {
         listData = list.join('');
-        console.log(listData);
     }
 
-    if (typeof listData === 'undefined') {
+    if (typeof listData === "undefined") {
        listData = '<li> </li>';
     };
     suggestionsBox.innerHTML = listData;
@@ -162,7 +130,6 @@ function calculateSuggestions(list) {
     return allList;
 }
 
-
 let titles = [];
 function loadTitles(){
     file_path = "/static/titles.txt";
@@ -189,11 +156,43 @@ function loadTitles(){
         request.send();                   // execute request
 };
 
-    //!! Change to homepage URL !!
-function Homepage() {
-    window.location.assign("http://127.0.0.1:5000/")
+//Enlarge images
+function enlarge(id) {
+    let imgID = "myModal" + id.toString();
+    let modal = document.getElementById(imgID);
+    modal.style.display = "block";
+
+    let close = "close" + id.toString();
+    let closeButton = document.getElementById(close);
+    closeButton.onclick = function() { 
+        modal.style.display = "none";
+    }
 }
 
-function ExampleLink() {
-    window.location.assign("https://www.traillink.com/trail/praeri-rail-trail/")
+//Enlarge cloud
+function enlargeCloud(id) {
+    let imgID = "modal" + id.toString();
+    let modal = document.getElementById(imgID);
+    modal.style.display = "block";
+
+    let close = "close" + id.toString();
+    let closeButton = document.getElementById(close);
+    closeButton.onclick = function() { 
+        modal.style.display = "none";
+    }
+}
+
+// Return to homepage
+function homepage() {
+    location.href = '/'
+}
+
+// Redirect to example trailpage
+function exampleLink() {
+    window.open("https://www.traillink.com/trail/praeri-rail-trail/",'_blank')
+}
+
+// Open link in new tab
+function openTab(url) {
+    window.open(url,'_blank')
 }
