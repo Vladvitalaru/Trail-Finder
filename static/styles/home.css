@@ -4,13 +4,13 @@
     margin-top: max(4%,84px);
 }
 
-.topText {
+.top-text {
     display: flex;
     justify-content: flex-end;
     flex-direction: column;
 }
 
-#logo {
+.logo {
     padding-left: 12px;
     height: 110px;
     width: 110px;
@@ -18,34 +18,38 @@
     cursor: pointer;
 }
 
-#title {
+.title {
     display: flex;
     flex-direction: row;
     justify-content: center;
+    height: 90px;
+    padding-bottom: 20px;
+    color: #1B8D20;
     font-family: 'Recoleta', sans-serif;
     font-size: 110px;
-    padding-bottom: 20px;
-    height: 90px;
-    color: #1B8D20;
     cursor: pointer;
 }
 
-#finder {
-    padding-left: 25px;
+.finder {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    font-size: 110px;
+    padding-left: 25px;
     padding-bottom: 20px;
     height: 90px;
     color: #E77F16;
+    font-size: 110px;
 }
 .highlight {
     background-color: #c4c3c3;
 }
-.backgroundImage {
-    /*Header background */
+ /*Header background image */
+.background-image {
+    position: absolute;
     display: block;
+    z-index: -1;
+    top: 0px;
+    left: 0px;
     width: 100%;
     height: 26%;
     max-height: 258px;
@@ -53,13 +57,9 @@
     padding: 0;
     margin: 0;
     border: 0;
-    top: 0px;
-    left: 0px;
-    z-index: -1;
-    position: absolute;
     background-image: url("/static/images/backgroundHeader.png");
     background-size: 100% 180%;
-    background-position: center
+    background-position: center;
 }
 
 .top {
@@ -69,93 +69,76 @@
 }
 
 .background {
-    background: #E9E8E4;
     -webkit-font-smoothing: antialiased;
+    background: #E9E8E4;
 }
 
 .inputs {
+    position: relative;
     display: flex;
+    z-index: 30;
     justify-content: center;
-    filter: drop-shadow(3px 3px 5px rgba(60, 60, 60, 0.3));
     margin-top: 20px;
     margin-bottom: 44px;
     align-items: center;
-    position: relative;
-    z-index: 30
+    filter: drop-shadow(2px 2px 5px rgba(60, 60, 60, 0.3));
 }
 
-.suggestionsBox {
-    margin-top: 15px;
+.suggestions-box {
     position: fixed;
     z-index: 30;
     top: 37px;
+    margin-top: 15px;
     margin-left: 9px;
     background: #f1f1f1;
 }
 
-.suggestionsBox li {
-    /* background: #f1f1f1; */
+.suggestions-box li {
+    display: none;
     list-style: none;
+    width: 469px;
     padding-bottom: 3px;
     padding-top: 3px;
     padding-left: 10px;
-    width: 469px;
     font-family: 'Roboto', sans-serif;
     font-size: 22px;
-    display: none;
 }
 
 li.active {
     display: list-item;
 }
 
-.suggestionsBox li:hover {
+.suggestions-box li:hover {
     background: #c4c3c3;
 }
 
 form#filter button:hover {
     background: #737373;
 }
-
-/* Style not in use */
-.filterButton { 
+/* Style the submit button */
+.search-button {
     float: left;
-    background: grey;
-    color: white;
-    width: 50px;
-    font-size: 17px;
+    width: 74px;
+    padding: 12px;
+    font-size: 22px;
     border: 1px solid grey;
     border-left: none;
-    cursor: pointer;
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
-    padding: 15px
-}
-
-/* Style the submit button */
-.searchButton {
-    float: left;
-    width: 85px;
-    padding: 15px;
+    border-radius: 0px 10px 10px 0px;
     background: #1B8D20;
     color: white;
-    font-size: 17px;
-    border: 1px solid grey;
-    border-left: none;
     cursor: pointer;
-    border-radius: 0px 10px 10px 0px
 }
 
 /* Style the search field */
 form#search input[type=text] {
     padding: 13.5px;
-    font-size: 19px;
-    border: .5px solid grey;
     float: left;
     width: 460px;
+    border: .5px solid grey;
+    border-radius: 10px 0px 0px 10px;
     background: #f1f1f1;
+    font-size: 19px;
     font-family: 'Roboto', sans-serif;
-    border-radius: 10px 0px 0px 10px
 }
 
 .closeFlex input[type=text]:focus,
@@ -170,27 +153,26 @@ form#search button:hover {
 /* Clear floats */
 form#search::after {
     content: "";
-    clear: both;
     display: table;
+    clear: both;
 }
 
-.introText {
-    font-family: 'Roboto', sans-serif;
-    font-weight: lighter;
+.intro-text {
     display: flex;
-    justify-content: center;
     flex-direction: column;
-    /* width: 45%; */
-    text-align: center;
+    justify-content: center;
     margin-left: auto;
     margin-right: auto;
     margin-top: 50px;
+    text-align: center;
     color: #1B8D20;
+    font-weight: lighter;
+    font-family: 'Roboto', sans-serif;
 }
 
-.introText p {
-    font-size: 30px;
-    line-height: 1.4em;
+.intro-text p {
     margin-bottom: 14px;
     margin-top: 4px;
+    font-size: 30px;
+    line-height: 1.4em;
 }

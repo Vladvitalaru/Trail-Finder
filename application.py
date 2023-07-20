@@ -1,22 +1,20 @@
-from flask import Flask, render_template, url_for, request, redirect
+from flask import Flask, render_template, request
 from flask_paginate import Pagination, get_page_args
-from operator import itemgetter
 from mywhoosh import *
-import json
 
 results, url, title, length, image, state, county, description, styleID, activity, surfaces, cloud, difficulty = ([] for _ in range(13))
 
 application = Flask(__name__)
 @application.route('/', methods=['GET', 'POST'])
 def index():
-	return render_template('Home.html')
+	return render_template('home.html')
 
 def get_results(offset=0, per_page=10):
     return results[offset: offset + per_page]
 
 @application.route('/results/', methods=['GET', 'POST'])
 def results():
-	# # global mySearcher
+    
 	if request.method == 'POST':
 		query = request.form.get("search")
 		global url, title, length, image, state, county, description, styleID, activity, surfaces, cloud, difficulty
