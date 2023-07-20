@@ -8,7 +8,7 @@ from whoosh.qparser import QueryParser
 from whoosh.qparser import MultifieldParser
 import os
 import json
-import matplotlib.pyplot as plotter
+# import matplotlib.pyplot as plotter
 # from wordcloud import WordCloud
 # from wordcloud import STOPWORDS
 
