@@ -39,6 +39,6 @@ def page_not_found(e):
 if __name__ == '__main__':
 	mySearcher = MyWhooshSearcher()
 	#mySearcher.build_cloud()
-	#mySearcher.build_index() # Use this to build index first then uncomment
+	#mySearcher.build_index()
 	mySearcher.existing_index()
 	application.run(debug=True, host='0.0.0.0', port=int("5000"))
