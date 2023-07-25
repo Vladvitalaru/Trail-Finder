@@ -62,7 +62,7 @@ class MyWhooshSearcher(object):
 
 	'''build_cloud() uses the given review content to return a word cloud'''
 	def build_cloud(self, review, review_cloud_path):
-		stopwords = STOPWORDS.update(['trail','trails','mile','ride','road'])
+		stopwords = STOPWORDS.update(['trail','trails','mile','miles','ride','road'])
 		word_cloud = WordCloud(width=800,
         height=600,
 		stopwords=stopwords,
@@ -115,7 +115,7 @@ class MyWhooshSearcher(object):
 						activity_string = ''
 					review = "".join(json_dict['reviews'])
 					review.strip()
-					review_cloud_path = name.rstrip('.txt') + '.png'
+					review_cloud_path = name.rstrip('.txt').replace('%','') + '.png'
      
 					if os.path.exists('./static/images/cloud/' + review_cloud_path): 
 						pass
