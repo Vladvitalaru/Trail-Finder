@@ -6,7 +6,7 @@ from whoosh.fields import *
 from whoosh.qparser import MultifieldParser
 # from wordcloud import WordCloud
 # from wordcloud import STOPWORDS
-import matplotlib.pyplot as plotter
+#import matplotlib.pyplot as plotter
 
 
 '''Class to be used for indexing and searching'''
