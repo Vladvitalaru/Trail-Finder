@@ -250,12 +250,14 @@
 }
 
 .page-item:first-child .page-link {
+    align-items: flex-end;
     margin-left: 0;
     border-top-left-radius: .25rem;
     border-bottom-left-radius: .25rem
 }
 
 .page-item:last-child .page-link {
+    align-items: flex-end;
     border-top-right-radius: .25rem;
     border-bottom-right-radius: .25rem;
 }
@@ -274,11 +276,14 @@
 
 .page-link {
     position: relative;
-    display: block;
-    padding: .5rem .75rem;
-    line-height: 1.25;
+    display: flex;
+    padding: .8rem .8rem;
+    justify-content: center;
+    align-items: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    font-size: 1.5rem;
     text-decoration: none;
-    font-size: 1.3rem;
     color: #fff;
     background-color: #E77F16;
 }
@@ -299,12 +304,12 @@
 
 .pagination-lg .page-item:first-child .page-link {
     border-top-left-radius: .3rem;
-    border-bottom-left-radius: .3rem
+    border-bottom-left-radius: .3rem;
 }
 
 .pagination-lg .page-item:last-child .page-link {
     border-top-right-radius: .3rem;
-    border-bottom-right-radius: .3rem
+    border-bottom-right-radius: .3rem;
 }
 
 .pagination-sm .page-link {
