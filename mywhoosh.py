@@ -4,8 +4,8 @@ from whoosh.index import create_in
 from whoosh.index import open_dir
 from whoosh.fields import *
 from whoosh.qparser import MultifieldParser
-from wordcloud import WordCloud
-from wordcloud import STOPWORDS
+# from wordcloud import WordCloud
+# from wordcloud import STOPWORDS
 import matplotlib.pyplot as plotter
 
 
