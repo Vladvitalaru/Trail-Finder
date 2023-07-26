@@ -5,7 +5,7 @@
     z-index: 10;
     margin-bottom: 30px;
     width: 44%;
-    min-width: 720px;
+    min-width: 700px;
     max-width: 980px;
     border-bottom-right-radius: 10px;
     border-bottom-left-radius: 10px;
@@ -33,31 +33,31 @@
 }
 
 .trail-card-header h2 {
-    text-align: center;
     margin-bottom: auto;
     margin-top: auto;
     width: 46%;
     font-size: 1.22em;
     font-family: 'Roboto', sans-serif;
     font-weight: normal;
+    text-align: center;
 }
 
 .trail-card-header .length {
     display: block;
     margin-left: 56px;
     width: 12%;
-    text-align: center;
     line-height: 55px;
     font-size: 1.3em;
+    text-align: center;
 }
 
 .trail-card-header .difficulty {
     display: block;
-    text-align: center;
     margin-right: 56px;
     width: 12%;
     font-size: 1.3em;
     line-height: 55px;
+    text-align: center;
 }
 
 .trail-card-body {
@@ -101,14 +101,14 @@
     margin-top: 4px;
     margin-bottom: 2px;
     font-weight: 700;
-    font-size: 16px;
+    font-size: .9rem;
 }
 
 .trail-card-description h4 {
     margin-top: 0px;
     margin-bottom: 5px;
     font-weight: 700;
-    font-size: 14px;
+    font-size: .8rem;
 }
 
 .trail-card-description p {
@@ -117,7 +117,7 @@
     margin-top: 0px;
     margin-bottom: 4px;
     overflow: hidden;
-    font-size: 14px;
+    font-size: .8rem;
     text-overflow: ellipsis;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
@@ -250,14 +250,12 @@
 }
 
 .page-item:first-child .page-link {
-    align-items: flex-end;
     margin-left: 0;
     border-top-left-radius: .25rem;
     border-bottom-left-radius: .25rem
 }
 
 .page-item:last-child .page-link {
-    align-items: flex-end;
     border-top-right-radius: .25rem;
     border-bottom-right-radius: .25rem;
 }
