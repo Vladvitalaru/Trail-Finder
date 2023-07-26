@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
 
 #Set a base image
-FROM python:3.10-slim-buster
+FROM python:3.8-alpine
 
 #Expose port 5000
 EXPOSE 5000/tcp

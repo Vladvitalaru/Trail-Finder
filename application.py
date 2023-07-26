@@ -26,7 +26,7 @@ def results():
 	query = request.form.get("search")
 	page, per_page, offset = get_page_args(page_parameter='page', per_page_parameter='per_page')
 	pagination_pages = get_results(offset=offset, per_page=per_page)
-	pagination = Pagination(page=page, per_page=per_page, total=total, css_framework='bootstrap4', outer_window=0, inner_window=2)
+	pagination = Pagination(page=page, per_page=per_page, total=total, css_framework='bootstrap4', outer_window=0, inner_window=2, prev_label='&larr;', next_label='&rarr;')
 	return render_template('results.html', results=pagination_pages, page=page, per_page=per_page, pagination=pagination, query=query)
 
  
@@ -38,7 +38,6 @@ def page_not_found(e):
 		
 if __name__ == '__main__':
 	mySearcher = MyWhooshSearcher()
-	#mySearcher.build_cloud()
-	#mySearcher.build_index() # Use this to build index first then uncomment
+	#mySearcher.build_index()
 	mySearcher.existing_index()
 	application.run(debug=True, host='0.0.0.0', port=int("5000"))
