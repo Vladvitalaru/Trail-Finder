@@ -118,6 +118,7 @@
     margin-bottom: 4px;
     overflow: hidden;
     font-size: .8rem;
+    font-family: 'Roboto', sans-serif;
     text-overflow: ellipsis;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
@@ -162,7 +163,7 @@
     width: 100%;
     height: 100%;
     background-color: rgb(0, 0, 0);
-    background-color: rgba(0, 0, 0, .94);
+    background-color: rgba(0, 0, 0, .88);
 }
 
 .modal-content {
@@ -174,10 +175,10 @@
 }
 
 .close {
-    position: absolute;
-    top: 15px;
-    right: 35px;
-    font-size: 55px;
+    display: flex;
+    justify-content: center;
+    margin-left: 43%;
+    font-size: 3.5rem;
     font-weight: bold;
     transition: 0.3s;
     color: #f1f1f1;
@@ -207,9 +208,9 @@
 .caption,
 .cloud-content {
     -webkit-animation-name: zoom;
-    -webkit-animation-duration: 04s;
+    -webkit-animation-duration: 05s;
     animation-name: zoom;
-    animation-duration: 0.35s;
+    animation-duration: 0.5s;
 }
 
 @-webkit-keyframes zoom {
