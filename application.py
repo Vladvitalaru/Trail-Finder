@@ -4,15 +4,15 @@ from mywhoosh import *
 
 results, url, title, length, image, state, county, description, styleID, activity, surfaces, cloud, difficulty = ([] for _ in range(13))
 
-application = Flask(__name__)
-@application.route('/', methods=['GET', 'POST'])
+app = Flask(__name__)
+@app.route('/', methods=['GET', 'POST'])
 def index():
 	return render_template('home.html')
 
 def get_results(offset=0, per_page=10):
     return results[offset: offset + per_page]
 
-@application.route('/results/', methods=['GET', 'POST'])
+@app.route('/results/', methods=['GET', 'POST'])
 def results():
     
 	if request.method == 'POST':
@@ -31,7 +31,7 @@ def results():
 
  
 #Handle error 404
-@application.errorhandler(404)
+@app.errorhandler(404)
 def page_not_found(e):
     # note that we set the 404 status explicitly
     return render_template('404.html'), 404
@@ -40,4 +40,4 @@ if __name__ == '__main__':
 	mySearcher = MyWhooshSearcher()
 	#mySearcher.build_index()
 	mySearcher.existing_index()
-	application.run(debug=True, host='0.0.0.0', port=int("5000"))
+	app.run(debug=True, host='0.0.0.0', port=int("5000"))
