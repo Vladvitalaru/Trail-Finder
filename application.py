@@ -4,6 +4,9 @@ from mywhoosh import *
 
 results, url, title, length, image, state, county, description, styleID, activity, surfaces, cloud, difficulty = ([] for _ in range(13))
 
+mySearcher = MyWhooshSearcher()
+mySearcher.existing_index()
+
 app = Flask(__name__)
 @app.route('/', methods=['GET', 'POST'])
 def index():
