@@ -4,9 +4,9 @@ from whoosh.index import create_in
 from whoosh.index import open_dir
 from whoosh.fields import *
 from whoosh.qparser import MultifieldParser
-from wordcloud import WordCloud
-from wordcloud import STOPWORDS
-import matplotlib.pyplot as plotter
+# from wordcloud import WordCloud
+# from wordcloud import STOPWORDS
+#import matplotlib.pyplot as plotter
 
 
 '''Class to be used for indexing and searching'''
@@ -18,7 +18,7 @@ class MyWhooshSearcher(object):
 	'''search() returns the top 120 results from index currently in use'''
 	def search(self, queryEntered):
 		queryEntered = queryEntered.strip('"')
-		with open('traillinkPR.txt', 'r') as f:
+		with open('./pagerank/traillinkPR.txt', 'r') as f:
 			traillinkPR = json.loads(f.read())
 			url, title, length, image, state, county, description, activity, surfaces, cloud, difficulty = ([] for _ in range(11))
 			with self.indexer.searcher() as search:
@@ -49,7 +49,7 @@ class MyWhooshSearcher(object):
 						cloud.append(x['cloud_path'])
 						len_for_diff = float(x['length'])
 						if len_for_diff < 6: difficulty.append('short')
-						elif len_for_diff < 12: difficulty.append('medium')
+						elif len_for_diff < 13: difficulty.append('medium')
 						else: difficulty.append('long')
 			styleID = [i for i in range(1,len(url)+1)]
 			return url, title, length, image, state, county, description, styleID, activity, surfaces, cloud, difficulty
