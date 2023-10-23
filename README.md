@@ -2,21 +2,21 @@
 
 ### Web application allowing users to search over 20k trails across the US
 
-![homepage](https://github.com/Vladvitalaru/Trail-Finder/assets/78878935/f0aec7d1-4c92-4311-b95a-d998b3dbedcf)
+![homepage](https://github.com/Vladvitalaru/Trail-Finder/assets/78878935/4bde3cfe-a5e4-482a-a2ee-a2b87721d87a)
 
 ### Live search suggestions based on trail names 
 
-![livesearch](https://github.com/Vladvitalaru/Trail-Finder/assets/78878935/2e294501-aa65-4316-bbd8-eee813d22f11)
+![livesearch](https://github.com/Vladvitalaru/Trail-Finder/assets/78878935/2833f566-5d7c-444c-897d-757b3cd96920)
 
 
 ### Trails returned as cards with information such as location, length, images & activities
 
-![results](https://github.com/Vladvitalaru/Trail-Finder/assets/78878935/8485b11a-07e3-4334-8c1b-b4ef60b67927)
+![results](https://github.com/Vladvitalaru/Trail-Finder/assets/78878935/1aa2af71-ca3b-4c12-9ccb-dd346db7f2a8)
 
 
 ### Word cloud generated based on community reviews from scraped sites
 
-![cloud](https://github.com/Vladvitalaru/Trail-Finder/assets/78878935/c69575be-ff1f-4854-9230-c3f0eb5ffd8b)
+![cloud](https://github.com/Vladvitalaru/Trail-Finder/assets/78878935/ac640d73-48f6-4054-90e3-6d256a32d31f)
 
 
 ## Scraped sites :mag:
@@ -52,12 +52,12 @@ The following modules were used during development
 
 ## Running locally: :computer:
 **By default, an existing search index is used**  
-- If using the existing index:
+- Using the existing index:
     - In the root folder, set up a local python3.8+ virtual environment and activate it
     - Pip install packages from requirements.txt in your python venv
     - Execute './application.py' within your environment
       
-**If you wish to build a new index locally:**
+**Build a new index locally:**
  - In application.py
     - Delete/comment ```mySearcher.existing_index()``` in main
     - Delete/comment ```mySearcher.existing_index()``` on line 8
