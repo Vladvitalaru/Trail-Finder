@@ -34,6 +34,7 @@
     font-family: 'Roboto', sans-serif;
     cursor: pointer;
     color: #ffffff;
+    background-color: #19831E;
 }
 
 .trail-card-header h2 {
@@ -143,18 +144,6 @@
     border-bottom-right-radius: 10px;
     background-size: cover;
     background-position: center;
-}
-.short {
-    background-color: #1B8D20;
-
-}
-
-.medium {
-    background-color: #E77F16
-}
-
-.long {
-    background-color: #dc0000;
 }
 
 .modal {
@@ -274,7 +263,7 @@
 .page-item.disabled .page-link {
     color: #fff;
     pointer-events: none;
-    background-color: #E77F16;
+    background-color: #D76D03;
     border-color: #ddd
 }
 
@@ -289,14 +278,14 @@
     font-size: 1.5rem;
     text-decoration: none;
     color: #fff;
-    background-color: #E77F16;
+    background-color: #D76D03;
 }
 
 .page-link:focus,
 .page-link:hover {
     color: #1B8D20;
     text-decoration: none;
-    background-color: #E77F16;
+    background-color: #D76D03;
     border-color: #ddd
 }
 

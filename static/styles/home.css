@@ -40,7 +40,7 @@
     padding-left: 25px;
     padding-bottom: 20px;
     height: 90px;
-    color: #E77F16;
+    color: #CB6A08;
     font-size: 110px;
 }
 .highlight {
@@ -124,7 +124,7 @@ form#filter button:hover {
     border: 1px solid grey;
     border-left: none;
     border-radius: 0px 10px 10px 0px;
-    background: #1B8D20;
+    background: #19831E;
     color: white;
     cursor: pointer;
 }
@@ -147,7 +147,7 @@ form#search input[type=text]:focus {
     outline : none;
 }
 form#search button:hover {
-    background: #E77F16;
+    background: #D76D03;
 }
 
 /* Clear floats */
@@ -165,7 +165,7 @@ form#search::after {
     margin-right: auto;
     margin-top: 50px;
     text-align: center;
-    color: #1B8D20;
+    color: #19831E;
     font-weight: lighter;
     font-family: 'Roboto', sans-serif;
 }
