@@ -1,22 +1,22 @@
 # Trail Finder Search Engine :evergreen_tree:
 
-### Web application allowing users to search over 20k trails across the US
+### Web application allowing users to search over 20k trails across the US 
 
-![homepage](https://github.com/Vladvitalaru/Trail-Finder/assets/78878935/4bde3cfe-a5e4-482a-a2ee-a2b87721d87a)
+![homepage](https://github.com/Vladvitalaru/Trail-Finder/assets/78878935/8f3b0f7a-b81e-4b61-bcb6-681bfd6c52e2)
 
 ### Live search suggestions based on trail names 
 
-![livesearch](https://github.com/Vladvitalaru/Trail-Finder/assets/78878935/2833f566-5d7c-444c-897d-757b3cd96920)
+![livesearch](https://github.com/Vladvitalaru/Trail-Finder/assets/78878935/5f45ee95-5ac8-45c4-8355-4f7c1f56d89e)
 
 
 ### Trails returned as cards with information such as location, length, images & activities
 
-![results](https://github.com/Vladvitalaru/Trail-Finder/assets/78878935/1aa2af71-ca3b-4c12-9ccb-dd346db7f2a8)
+![results](https://github.com/Vladvitalaru/Trail-Finder/assets/78878935/91599409-241a-489f-8df2-1c062ca16a36)
 
 
 ### Word cloud generated based on community reviews from scraped sites
 
-![cloud](https://github.com/Vladvitalaru/Trail-Finder/assets/78878935/ac640d73-48f6-4054-90e3-6d256a32d31f)
+![cloud](https://github.com/Vladvitalaru/Trail-Finder/assets/78878935/cfa238f3-fa18-4e87-a764-a338ffb4260a)
 
 
 ## Scraped sites :mag:
